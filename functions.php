@@ -1,4 +1,22 @@
 <?php
+function create_block_blocks_block_init()
+{
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/login');
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/signup');
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/introduction');
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/onboarding');
+}
+add_action('init', 'create_block_blocks_block_init');
+
+// Load Frontend CSS and JS
+add_action('wp_enqueue_scripts', 'frontend_script_loader');
+function frontend_script_loader()
+{
+  wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css', array());
+
+  // Range Slider Scripts
+  // wp_register_script('range-slider-script', FSCS_JS_ROOT_URL . 'rangeslider.min.js', array('jquery'), $this->hours_in_seconds, false);
+}
 // include_once 'inc/constants.php';
 // include_once 'inc/autoloader.php';
 

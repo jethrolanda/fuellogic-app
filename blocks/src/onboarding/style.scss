@@ -1,0 +1,44 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-fuellogic-app-onboarding{
+	display: flex;
+	& > div{
+		width: 100%;
+	}
+
+	.account-setup-checklist{
+		gap: 20px;
+    display: flex;
+    flex-direction: column;
+
+		div{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 20px; 
+			background: #1C1C1C;
+			padding: 10px 20px;
+			border-radius: 10px;
+			position: relative;
+		}
+		.fa-circle-check{
+			color: #A2CD3A;
+			font-size: 28px;
+		} 
+		.fa-circle{
+			color: #474747;
+			font-size: 28px;
+		}
+		.fa-angle-right{
+			color: #474747;
+			font-size: 22px;
+			position: absolute;
+			right: 20px;
+		}
+	}
+}
