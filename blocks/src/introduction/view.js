@@ -90,8 +90,8 @@ const { actions } = store("fuellogic-app", {
 
       if (context.next === "GET STARTED") {
         // window.location.href = window.location.origin + "/login";
-        const { actions } = yield import("@wordpress/interactivity-router");
-        yield actions.navigate(window.location.origin + "/login");
+        const { router } = yield import("@wordpress/interactivity-router");
+        yield router.navigate(window.location.origin + "/login");
       }
 
       if (context.current + 1 === context.data.length) {
