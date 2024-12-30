@@ -85,5 +85,5 @@ $context = array(
 			</template>
 		</ul> -->
 	</div>
-	<button data-wp-on--click="actions.next"><span data-wp-text="context.next"></span> <i class="fa-solid fa-arrow-right"></i></button>
+	<a data-wp-on--click="actions.next" href="<?php echo site_url() . "/login"; ?>" class="submit-btn"><span data-wp-text="context.next"></span> <i class="fa-solid fa-arrow-right"></i></a>
 </div>

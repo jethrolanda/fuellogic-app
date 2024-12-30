@@ -81,7 +81,8 @@ const { actions } = store("fuellogic-app", {
         context.next = "NEXT";
       }
     },
-    *next() {
+    *next(e) {
+      e.preventDefault();
       const context = getContext();
 
       if (context.current + 1 < context.data.length) {
@@ -89,9 +90,10 @@ const { actions } = store("fuellogic-app", {
       }
 
       if (context.next === "GET STARTED") {
-        // window.location.href = window.location.origin + "/login";
-        const { router } = yield import("@wordpress/interactivity-router");
-        yield router.navigate(window.location.origin + "/login");
+        window.location.href = window.location.origin + "/login";
+        // const { router } = yield import("@wordpress/interactivity-router");
+        // console.log(router);
+        // yield router.navigate(e.target.href);
       }
 
       if (context.current + 1 === context.data.length) {
