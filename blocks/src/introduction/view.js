@@ -81,8 +81,7 @@ const { actions } = store("fuellogic-app", {
         context.next = "NEXT";
       }
     },
-    *next(e) {
-      e.preventDefault();
+    next: () => {
       const context = getContext();
 
       if (context.current + 1 < context.data.length) {
