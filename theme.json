@@ -17,6 +17,21 @@
 									"color": "#d9d9d9",
 									"name": "Secondary Gray",
 									"slug": "custom-secondary-gray"
+							},
+							{
+									"color": "#1c1c1c",
+									"name": "Darker",
+									"slug": "custom-darker"
+							},
+							{
+									"color": "#323030",
+									"name": "Gray 2",
+									"slug": "custom-gray-2"
+							},
+							{
+									"color": "#ff8c57",
+									"name": "orange",
+									"slug": "custom-orange"
 							}
 					]
 			},
@@ -80,7 +95,7 @@
 			"blocks": {
 					"core/button": {
 							"border": {
-									"radius": "10px"
+									"radius": "6px"
 							},
 							"color": {
 									"background": "var(--wp--preset--color--custom-green)",
