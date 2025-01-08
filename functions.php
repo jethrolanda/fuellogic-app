@@ -8,6 +8,7 @@ function create_block_blocks_block_init()
   register_block_type_from_metadata(__DIR__ . '/blocks/build/sites');
   register_block_type_from_metadata(__DIR__ . '/blocks/build/orders');
   register_block_type_from_metadata(__DIR__ . '/blocks/build/invoices');
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/loading');
 }
 add_action('init', 'create_block_blocks_block_init');
 
