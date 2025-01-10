@@ -36,6 +36,9 @@
 	}
 }
 
+.mobile-header{
+	display: none;
+}
 @media only screen and (max-width: 768px) {
 	.mobile-footer-navigation{ 
 		display: block;
@@ -45,4 +48,8 @@
 			padding: 10px 20px;
 		}
 	}
+	.mobile-header{
+		display: block;
+	}
 }
+
