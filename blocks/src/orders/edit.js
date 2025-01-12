@@ -29,80 +29,95 @@ export default function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps();
 
   return (
-    <div
-      {...blockProps}
-      className="wp-block-fuellogic-app-sites"
-      data-wp-interactive="fuellogic-app"
-      data-wp-context='{"isOpen":false}'
-    >
+    <div {...blockProps} className="wp-block-fuellogic-app-orders">
       <ul>
         <li>
-          <i class="fa-solid fa-plus"></i>
-          <p>New Site</p>
+          <i class="fa-solid fa-phone"></i>
+          <p>Contact Us</p>
           <i class="fa-solid fa-arrows-up-down"></i>
-          <i class="fa-solid fa-trash"></i>
+          <i class="fa-solid fa-filter"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-regular fa-circle"></i>
           <div>
-            <h3>Houston Branch</h3>
-            <p>49 ABC Parkway Beloit, WI 53511 …</p>
+            <h3>ABC Supply – Freeport</h3>
+            <p>Delivery Nov 13 # FL-1424823</p>
+            <div class="status ordered">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="status-text">ORDERED</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-arrow-rotate-right"></i>
           <div>
-            <h3>Dallas Branch</h3>
-            <p>4833 Singleton Boulevard, Eagle Ford, Dallas …</p>
+            <h3>ABC Supply – Houston</h3>
+            <p>Delivery Nov 10 # FL-1424822</p>
+            <div class="status processing">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="status-text">PROCESSING</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-truck-fast"></i>
           <div>
-            <h3>Portland Branch</h3>
-            <p>1810 Southeast 10th Avenue, Portland, OR …</p>
+            <h3>ABC Supply – Cheyenne</h3>
+            <p>Delivery Today Nov 9 # FL-1424821</p>
+            <div class="status out-for-delivery">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="status-text">OUT FOR DELIVERY</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-circle-check"></i>
           <div>
-            <h3>Chico Branch</h3>
-            <p>1205 West 7th Street, Chico, CA 95928</p>
+            <h3>ABC Supply – Dallas</h3>
+            <p>Delivered Today Nov 13 # FL-1424820</p>
+            <div class="status delivered">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="status-text">DELIVERED</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li class="selected">
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-circle-check"></i>
           <div>
-            <h3>Freeport Branch</h3>
-            <p>247 East Park Street, Freeport, IL 61032</p>
+            <h3>ABC Supply – Emerald Isle</h3>
+            <p>Delivered Nov 8 # FL-1424823</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-circle-check"></i>
           <div>
-            <h3>Emerald Isle Branch</h3>
-            <p>300 West, Murray, UT 84107</p>
+            <h3>ABC Supply – Houston</h3>
+            <p>Delivered Nov 6 # FL-1424823</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>
         <li>
-          <i class="fa-solid fa-location-dot"></i>
+          <i class="fa-solid fa-circle-check"></i>
           <div>
-            <h3>Caledonia Branch</h3>
-            <p>7195 Greenlee Road, Caledonia, IL 61011</p>
-          </div>
-          <i class="fa-solid fa-angle-right"></i>
-        </li>
-        <li>
-          <i class="fa-solid fa-location-dot"></i>
-          <div>
-            <h3>Benwood Branch</h3>
-            <p>49 ABC Parkway Beloit, WI 53511…</p>
+            <h3>ABC Supply – Freeport</h3>
+            <p>Delivered Nov 4 # FL-1424823</p>
           </div>
           <i class="fa-solid fa-angle-right"></i>
         </li>

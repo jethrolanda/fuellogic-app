@@ -29,12 +29,7 @@ export default function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps();
 
   return (
-    <div
-      {...blockProps}
-      className="wp-block-fuellogic-app-sites"
-      data-wp-interactive="fuellogic-app"
-      data-wp-context='{"isOpen":false}'
-    >
+    <div {...blockProps} className="wp-block-fuellogic-app-sites">
       <ul>
         <li>
           <i class="fa-solid fa-plus"></i>
