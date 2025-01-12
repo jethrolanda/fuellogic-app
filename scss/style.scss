@@ -1,10 +1,24 @@
-.test{ 
-	width: 30%;
-	height: 90vh;
-	background: rgba(162, 205, 59, .3);
-	filter: blur(400px);
-	position: absolute;
-	top: 0px;
+ 
+.loading-screen{
+	&::before{ 
+    content: "";
+    background: radial-gradient(circle at 100px 200px, rgba(162, 205, 59, 0.2), transparent);
+    width: 40%;
+    height: 100%;
+    position: absolute;
+		left: 0px;
+    filter: blur(100px);
+	}
+}
+.page-template-wp-custom-template-no-header-and-footer{  
+	&::before{ 
+    content: "";
+    background: radial-gradient(circle at 100px 200px, rgba(162, 205, 59, 0.2), transparent);
+    width: 40%;
+    height: 100%;
+    position: absolute; 
+    filter: blur(100px);
+	}
 }
 
 .loading-screen{
@@ -39,8 +53,23 @@
 .mobile-header{
 	display: none;
 }
+
+.wp-block-fuellogic-app-desktop-menu{
+	display: block;
+}
+
+.mobile-images{
+	display: none;
+}
+// Tablet down to mobile
 @media only screen and (max-width: 768px) {
-	.mobile-footer-navigation{ 
+	// Hide desktop menu
+	.wp-block-fuellogic-app-desktop-menu{
+		display: none;
+	}
+
+	// Show footer nav
+	.mobile-footer-navigation{
 		display: block;
 		p{
 			padding: 0px;
@@ -48,8 +77,75 @@
 			padding: 10px 20px;
 		}
 	}
+
+	// Show mobile menu
 	.mobile-header{
 		display: block;
+	}
+
+	// Add radial gradient green
+	.page-template-wp-custom-template-no-header-and-footer{
+		&::before{ 
+			background: radial-gradient(circle at 0px 0px, rgba(162, 205, 59, 0.3), transparent);
+			width: 60%;
+			height: 40%;
+			right: 0px;
+			position: absolute;
+		}
+	}
+	
+	// Front page / home / intro page
+	.page-template-wp-custom-template-no-head-footer-loading-screen{
+		.wp-block-spacer{
+			display: none;
+		}
+		.home-content{
+			border-radius: 25px;
+			top: -20px;
+			padding: 0px;
+
+			.wp-block-column{
+				margin-top: 0px!important;
+				&:first-child{
+					display: none;
+				}
+			}
+		}
+	}
+
+	// Intro images / mobile
+	.mobile-images{
+		display: block;
+	}
+	body{
+		background-image: none!important;
+	}
+
+	// Default template
+	.page-template-default{
+		.wp-block-spacer{
+			display: none;
+		}
+
+		// Onboarding page
+		.onboarding-page{
+			p, h1, h2 {
+				text-align: center;
+			}
+		}
+
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	// Invoices page, sites, orders
+	.sites-image,
+	.invoices-image{
+		padding-top: 200px!important;
+	}
+	.orders-image{
+		padding-left: 0px!important;
+		padding-top: 20px!important;
 	}
 }
 

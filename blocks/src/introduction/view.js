@@ -162,6 +162,16 @@ const { actions } = store("fuellogic-app", {
       document.body.style.backgroundSize = "cover";
       document.body.style.backgroundPosition = "center top";
       document.body.style.backgroundRepeat = "no-repeat";
+
+      const test = document.getElementsByClassName("mobile-images");
+      if (test.length > 0) {
+        test[0].style.backgroundImage = "url('" + found.image + "')";
+        test[0].style.backgroundSize = "cover";
+        test[0].style.backgroundPosition = "center top";
+        test[0].style.backgroundRepeat = "no-repeat";
+        test[0].style.height = "330px";
+        test[0].innerHTML = "";
+      }
     }
   }
 });

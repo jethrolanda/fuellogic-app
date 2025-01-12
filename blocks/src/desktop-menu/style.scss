@@ -1,0 +1,223 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ 
+ .wp-block-fuellogic-app-desktop-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 99999; 
+  .fa-solid.fa-bars{ 
+    font-size: 32px;
+    color: #D9D9D9;
+  }
+  a{
+    color: #fff;
+  }
+  .menu-list{
+    background: #1C1C1C;
+    border-radius: 0px 25px 25px 0px; 
+    padding-top: 40px;
+    height: 100vh;
+    padding-left: 4px; 
+    
+    transition: opacity 0.5s linear;
+    // transition: transform .5s ease; /* our nice transition */
+    // transform: translateX(0%);
+    // -webkit-transform: translateX(0%);
+    transition: opacity .3s ease, display .3s ease allow-discrete; 
+     
+    a{ text-decoration: none;}
+    .logo{
+      background-color: #1C1C1C;
+      padding-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      padding-right: 10px;
+      z-index: 999;
+      .small{
+        display: none;
+      }
+    }
+    .wrapper{ 
+      display: flex;
+      flex-direction: column;
+      & > img{
+        margin-right: 50px;
+      }
+      .fa-close{
+        align-self: end;
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+      .fa-solid{ 
+        color: #878787;
+      }
+  
+      .user-profile{
+        background-color: #1C1C1C;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding-bottom: 30px;
+        padding-top: 150px;
+        z-index: 999;
+        img{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+        h4, p{
+          margin: 0px;
+        }
+        p{
+          color: #878787;
+          font-size: 14px;;
+        }
+      }
+      .logout{
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 20px;
+        align-items: center; 
+        .fa-arrow-left{
+          color: #A2CD3A;
+          padding: 10px;
+          background: #323030;
+          border-radius: 12px;
+        }
+        span{
+          gap: 20px;
+          display: flex;
+          align-items: center;
+        }
+        .fa-angle-left{
+          font-size: 32px;
+        }
+        .fa-angle-right{
+          font-size: 32px;
+          display: none
+        }
+      }
+    }
+    ul{
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+      z-index: 9;
+      li{
+        padding: 20px;
+        padding-right: 50px;
+        position: relative;
+        background-color: #1C1C1C; 
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px; 
+        a{
+          gap: 20px;
+          display: flex;
+          align-items: center;
+        }
+        &::after{
+          content: "";
+          border: 1px solid #323030;
+          display: block;
+          clear: both;
+          position: absolute;
+          bottom: 0px;
+          width: 80%; 
+        }
+        &:last-child{
+          border-bottom: none;
+        }
+        
+        i{
+          width: 30px;
+          height: 30px;
+          font-size: 24px;
+          padding: 6px;
+          align-content: center; 
+          text-align: center;
+        }
+
+        &.selected{
+          border-radius: 25px 0px 0px 25px;
+          background-color: #000; 
+          &:has(li){
+            border-bottom-right-radius: 25px;
+          }
+          & + li{
+            border-top-right-radius: 25px;
+          }
+          i{
+            border-radius: 12px;
+            background: #A2CD3A;
+            color: #141414!important;
+            padding: 6px;
+            align-content: center; 
+            text-align: center;
+          }
+          &::before{
+            content: "";
+            display: block;
+            clear: both;
+            position: absolute;
+            right: 0px;
+            width: 20px;
+            height: 140px;
+            background: #000;
+            top: -20px;
+            z-index: -999;
+          }
+        }
+      }
+    }
+    &.minimized{
+      // transform: translateX(100%)!important;
+      // -webkit-transform: translateX(100%)!important;
+      .logo {
+        .large{
+          display: none;
+        }
+        .small{
+          display: block;
+        }
+      }
+      a span{
+        display: none;
+      }
+      .user-profile{ 
+        padding-right: 10px;
+        div{
+          display: none;
+        }
+      }
+      ul{
+        li{
+          padding-right: 30px;
+          &:after{
+            display: none;
+          }
+        }
+      }
+      .logout {
+        justify-content: center; 
+        span,
+        .fa-arrow-left,
+        .fa-angle-left{
+          display: none;
+        }
+        .fa-angle-right{
+          display: block;
+        }
+      }
+    }
+  }
+
+ 
+}

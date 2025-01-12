@@ -28,7 +28,7 @@ $context = array('isOpen' => false);
 		<input type="password" placeholder="Password" />
 		<div class="remember">
 
-			<label for="terms_conditions_agreement"><input type="checkbox" id="terms_conditions_agreement" /> I agree with Terms of Service</label>
+			<label for="terms_conditions_agreement"><input type="checkbox" id="terms_conditions_agreement" /> I agree with <a href="#">Terms of Service</a></label>
 		</div>
 		<button>SIGN UP</button>
 	</form>

@@ -76,7 +76,7 @@ export default function Edit(props) {
           {hasResolved ? (
             <>
               <SelectControl
-                label="Loading Screen Pattern"
+                label="Mobile Menu Pattern"
                 value={
                   parseInt(mobileMenuPattern) > 0 ? mobileMenuPattern : "none"
                 }

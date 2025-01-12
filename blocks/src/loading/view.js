@@ -13,9 +13,11 @@ const { state } = store("fuellogic-app", {
   callbacks: {
     hideLoadingScreen: () => {
       const { ref } = getElement();
+      document.body.style.overflow = "hidden";
       setTimeout(function () {
         //your code to be executed after 1 second
         ref.querySelector(".loading-screen").style.display = "none";
+        document.body.style.overflow = "auto";
       }, state.attributes.loadingScreenTimeout);
     }
   }

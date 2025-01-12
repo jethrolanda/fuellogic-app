@@ -44,14 +44,14 @@ if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPatt
 			</div>
 
 			<ul>
-				<li><i class="fa-solid fa-plus"></i> <a href="<?php echo site_url('new-order'); ?>">New Order</a></li>
-				<li class="orders"><i class="fa-solid fa-truck-fast"></i> <a href="<?php echo site_url('orders'); ?>">Orders</a></li>
-				<li><i class="fa-solid fa-location-dot"></i> <a href="<?php echo site_url('sites'); ?>">Site Locations</a></li>
-				<li><i class="fa-solid fa-circle-check"></i> <a href="<?php echo site_url('invoices'); ?>">Invoices</a></li>
-				<li><i class="fa-solid fa-credit-card"></i> <a href="<?php echo site_url('payment-details'); ?>">Payment Details</a></li>
-				<li><i class="fa-solid fa-comment"></i> <a href="<?php echo site_url('chat'); ?>">Chat</a></li>
-				<li><i class="fa-solid fa-phone"></i> <a href="<?php echo site_url('contact-us'); ?>">Contact Us</a></li>
-				<li><i class="fa-solid fa-arrow-left"></i> <a href="<?php echo site_url('logout'); ?>">Log Out</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'new-order' ? 'selected' : '' ?>"><i class="fa-solid fa-plus"></i> <a href="<?php echo site_url('new-order'); ?>">New Order</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'orders' ? 'selected' : '' ?>"><i class="fa-solid fa-truck-fast"></i> <a href="<?php echo site_url('orders'); ?>">Orders</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'site-locations' ? 'selected' : '' ?>"><i class="fa-solid fa-location-dot"></i> <a href="<?php echo site_url('site-locations'); ?>">Site Locations</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'invoices' ? 'selected' : '' ?>"><i class="fa-solid fa-circle-check"></i> <a href="<?php echo site_url('invoices'); ?>">Invoices</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'payment-details' ? 'selected' : '' ?>"><i class="fa-solid fa-credit-card"></i> <a href="<?php echo site_url('payment-details'); ?>">Payment Details</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'chat' ? 'selected' : '' ?>"><i class="fa-solid fa-comment"></i> <a href="<?php echo site_url('chat'); ?>">Chat</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'contact-us' ? 'selected' : '' ?>"><i class="fa-solid fa-phone"></i> <a href="<?php echo site_url('contact-us'); ?>">Contact Us</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'logout' ? 'selected' : '' ?>"><i class="fa-solid fa-arrow-left"></i> <a href="<?php echo site_url('logout'); ?>">Log Out</a></li>
 			</ul>
 		</div>
 	</div>

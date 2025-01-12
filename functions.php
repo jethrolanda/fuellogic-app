@@ -10,8 +10,11 @@ function create_block_blocks_block_init()
   register_block_type_from_metadata(__DIR__ . '/blocks/build/invoices');
   register_block_type_from_metadata(__DIR__ . '/blocks/build/loading');
   register_block_type_from_metadata(__DIR__ . '/blocks/build/mobile-menu');
+  register_block_type_from_metadata(__DIR__ . '/blocks/build/desktop-menu');
 }
 add_action('init', 'create_block_blocks_block_init');
+
+add_filter('show_admin_bar', '__return_false');
 
 // Load Frontend CSS and JS
 add_action('wp_enqueue_scripts', 'frontend_script_loader');

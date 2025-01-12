@@ -43,6 +43,9 @@
 		}
 	}
 
+	p{ 
+		color: #878787;
+	}
 	button{
     background-color: var(--wp--preset--color--custom-green);
     border-radius: 10px;
@@ -62,4 +65,11 @@
       top: 1px;
     }
   }
+}
+
+// Tablet down to mobile
+@media only screen and (max-width: 768px) {
+	.wp-block-fuellogic-app-introduction{
+		padding: 20px;
+	}
 }
