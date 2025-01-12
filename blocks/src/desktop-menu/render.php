@@ -46,8 +46,8 @@ if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPatt
 				<li class="<?php echo get_post_field('post_name') === 'orders' ? 'selected' : '' ?>">
 					<a href="<?php echo site_url('orders'); ?>"><i class="fa-solid fa-truck-fast"></i><span>Orders</span></a>
 				</li>
-				<li class="<?php echo get_post_field('post_name') === 'sites-locations' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('sites-locations'); ?>"><i class="fa-solid fa-location-dot"></i><span>Site Locations</span></a>
+				<li class="<?php echo get_post_field('post_name') === 'site-locations' ? 'selected' : '' ?>">
+					<a href="<?php echo site_url('site-locations'); ?>"><i class="fa-solid fa-location-dot"></i><span>Site Locations</span></a>
 				</li>
 				<li class="<?php echo get_post_field('post_name') === 'invoices' ? 'selected' : '' ?>">
 					<a href="<?php echo site_url('invoices'); ?>"><i class="fa-solid fa-circle-check"></i><span>Invoices</span></a>
