@@ -26,6 +26,9 @@
     right: 0px;
     top: 0px;
     z-index: 99999; 
+    overflow: auto;
+    scrollbar-width: none;
+    
     transition: transform .5s ease; /* our nice transition */
     transform: translateX(100%);
     -webkit-transform: translateX(100%);
