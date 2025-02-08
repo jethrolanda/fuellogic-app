@@ -6,9 +6,11 @@
   "title": "FL Desktop Menu",
   "category": "widgets",
   "attributes": {
-    "desktopMenuPattern": {
-      "type": "string",
-      "default": ""
+    "data": {
+      "type": "array",
+      "default": [
+        ""
+      ]
     }
   },
   "icon": "media-interactive",

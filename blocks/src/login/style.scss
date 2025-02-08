@@ -10,6 +10,16 @@
 	// padding: 1em;
 	// position: relative; 
 
+	.login-message{
+		margin-bottom: 40px;
+		padding: 20px;
+		&.success{
+			border: 1px solid var(--wp--preset--color--custom-green);
+		}
+		&.error{
+			border: 1px solid red;
+		}
+	}
   form{
 		display: flex;
     flex-direction: column;
@@ -25,6 +35,9 @@
 			&:focus{
 				border: 2px solid #474747;
 				padding: 14px;
+			}
+			&.error{
+				border: 1px solid red;
 			}
 		}
 

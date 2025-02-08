@@ -12,21 +12,9 @@ const { actions } = store("fuellogic-app", {
       Array.from(document.querySelectorAll("ul.indicators li")).forEach((li) =>
         li.classList.remove("active")
       );
+
       ref.classList.add("active");
       context.current = context.id;
-      context.data = context.data.map((item) => {
-        if (item.id === context.id) {
-          return {
-            ...item,
-            selected: true
-          };
-        } else {
-          return {
-            ...item,
-            selected: false
-          };
-        }
-      });
 
       Array.from(document.querySelectorAll(".slider")).forEach((slide, i) => {
         slide.classList.remove("active");
@@ -62,19 +50,7 @@ const { actions } = store("fuellogic-app", {
           }
         }
       );
-      context.data = context.data.map((item) => {
-        if (item.id === context.current) {
-          return {
-            ...item,
-            selected: true
-          };
-        } else {
-          return {
-            ...item,
-            selected: false
-          };
-        }
-      });
+
       if (context.current + 1 === context.data.length) {
         context.next = "GET STARTED";
       } else {
@@ -116,19 +92,6 @@ const { actions } = store("fuellogic-app", {
           }
         }
       );
-      context.data = context.data.map((item) => {
-        if (item.id === context.current) {
-          return {
-            ...item,
-            selected: true
-          };
-        } else {
-          return {
-            ...item,
-            selected: false
-          };
-        }
-      });
     },
     getStarted: () => {
       const context = getContext();
@@ -148,24 +111,20 @@ const { actions } = store("fuellogic-app", {
     }
   },
   callbacks: {
-    logIsOpen: () => {
-      const { isOpen } = getContext();
-      // Log the value of `isOpen` each time it changes.
-      console.log(`Is open: ${isOpen}`);
-    },
     bgImage: () => {
       const context = getContext();
       const found = context.data.find(
-        (element) => element.id === context.current
+        (element, index) => index === context.current
       );
-      document.body.style.backgroundImage = "url('" + found.image + "')";
+
+      document.body.style.backgroundImage = "url('" + found.bg_image.url + "')";
       document.body.style.backgroundSize = "cover";
       document.body.style.backgroundPosition = "center top";
       document.body.style.backgroundRepeat = "no-repeat";
 
       const test = document.getElementsByClassName("mobile-images");
       if (test.length > 0) {
-        test[0].style.backgroundImage = "url('" + found.image + "')";
+        test[0].style.backgroundImage = "url('" + found.bg_image.url + "')";
         test[0].style.backgroundSize = "cover";
         test[0].style.backgroundPosition = "center top";
         test[0].style.backgroundRepeat = "no-repeat";

@@ -11,38 +11,9 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
-
 $context = array(
 	'current' => 0,
-	'data' => array(
-		array(
-			'id' => 0,
-			'selected' => true,
-			'icon' => '<i class="icon fa-solid fa-map-location-dot"></i>',
-			// 'icon' => get_template_directory_uri() . '/assets/map-location-dot-solid.svg',
-			'title' => 'A Nationwide Footprint',
-			'content' => 'We can manage any location in the United States, whether you require fuel for one site or multiple sites across several states – and everything in between.',
-			'image' => get_template_directory_uri() . '/assets/truck.png' //'http://localhost:8004/wp-content/uploads/2024/12/20240113_120910_cleanup.png'
-		),
-		array(
-			'id' => 1,
-			'selected' => false,
-			'icon' => '<i class="icon fa-regular fa-lightbulb"></i>',
-			// 'icon' => get_template_directory_uri() . '/assets/lightbulb-regular.svg',
-			'title' => 'Custom, Creative Solutions',
-			'content' => 'We are a full-service mobile fuel provider. This means we strive to assess and understand the nuances of your unique business operation and fuel needs.',
-			'image' => get_template_directory_uri() . '/assets/young-worker.png' //'http://localhost:8004/wp-content/uploads/2024/12/Capture.png'
-		),
-		array(
-			'id' => 2,
-			'selected' => false,
-			'icon' => '<i class="icon fa-solid fa-arrows-rotate"></i>',
-			// 'icon' => get_template_directory_uri() . '/assets/arrows-rotate-solid.svg',
-			'title' => 'Evergreen Customer Care',
-			'content' => 'Our account managers own a customer account for the life of the account. From the first call we receive, we actively listen, assess your fuel needs, and determine how our strategic fuel solutions can be customized to meet your needs.',
-			'image' => get_template_directory_uri() . '/assets/young-worker-2.png' //'http://localhost:8004/wp-content/uploads/2024/12/Capture.png'
-		)
-	),
+	'data' => $attributes['data'],
 	'next' => 'Next'
 );
 ?>
@@ -56,11 +27,11 @@ $context = array(
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
 	<div>
 		<?php
-		foreach ($context['data'] as $item) {  ?>
-			<div class="slider slide-<?php echo $item['id']; ?> <?php echo $item['selected'] ? 'active' : '' ?>">
-				<?php echo $item['icon']; ?>
-				<h1><?php echo $item['title']; ?></h1>
-				<p><?php echo $item['content']; ?></p>
+		foreach ($attributes['data'] as $index => $item) {  ?>
+			<div class="slider slide-<?php echo $index; ?> <?php echo $index === 0 ? 'active' : '' ?>">
+				<i class="icon <?php echo $item['fa_class']; ?>"></i>
+				<h1><?php echo $item['heading']; ?></h1>
+				<p><?php echo $item['excerpt']; ?></p>
 			</div>
 
 		<?php } ?>
@@ -75,8 +46,8 @@ $context = array(
 	<div>
 		<ul class="indicators">
 			<?php
-			foreach ($context['data'] as $item) {  ?>
-				<li <?php echo isset($item['selected']) && $item['selected'] === true ? 'class="active"' : ""; ?> data-wp-on--click="actions.onChange" <?php echo wp_interactivity_data_wp_context($item); ?>></li>
+			foreach ($attributes['data'] as $index => $item) {  ?>
+				<li <?php echo $index === 0 ? 'class="active"' : ""; ?> data-wp-on--click="actions.onChange" <?php echo wp_interactivity_data_wp_context(array('id' => $index)); ?>></li>
 			<?php } ?>
 		</ul>
 		<!-- <ul class="indicators">

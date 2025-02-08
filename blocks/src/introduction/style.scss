@@ -6,13 +6,13 @@
  */
 
 .wp-block-fuellogic-app-introduction {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	// display: flex;
+	// flex-direction: column;
+	// align-items: center;
 	text-align: center;
-	background: black;
-	border-radius: 25px;
-	padding: 60px;
+	// background: black;
+	// border-radius: 25px;
+	// padding: 60px;
 
 	.slider{
 		display: none;
@@ -46,6 +46,7 @@
 	p{ 
 		color: #878787;
 	}
+	
 	button{
     background-color: var(--wp--preset--color--custom-green);
     border-radius: 10px;

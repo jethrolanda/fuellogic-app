@@ -6,10 +6,7 @@
 	"title": "FL Desktop Menu",
 	"category": "widgets",
 	"attributes": { 
-		"desktopMenuPattern": {
-			"type": "string",
-			"default": ""
-		}
+		"data": { "type": "array", "default": [""] }
   },
 	"icon": "media-interactive",
 	"description": "An interactive block with the Interactivity API",

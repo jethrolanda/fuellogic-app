@@ -4,7 +4,11 @@ import {
   PanelBody,
   SelectControl,
   Spinner,
-  TextControl
+  TextControl,
+  Flex,
+  FlexBlock,
+  BaseControl,
+  Button
 } from "@wordpress/components";
 
 /**
@@ -22,13 +26,13 @@ import { __ } from "@wordpress/i18n";
  */
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 
-function useCustomPatternBlocks(props) {
-  const { patterns, hasResolved } = useSelect(
+function usePages(props) {
+  const { pages, hasResolved } = useSelect(
     (select) => {
-      const selectorArgs = ["postType", "wp_block", { per_page: -1 }];
+      const selectorArgs = ["postType", "page", { per_page: -1 }];
 
       return {
-        patterns: select(coreDataStore).getEntityRecords(...selectorArgs),
+        pages: select(coreDataStore).getEntityRecords(...selectorArgs),
         hasResolved: select(coreDataStore).hasFinishedResolution(
           "getEntityRecords",
           selectorArgs
@@ -38,7 +42,7 @@ function useCustomPatternBlocks(props) {
     [props]
   );
 
-  return { patterns, hasResolved };
+  return { pages, hasResolved };
 }
 
 /**
@@ -54,42 +58,104 @@ function useCustomPatternBlocks(props) {
  * @return {Element} Element to render.
  */
 export default function Edit(props) {
-  const { patterns, hasResolved } = useCustomPatternBlocks(props);
-  const options = patterns
-    ? patterns.map((p) => {
+  const { pages, hasResolved } = usePages(props);
+  const options = pages
+    ? pages.map((p) => {
         return { value: p.id, label: p.title.raw };
       })
     : [];
-  options.unshift({ value: "none", label: "Select a Pattern" });
+  options.unshift({ value: "none", label: "Select a Page" });
+
   const blockProps = useBlockProps();
   const { attributes, setAttributes } = props;
-  const { mobileMenuPattern } = attributes;
 
-  function onChangeMobileMenuPattern(value) {
-    setAttributes({ mobileMenuPattern: value });
+  function deleteMenu(indexToDelete) {
+    const newData = attributes.data.filter(function (x, index) {
+      return index != indexToDelete;
+    });
+    setAttributes({ data: newData });
   }
-
   return (
     <div {...blockProps}>
       <InspectorControls>
         <PanelBody title="Settings" initialOpen={true}>
-          {hasResolved ? (
-            <>
-              <SelectControl
-                label="Desktop Menu Pattern"
-                value={
-                  parseInt(mobileMenuPattern) > 0 ? mobileMenuPattern : "none"
-                }
-                options={options}
-                onChange={onChangeMobileMenuPattern}
-              />
-            </>
-          ) : (
-            <div style={{ marginBottom: "10px" }}>
-              Loading Patterns
-              <Spinner />
-            </div>
-          )}
+          <Flex>
+            <FlexBlock>
+              {attributes.data.map(function (menu, index) {
+                return (
+                  <>
+                    <BaseControl>
+                      <b>Menu #{index + 1}</b>
+                    </BaseControl>
+                    <BaseControl help="Class name example: fa-solid fa-map">
+                      <BaseControl.VisualLabel>
+                        Fontawesome Class
+                      </BaseControl.VisualLabel>
+                      <TextControl
+                        value={menu?.fa_class}
+                        onChange={(newValue) => {
+                          const newData = attributes.data.concat([]);
+                          newData[index] = {
+                            ...newData[index],
+                            fa_class: newValue
+                          };
+                          setAttributes({ data: newData });
+                        }}
+                      />
+                    </BaseControl>
+
+                    <BaseControl>
+                      <BaseControl.VisualLabel>Page</BaseControl.VisualLabel>
+                      {hasResolved ? (
+                        <>
+                          <SelectControl
+                            value={
+                              parseInt(menu?.["page"]) > 0
+                                ? menu?.["page"]
+                                : "none"
+                            }
+                            options={options}
+                            onChange={(newValue) => {
+                              const newData = attributes.data.concat([]);
+                              newData[index] = {
+                                ...newData[index],
+                                page: newValue
+                              };
+                              setAttributes({ data: newData });
+                            }}
+                          />
+                        </>
+                      ) : (
+                        <div style={{ marginBottom: "10px" }}>
+                          Loading Pages
+                          <Spinner />
+                        </div>
+                      )}
+                    </BaseControl>
+
+                    <BaseControl>
+                      <Button
+                        className="attention-delete"
+                        onClick={() => deleteMenu(index)}
+                      >
+                        Delete
+                      </Button>
+                    </BaseControl>
+                  </>
+                );
+              })}
+              <Button
+                className="btn-border is-primary"
+                onClick={() => {
+                  setAttributes({
+                    data: attributes.data.concat([undefined])
+                  });
+                }}
+              >
+                Insert menu
+              </Button>
+            </FlexBlock>
+          </Flex>
         </PanelBody>
       </InspectorControls>
       <div>FL Desktop Menu</div>
