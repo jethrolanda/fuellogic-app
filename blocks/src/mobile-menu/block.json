@@ -5,11 +5,9 @@
 	"version": "0.1.0",
 	"title": "FL Mobile Menu",
 	"category": "widgets",
-	"attributes": { 
-		"mobileMenuPattern": {
-			"type": "string",
-			"default": ""
-		}
+	"attributes": {
+		"data": { "type": "array", "default": [""] }, 
+		"editMode": { "type": "boolean", "default": true }
   },
 	"icon": "media-interactive",
 	"description": "An interactive block with the Interactivity API",

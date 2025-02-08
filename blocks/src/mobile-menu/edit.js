@@ -4,8 +4,13 @@ import {
   PanelBody,
   SelectControl,
   Spinner,
-  TextControl
+  TextControl,
+  ToolbarButton,
+  Flex,
+  FlexBlock,
+  BaseControl
 } from "@wordpress/components";
+import { edit, update } from "@wordpress/icons";
 
 /**
  * Retrieves the translation of text.
@@ -20,15 +25,19 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import {
+  InspectorControls,
+  useBlockProps,
+  BlockControls
+} from "@wordpress/block-editor";
 
-function useCustomPatternBlocks(props) {
-  const { patterns, hasResolved } = useSelect(
+function usePages(props) {
+  const { pages, hasResolved } = useSelect(
     (select) => {
-      const selectorArgs = ["postType", "wp_block", { per_page: -1 }];
+      const selectorArgs = ["postType", "page", { per_page: -1 }];
 
       return {
-        patterns: select(coreDataStore).getEntityRecords(...selectorArgs),
+        pages: select(coreDataStore).getEntityRecords(...selectorArgs),
         hasResolved: select(coreDataStore).hasFinishedResolution(
           "getEntityRecords",
           selectorArgs
@@ -38,7 +47,7 @@ function useCustomPatternBlocks(props) {
     [props]
   );
 
-  return { patterns, hasResolved };
+  return { pages, hasResolved };
 }
 
 /**
@@ -54,45 +63,129 @@ function useCustomPatternBlocks(props) {
  * @return {Element} Element to render.
  */
 export default function Edit(props) {
-  const { patterns, hasResolved } = useCustomPatternBlocks(props);
-  const options = patterns
-    ? patterns.map((p) => {
+  const { pages, hasResolved } = usePages(props);
+  const options = pages
+    ? pages.map((p) => {
         return { value: p.id, label: p.title.raw };
       })
     : [];
-  options.unshift({ value: "none", label: "Select a Pattern" });
+  options.unshift({ value: "none", label: "Select a Page" });
   const blockProps = useBlockProps();
   const { attributes, setAttributes } = props;
-  const { mobileMenuPattern } = attributes;
+  const { editMode } = attributes;
 
-  function onChangeMobileMenuPattern(value) {
-    setAttributes({ mobileMenuPattern: value });
+  function deleteMenu(indexToDelete) {
+    const newData = attributes.data.filter(function (x, index) {
+      return index != indexToDelete;
+    });
+    setAttributes({ data: newData });
+  }
+
+  function toggleEditMode() {
+    setAttributes({ editMode: !editMode });
   }
 
   return (
     <div {...blockProps}>
-      <InspectorControls>
-        <PanelBody title="Settings" initialOpen={true}>
-          {hasResolved ? (
-            <>
-              <SelectControl
-                label="Mobile Menu Pattern"
-                value={
-                  parseInt(mobileMenuPattern) > 0 ? mobileMenuPattern : "none"
-                }
-                options={options}
-                onChange={onChangeMobileMenuPattern}
-              />
-            </>
-          ) : (
-            <div style={{ marginBottom: "10px" }}>
-              Loading Patterns
-              <Spinner />
-            </div>
-          )}
-        </PanelBody>
-      </InspectorControls>
-      <div>FL Mobile Menu</div>
+      <BlockControls>
+        {editMode ? (
+          <ToolbarButton
+            icon={update}
+            label="View"
+            onClick={() => toggleEditMode()}
+          />
+        ) : (
+          <ToolbarButton
+            icon={edit}
+            label="Edit"
+            onClick={() => toggleEditMode()}
+          />
+        )}
+      </BlockControls>
+      {editMode ? (
+        <Flex>
+          <FlexBlock style={{ gap: "20px" }}>
+            {attributes.data.map(function (menu, index) {
+              return (
+                <div>
+                  <h4>Menu #{index + 1}</h4>
+                  {hasResolved ? (
+                    <>
+                      <BaseControl help="Only class name example: fa-solid fa-map">
+                        <BaseControl.VisualLabel>
+                          Fontawesome Class
+                        </BaseControl.VisualLabel>
+                        <TextControl
+                          value={menu?.fa_class}
+                          onChange={(newValue) => {
+                            const newData = attributes.data.concat([]);
+                            newData[index] = {
+                              ...newData[index],
+                              fa_class: newValue
+                            };
+                            setAttributes({ data: newData });
+                          }}
+                        />
+                      </BaseControl>
+                      <BaseControl>
+                        <BaseControl.VisualLabel>Page</BaseControl.VisualLabel>
+                        <SelectControl
+                          value={menu?.page}
+                          options={options}
+                          onChange={(newValue) => {
+                            const newData = attributes.data.concat([]);
+                            newData[index] = {
+                              ...newData[index],
+                              page: newValue
+                            };
+                            setAttributes({ data: newData });
+                          }}
+                        />
+                      </BaseControl>
+                    </>
+                  ) : (
+                    <div style={{ marginBottom: "10px" }}>
+                      Loading pages
+                      <Spinner />
+                    </div>
+                  )}
+
+                  <BaseControl>
+                    <a
+                      className="custom-btn btn-delete"
+                      onClick={() => deleteMenu(index)}
+                    >
+                      Remove Menu
+                    </a>
+                  </BaseControl>
+                </div>
+              );
+            })}
+            <a
+              className="custom-btn btn-add"
+              onClick={() => {
+                setAttributes({
+                  data: attributes.data.concat([undefined])
+                });
+              }}
+            >
+              Add New Menu
+            </a>
+          </FlexBlock>
+        </Flex>
+      ) : (
+        <MobileMenu data={attributes.data} />
+      )}
     </div>
   );
+}
+function MobileMenu(props) {
+  const { data } = props;
+
+  const menus = data.map((menu, index) => {
+    return <li class={` ${index === 0 ? "selected" : ""}`}></li>;
+  });
+
+  // return <ul>{menus}</ul>;
+  return <>FL Mobile Menu</>;
 }
