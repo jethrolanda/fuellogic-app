@@ -11,6 +11,10 @@
       "default": [
         ""
       ]
+    },
+    "editMode": {
+      "type": "boolean",
+      "default": true
     }
   },
   "icon": "media-interactive",

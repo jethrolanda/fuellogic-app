@@ -18,10 +18,7 @@ wp_interactivity_state('fuellogic-app', array(
 
 $context = array('showMenu' => false);
 
-$loadingScreenPattern = '';
-if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPattern'] > 0) {
-	$loadingScreenPattern = $attributes['loadingScreenPattern'];
-}
+
 ?>
 
 <div
@@ -40,27 +37,12 @@ if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPatt
 				</a>
 			</div>
 			<ul>
-				<li class="<?php echo get_post_field('post_name') === 'new-order' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('new-order'); ?>"><i class="fa-solid fa-plus"></i><span>New Order</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'orders' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('orders'); ?>"><i class="fa-solid fa-truck-fast"></i><span>Orders</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'site-locations' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('site-locations'); ?>"><i class="fa-solid fa-location-dot"></i><span>Site Locations</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'invoices' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('invoices'); ?>"><i class="fa-solid fa-circle-check"></i><span>Invoices</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'payment-details' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('payment-details'); ?>"><i class="fa-solid fa-credit-card"></i><span>Payment Details</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'chat' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('chat'); ?>"><i class="fa-solid fa-comment"></i><span>Chat</span></a>
-				</li>
-				<li class="<?php echo get_post_field('post_name') === 'contact-us' ? 'selected' : '' ?>">
-					<a href="<?php echo site_url('contact-us'); ?>"><i class="fa-solid fa-phone"></i><span>Contact Us</span></a>
-				</li>
+				<?php foreach ($attributes['data'] as $key => $menu) {
+					$wp_post = get_post($menu['page']); ?>
+					<li class="<?php echo get_post_field('post_name') === $wp_post->post_name ? 'selected' : '' ?>">
+						<a href="<?php echo get_permalink($menu['page']); ?>"><i class="<?php echo $menu['fa_class']; ?>"></i><span><?php echo $wp_post->post_title; ?></span></a>
+					</li>
+				<?php	} ?>
 			</ul>
 			<div class="user-profile">
 				<img src="<?php echo get_template_directory_uri(); ?>/assets/user_profile.png" alt="Tom Richards" />

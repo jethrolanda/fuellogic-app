@@ -3,3 +3,22 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
+.wp-block-fuellogic-app-desktop-menu {
+  padding: 20px;
+  a.custom-btn{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+    padding: 10px; 
+    &.btn-delete{
+      border: 1px solid #fb4848;
+      margin-bottom: 20px;
+    }
+    &.btn-add{
+      border: 1px solid yellowgreen;
+      margin-top: 20px;
+    }
+  }
+}
+ 

@@ -5,12 +5,8 @@
 	"version": "0.1.0",
 	"title": "FL Introduction",
 	"category": "widgets",
-	"attributes": {
-    "question": { "type": "string" },
-    "data": { "type": "array", "default": [""] },
-    "correctAnswer": { "type": "number", "default": "" },
-    "bgColor": { "type": "string", "default": "#EBEBEB" },
-    "theAlignment": { "type": "string", "default": "left" },
+	"attributes": { 
+    "data": { "type": "array", "default": [""] }, 
 		"editMode": { "type": "boolean", "default": true }
   },
 	"icon": "media-interactive",

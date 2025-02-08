@@ -6,26 +6,11 @@
   "title": "FL Introduction",
   "category": "widgets",
   "attributes": {
-    "question": {
-      "type": "string"
-    },
     "data": {
       "type": "array",
       "default": [
         ""
       ]
-    },
-    "correctAnswer": {
-      "type": "number",
-      "default": ""
-    },
-    "bgColor": {
-      "type": "string",
-      "default": "#EBEBEB"
-    },
-    "theAlignment": {
-      "type": "string",
-      "default": "left"
     },
     "editMode": {
       "type": "boolean",

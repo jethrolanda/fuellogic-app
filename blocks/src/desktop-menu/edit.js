@@ -8,9 +8,10 @@ import {
   Flex,
   FlexBlock,
   BaseControl,
-  Button
+  Button,
+  ToolbarButton
 } from "@wordpress/components";
-
+import { edit, update } from "@wordpress/icons";
 /**
  * Retrieves the translation of text.
  *
@@ -24,7 +25,11 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import {
+  InspectorControls,
+  BlockControls,
+  useBlockProps
+} from "@wordpress/block-editor";
 
 function usePages(props) {
   const { pages, hasResolved } = useSelect(
@@ -68,6 +73,7 @@ export default function Edit(props) {
 
   const blockProps = useBlockProps();
   const { attributes, setAttributes } = props;
+  const { editMode } = attributes;
 
   function deleteMenu(indexToDelete) {
     const newData = attributes.data.filter(function (x, index) {
@@ -75,90 +81,112 @@ export default function Edit(props) {
     });
     setAttributes({ data: newData });
   }
+
+  function toggleEditMode() {
+    setAttributes({ editMode: !editMode });
+  }
   return (
     <div {...blockProps}>
-      <InspectorControls>
-        <PanelBody title="Settings" initialOpen={true}>
-          <Flex>
-            <FlexBlock>
-              {attributes.data.map(function (menu, index) {
-                return (
-                  <>
-                    <BaseControl>
-                      <b>Menu #{index + 1}</b>
-                    </BaseControl>
-                    <BaseControl help="Class name example: fa-solid fa-map">
-                      <BaseControl.VisualLabel>
-                        Fontawesome Class
-                      </BaseControl.VisualLabel>
-                      <TextControl
-                        value={menu?.fa_class}
-                        onChange={(newValue) => {
-                          const newData = attributes.data.concat([]);
-                          newData[index] = {
-                            ...newData[index],
-                            fa_class: newValue
-                          };
-                          setAttributes({ data: newData });
-                        }}
-                      />
-                    </BaseControl>
+      <BlockControls>
+        {editMode ? (
+          <ToolbarButton
+            icon={update}
+            label="View"
+            onClick={() => toggleEditMode()}
+          />
+        ) : (
+          <ToolbarButton
+            icon={edit}
+            label="Edit"
+            onClick={() => toggleEditMode()}
+          />
+        )}
+      </BlockControls>
+      {editMode ? (
+        <Flex>
+          <FlexBlock style={{ gap: "20px" }}>
+            {attributes.data.map(function (menu, index) {
+              return (
+                <div>
+                  <h4>Menu #{index + 1}</h4>
+                  {hasResolved ? (
+                    <>
+                      <BaseControl help="Only class name example: fa-solid fa-map">
+                        <BaseControl.VisualLabel>
+                          Fontawesome Class
+                        </BaseControl.VisualLabel>
+                        <TextControl
+                          value={menu?.fa_class}
+                          onChange={(newValue) => {
+                            const newData = attributes.data.concat([]);
+                            newData[index] = {
+                              ...newData[index],
+                              fa_class: newValue
+                            };
+                            setAttributes({ data: newData });
+                          }}
+                        />
+                      </BaseControl>
+                      <BaseControl>
+                        <BaseControl.VisualLabel>Page</BaseControl.VisualLabel>
+                        <SelectControl
+                          value={menu?.page}
+                          options={options}
+                          onChange={(newValue) => {
+                            const newData = attributes.data.concat([]);
+                            newData[index] = {
+                              ...newData[index],
+                              page: newValue
+                            };
+                            setAttributes({ data: newData });
+                          }}
+                        />
+                      </BaseControl>
+                    </>
+                  ) : (
+                    <div style={{ marginBottom: "10px" }}>
+                      Loading Patterns
+                      <Spinner />
+                    </div>
+                  )}
 
-                    <BaseControl>
-                      <BaseControl.VisualLabel>Page</BaseControl.VisualLabel>
-                      {hasResolved ? (
-                        <>
-                          <SelectControl
-                            value={
-                              parseInt(menu?.["page"]) > 0
-                                ? menu?.["page"]
-                                : "none"
-                            }
-                            options={options}
-                            onChange={(newValue) => {
-                              const newData = attributes.data.concat([]);
-                              newData[index] = {
-                                ...newData[index],
-                                page: newValue
-                              };
-                              setAttributes({ data: newData });
-                            }}
-                          />
-                        </>
-                      ) : (
-                        <div style={{ marginBottom: "10px" }}>
-                          Loading Pages
-                          <Spinner />
-                        </div>
-                      )}
-                    </BaseControl>
-
-                    <BaseControl>
-                      <Button
-                        className="attention-delete"
-                        onClick={() => deleteMenu(index)}
-                      >
-                        Delete
-                      </Button>
-                    </BaseControl>
-                  </>
-                );
-              })}
-              <Button
-                className="btn-border is-primary"
-                onClick={() => {
-                  setAttributes({
-                    data: attributes.data.concat([undefined])
-                  });
-                }}
-              >
-                Insert menu
-              </Button>
-            </FlexBlock>
-          </Flex>
-        </PanelBody>
-      </InspectorControls>
-      <div>FL Desktop Menu</div>
+                  <BaseControl>
+                    <a
+                      className="custom-btn btn-delete"
+                      onClick={() => deleteMenu(index)}
+                    >
+                      Remove Menu
+                    </a>
+                  </BaseControl>
+                </div>
+              );
+            })}
+            <a
+              className="custom-btn btn-add"
+              onClick={() => {
+                setAttributes({
+                  data: attributes.data.concat([undefined])
+                });
+              }}
+            >
+              Add New Menu
+            </a>
+          </FlexBlock>
+        </Flex>
+      ) : (
+        <DesktopMenu data={attributes.data} />
+      )}
     </div>
   );
+}
+
+function DesktopMenu(props) {
+  const { data } = props;
+
+  const menus = data.map((menu, index) => {
+    return <li class={` ${index === 0 ? "selected" : ""}`}></li>;
+  });
+
+  // return <ul>{menus}</ul>;
+  return <>FL Desktop Menu</>;
 }
