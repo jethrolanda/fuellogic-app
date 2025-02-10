@@ -39,14 +39,21 @@ $context = array('showMenu' => false);
 					<img class="small" src="<?php echo get_template_directory_uri(); ?>/assets/logo-small.png" alt="Logo Small">
 				</a>
 			</div>
-			<ul>
-				<?php foreach ($attributes['data'] as $key => $menu) {
-					$wp_post = get_post($menu['page']); ?>
-					<li class="<?php echo get_post_field('post_name') === $wp_post->post_name ? 'selected' : '' ?>">
-						<a href="<?php echo get_permalink($menu['page']); ?>"><i class="<?php echo $menu['fa_class']; ?>"></i><span><?php echo $wp_post->post_title; ?></span></a>
-					</li>
-				<?php	} ?>
-			</ul>
+			<?php
+			if (!empty($attributes['data'])) {
+			?>
+				<ul>
+					<?php foreach ($attributes['data'] as $key => $menu) {
+						if (isset($menu['page'])) {
+							$wp_post = get_post($menu['page']); ?>
+							<li class="<?php echo get_post_field('post_name') === $wp_post->post_name ? 'selected' : '' ?>">
+								<a href="<?php echo get_permalink($menu['page']); ?>"><i class="<?php echo $menu['fa_class']; ?>"></i><span><?php echo $wp_post->post_title; ?></span></a>
+							</li>
+					<?php }
+					} ?>
+				</ul>
+			<?php } ?>
+
 			<div class="user-profile">
 				<img src="<?php echo get_template_directory_uri(); ?>/assets/user_profile.png" alt="Tom Richards" />
 				<div>

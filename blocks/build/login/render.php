@@ -19,7 +19,6 @@ wp_interactivity_state(
 		'login_redirect' => isset($attributes['loginRedirect']) ? get_permalink($attributes['loginRedirect']) : '',
 	),
 );
-error_log(print_r($attributes, true));
 
 $context = array(
 	'uname' => '',

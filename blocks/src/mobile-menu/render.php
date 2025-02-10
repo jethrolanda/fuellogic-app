@@ -45,15 +45,21 @@ if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPatt
 				</div>
 			</div>
 
-			<ul>
-				<?php foreach ($attributes['data'] as $key => $menu) {
-					$wp_post = get_post($menu['page']); ?>
-					<li class="<?php echo get_post_field('post_name') === $wp_post->post_name ? 'selected' : '' ?>">
-						<i class="<?php echo $menu['fa_class']; ?>"></i><a href="<?php echo get_permalink($menu['page']); ?>"> <?php echo $wp_post->post_title; ?> </a>
-					</li>
-				<?php	} ?>
-				<li class="<?php echo get_post_field('post_name') === 'logout' ? 'selected' : '' ?>"><i class="fa-solid fa-arrow-left"></i> <a href="#" data-wp-on--click="actions.logout">Log Out</a></li>
-			</ul>
+			<?php
+			if (!empty($attributes['data'])) {
+			?>
+				<ul>
+					<?php foreach ($attributes['data'] as $key => $menu) {
+						if (isset($menu['page'])) {
+							$wp_post = get_post($menu['page']); ?>
+							<li class="<?php echo get_post_field('post_name') === $wp_post->post_name ? 'selected' : '' ?>">
+								<i class="<?php echo $menu['fa_class']; ?>"></i><a href="<?php echo get_permalink($menu['page']); ?>"> <?php echo $wp_post->post_title; ?> </a>
+							</li>
+					<?php	}
+					} ?>
+					<li class="<?php echo get_post_field('post_name') === 'logout' ? 'selected' : '' ?>"><i class="fa-solid fa-arrow-left"></i> <a href="#" data-wp-on--click="actions.logout">Log Out</a></li>
+				</ul>
+			<?php } ?>
 		</div>
 	</div>
 </div>
