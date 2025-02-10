@@ -72,7 +72,7 @@ export default function Edit(props) {
   options.unshift({ value: "none", label: "Select a Page" });
   const blockProps = useBlockProps();
   const { attributes, setAttributes } = props;
-  const { editMode } = attributes;
+  const { editMode, logoutRedirect } = attributes;
 
   function deleteMenu(indexToDelete) {
     const newData = attributes.data.filter(function (x, index) {
@@ -87,6 +87,27 @@ export default function Edit(props) {
 
   return (
     <div {...blockProps}>
+      <InspectorControls>
+        <PanelBody title="Settings" initialOpen={true}>
+          {hasResolved ? (
+            <>
+              <SelectControl
+                label="Logout Redirect"
+                value={parseInt(logoutRedirect) > 0 ? logoutRedirect : "none"}
+                options={options}
+                onChange={(value) => {
+                  setAttributes({ logoutRedirect: value });
+                }}
+              />
+            </>
+          ) : (
+            <div style={{ marginBottom: "10px" }}>
+              Loading Patterns
+              <Spinner />
+            </div>
+          )}
+        </PanelBody>
+      </InspectorControls>
       <BlockControls>
         {editMode ? (
           <ToolbarButton

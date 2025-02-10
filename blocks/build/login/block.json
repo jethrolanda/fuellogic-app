@@ -5,6 +5,12 @@
   "version": "0.1.0",
   "title": "FL Login",
   "category": "widgets",
+  "attributes": {
+    "loginRedirect": {
+      "type": "string",
+      "default": ""
+    }
+  },
   "icon": "media-interactive",
   "description": "An interactive block with the Interactivity API",
   "example": {},
@@ -40,7 +46,6 @@
         "bottom"
       ],
       "padding": true,
-      "blockGap": true,
       "__experimentalDefaultControls": {
         "padding": true,
         "blockGap": true

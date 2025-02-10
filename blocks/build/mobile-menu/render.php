@@ -14,8 +14,10 @@
 // Global State
 wp_interactivity_state('fuellogic-app', array(
 	'attributes' => $attributes,
+	'ajaxUrl' => admin_url('admin-ajax.php'),
+	'nonce'   => wp_create_nonce('logout_nonce'),
+	'logout_redirect' => isset($attributes['logoutRedirect']) ? get_permalink($attributes['logoutRedirect']) : '',
 ));
-
 $context = array('showMenu' => false);
 
 $loadingScreenPattern = '';
@@ -50,7 +52,7 @@ if (isset($attributes['loadingScreenPattern']) && $attributes['loadingScreenPatt
 						<i class="<?php echo $menu['fa_class']; ?>"></i><a href="<?php echo get_permalink($menu['page']); ?>"> <?php echo $wp_post->post_title; ?> </a>
 					</li>
 				<?php	} ?>
-				<li class="<?php echo get_post_field('post_name') === 'logout' ? 'selected' : '' ?>"><i class="fa-solid fa-arrow-left"></i> <a href="<?php echo site_url('logout'); ?>">Log Out</a></li>
+				<li class="<?php echo get_post_field('post_name') === 'logout' ? 'selected' : '' ?>"><i class="fa-solid fa-arrow-left"></i> <a href="#" data-wp-on--click="actions.logout">Log Out</a></li>
 			</ul>
 		</div>
 	</div>

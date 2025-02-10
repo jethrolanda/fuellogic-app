@@ -15,6 +15,10 @@
     "editMode": {
       "type": "boolean",
       "default": true
+    },
+    "logoutRedirect": {
+      "type": "string",
+      "default": ""
     }
   },
   "icon": "media-interactive",

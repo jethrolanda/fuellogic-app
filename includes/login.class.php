@@ -31,6 +31,8 @@ class Login
   public function __construct()
   {
     add_action("wp_ajax_nopriv_fla_login", array($this, 'fla_login'));
+
+    add_action("wp_ajax_nopriv_fla_logout", array($this, 'fla_logout'));
   }
 
   /**
@@ -87,11 +89,42 @@ class Login
       } else {
         wp_set_auth_cookie($user, 0, 0);
         wp_send_json(array(
-          'status' => 'success',
-          'code' => $user->get_error_code(),
-          'message' => $user->get_error_message()
+          'status' => 'success'
         ));
       }
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
+  /**
+   * Logout
+   * 
+   * @since 1.0
+   */
+  public function fla_logout()
+  {
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+    /**
+     * Verify nonce
+     */
+    if (isset($_POST['_ajax_nonce']) && !wp_verify_nonce($_POST['_ajax_nonce'], 'logout_nonce')) {
+      wp_die();
+    }
+
+    try {
+
+      wp_logout();
+
+      wp_send_json(array('status' => 'success'));
     } catch (\Exception $e) {
 
       wp_send_json(array(

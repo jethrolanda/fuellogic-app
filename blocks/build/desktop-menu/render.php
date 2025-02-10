@@ -14,6 +14,9 @@
 // Global State
 wp_interactivity_state('fuellogic-app', array(
 	'attributes' => $attributes,
+	'ajaxUrl' => admin_url('admin-ajax.php'),
+	'nonce'   => wp_create_nonce('logout_nonce'),
+	'logout_redirect' => isset($attributes['logoutRedirect']) ? get_permalink($attributes['logoutRedirect']) : '',
 ));
 
 $context = array('showMenu' => false);
@@ -52,7 +55,7 @@ $context = array('showMenu' => false);
 				</div>
 			</div>
 			<div class="logout">
-				<span><i class="fa-solid fa-arrow-left"></i> <a href="<?php echo site_url('logout'); ?>">Log Out</a></span><i class="fa-solid fa-angle-left" data-wp-on--click="callbacks.showHideMenu"></i>
+				<span><i class="fa-solid fa-arrow-left"></i> <a href="" data-wp-on--click="actions.logout">Log Out</a></span><i class="fa-solid fa-angle-left" data-wp-on--click="callbacks.showHideMenu"></i>
 				<i class="fa-solid fa-angle-right" data-wp-on--click="callbacks.showHideMenu"></i>
 			</div>
 

@@ -31,8 +31,8 @@ const { state, callbacks } = store("fuellogic-app", {
         body: formData
       }).then((response) => response.json());
 
-      context.login_status = data.status;
-      context.login_msg = data.message;
+      context.login_status = data.status ?? "";
+      context.login_msg = data.message ?? "";
 
       if (data.status == "error") {
         if (data.code === "empty_username") {
@@ -46,7 +46,9 @@ const { state, callbacks } = store("fuellogic-app", {
       } else {
         document.querySelector('input[name="uname"]').classList.remove("error");
         document.querySelector('input[name="pword"]').classList.remove("error");
-        document.querySelector(".login-message").classList.add("success");
+
+        // Login redirect
+        window.location.href = state.login_redirect;
       }
     }
   },

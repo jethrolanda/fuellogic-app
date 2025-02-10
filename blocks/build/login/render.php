@@ -16,8 +16,10 @@ wp_interactivity_state(
 	array(
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 		'nonce'   => wp_create_nonce('login_nonce'),
+		'login_redirect' => isset($attributes['loginRedirect']) ? get_permalink($attributes['loginRedirect']) : '',
 	),
 );
+error_log(print_r($attributes, true));
 
 $context = array(
 	'uname' => '',

@@ -5,6 +5,9 @@
 	"version": "0.1.0",
 	"title": "FL Login",
 	"category": "widgets",
+	"attributes": {
+		"loginRedirect": { "type": "string", "default": "" }
+  },
 	"icon": "media-interactive",
 	"description": "An interactive block with the Interactivity API",
 	"example": {},
@@ -36,8 +39,7 @@
 		},
 		"spacing": {
 			"margin": [ "top", "bottom" ],
-			"padding": true,
-			"blockGap": true,
+			"padding": true, 
 			"__experimentalDefaultControls": {
 				"padding": true,
 				"blockGap": true
