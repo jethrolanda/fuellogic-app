@@ -9,6 +9,8 @@ class FLA_Theme
   public $blocks;
   public $ajax;
   public $login;
+  public $cpt;
+  public $sites;
   // public $login;
   // public $orders;
   // public $metabox;
@@ -24,6 +26,8 @@ class FLA_Theme
     $this->ajax = new \FLA\Theme\Blocks();
     $this->ajax = new \FLA\Theme\Ajax();
     $this->login = new \FLA\Theme\Login();
+    $this->cpt = new \FLA\Theme\Cpt();
+    $this->sites = new \FLA\Theme\Sites();
     // $this->orders = new \FLA\Theme\Orders();
     // $this->metabox = new \FLA\Theme\MetaBox();
     // $this->register = new \FLA\Theme\Register();

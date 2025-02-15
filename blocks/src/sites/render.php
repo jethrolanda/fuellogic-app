@@ -10,22 +10,43 @@
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+global $fla_theme;
+wp_interactivity_state(
+	'fuellogic-app',
+	array(
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'nonce'   => wp_create_nonce('site-nonce'),
+		'sites' => $fla_theme->sites->get_sites()
+	),
+);
 
-$context = array('isOpen' => false);
+
+error_log(print_r($fla_theme->sites->get_sites(), true));
+$context = array('selectedSite' => '');
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<ul>
+	<ul id="sites-list">
 		<li>
 			<i class="fa-solid fa-plus"></i>
-			<p>New Site</p>
+			<a data-wp-on--click="callbacks.openModal">New Site</a>
 			<i class="fa-solid fa-arrows-up-down"></i>
-			<i class="fa-solid fa-trash"></i>
+			<i class="fa-solid fa-trash" data-wp-on--click="actions.deleteSite"></i>
 		</li>
-		<li>
+		<template data-wp-each--site="state.sites">
+			<li data-wp-key="context.site.id" data-wp-on--click="callbacks.selectSite" data-wp-bind--id="context.site.id">
+				<i class="fa-solid fa-location-dot"></i>
+				<div>
+					<h3 data-wp-text="context.site.name"></h3>
+					<p data-wp-text="context.site.address"></p>
+				</div>
+				<i class="fa-solid fa-angle-right"></i>
+			</li>
+		</template>
+		<!-- <li>
 			<i class="fa-solid fa-location-dot"></i>
 			<div>
 				<h3>Houston Branch</h3>
@@ -88,7 +109,43 @@ $context = array('isOpen' => false);
 				<p>49 ABC Parkway Beloit, WI 53511...</p>
 			</div>
 			<i class="fa-solid fa-angle-right"></i>
-		</li>
+		</li> -->
 	</ul>
 
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" data-wp-on--click="callbacks.closeModal">&times;</span>
+
+			<form data-wp-on--submit="actions.submitForm">
+				<h2>Add new site</h2>
+				<div>
+					<label for="siteName">Site Name: </label>
+					<input type="text" id="siteName" name="siteName" required>
+				</div>
+				<div>
+					<label for="siteAddress">Site Address: </label>
+					<input type="text" id="siteAddress" name="siteAddress" required>
+				</div>
+				<div>
+					<label for="siteDeliverySchedule">Delivery Schedule: </label>
+					<input type="text" id="siteDeliverySchedule" name="siteDeliverySchedule" required>
+				</div>
+				<div>
+					<label for="siteDeliveryNotes">Delivery Notes: </label>
+					<input type="text" id="siteDeliveryNotes" name="siteDeliveryNotes" required>
+				</div>
+				<div>
+					<label for="siteImages">Site Images: </label>
+					<input type="text" id="siteImages" name="siteImages" required>
+				</div>
+				<div>
+					<button type="submit">Submit</button>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
 </div>

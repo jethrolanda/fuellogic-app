@@ -78,8 +78,6 @@ class Login
       $creds['remember'] = true;
       $user = wp_signon($creds, false);
 
-      error_log(print_r($user, true));
-
       if (is_wp_error($user)) {
         wp_send_json(array(
           'status' => 'error',
@@ -87,7 +85,6 @@ class Login
           'message' => $user->get_error_message()
         ));
       } else {
-        wp_set_auth_cookie($user, 0, 0);
         wp_send_json(array(
           'status' => 'success'
         ));
