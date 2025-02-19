@@ -1,14 +1,18 @@
 /**
  * WordPress dependencies
  */
-import { store, getContext, getElement } from "@wordpress/interactivity";
+import { store, getElement } from "@wordpress/interactivity";
 
 const { state } = store("fuellogic-app", {
+  state: {
+    get isSitesEmpty() {
+      return state.sites.length <= 0 ? true : false;
+    }
+  },
   actions: {
     *submitForm(e) {
       e.preventDefault();
 
-      const context = getContext();
       const { ref } = getElement();
 
       const formData = new FormData(ref);
@@ -23,13 +27,12 @@ const { state } = store("fuellogic-app", {
       state.sites = data.data;
     },
     *deleteSite() {
-      const context = getContext();
       var result = confirm("Are you sure?");
       if (result) {
         const formData = new FormData();
         formData.append("action", "delete_site");
         formData.append("nonce", state.nonce);
-        formData.append("id", context.selectedSite);
+        formData.append("id", state.selectedSiteId);
 
         const data = yield fetch(state.ajaxUrl, {
           method: "POST",
@@ -50,7 +53,6 @@ const { state } = store("fuellogic-app", {
       modal.style.display = "none";
     },
     selectSite: () => {
-      const context = getContext();
       const { ref } = getElement();
 
       let allLis = document.querySelectorAll("ul#sites-list li");
@@ -59,8 +61,24 @@ const { state } = store("fuellogic-app", {
         li.classList.remove("selected");
       });
 
-      context.selectedSite = ref.id;
       ref.classList.add("selected");
+      const selected = state.sites.filter(
+        (site) => parseInt(site.id) === parseInt(ref.id)
+      );
+      state.selectedSiteId = ref.id;
+      state.selectedSite = selected.length ? selected[0] : "";
+    },
+    sortSites: () => {
+      if (!state.sorted) {
+        state.sites = state.sites.sort((a, b) => {
+          return a?.name.localeCompare(b?.name);
+        });
+        state.sorted = true;
+        console.log(1);
+      } else {
+        console.log(2);
+        state.sites = state.sites.reverse();
+      }
     }
   }
 });

@@ -1,0 +1,143 @@
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/sites-address - Copy/style.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-fuellogic-app-sites {
+  /* The Modal (background) */
+}
+.wp-block-fuellogic-app-sites ul {
+  background-color: #1C1C1C;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 10px;
+}
+.wp-block-fuellogic-app-sites ul li {
+  list-style-type: none;
+  border-bottom: 1px solid #323030;
+  display: grid;
+  grid-template-columns: 50px auto 40px;
+}
+.wp-block-fuellogic-app-sites ul li:first-child {
+  display: grid;
+  padding: 20px 10px;
+  grid-template-columns: 50px auto 40px 40px;
+  color: #878787;
+}
+.wp-block-fuellogic-app-sites ul li:first-child .fa-plus {
+  justify-self: center;
+}
+.wp-block-fuellogic-app-sites ul li:first-child .fa-solid {
+  cursor: pointer;
+}
+.wp-block-fuellogic-app-sites ul li:not(:first-child) {
+  cursor: pointer;
+}
+.wp-block-fuellogic-app-sites ul li.selected {
+  background: #323030;
+  border-left: 4px solid #A2CD3A;
+}
+.wp-block-fuellogic-app-sites ul li:not(:first-child):hover {
+  background: #323030;
+  border-left: 4px solid #A2CD3A;
+}
+.wp-block-fuellogic-app-sites ul li:last-child {
+  border-bottom: none;
+}
+.wp-block-fuellogic-app-sites ul li div {
+  padding: 20px 10px;
+}
+.wp-block-fuellogic-app-sites ul li .fa-location-dot {
+  color: #FF8C57;
+  font-size: 26px;
+  padding: 20px;
+}
+.wp-block-fuellogic-app-sites ul li h3 {
+  color: #D9D9D9;
+  margin: 0px;
+  padding: 0px;
+}
+.wp-block-fuellogic-app-sites ul li p {
+  color: #878787;
+  font-size: 14px;
+  margin: 0px;
+  padding: 0px;
+  text-align: right;
+}
+.wp-block-fuellogic-app-sites ul li .fa-angle-right {
+  align-self: center;
+  color: #474747;
+  font-size: 30px;
+}
+.wp-block-fuellogic-app-sites .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  right: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  /* Modal Content */
+  /* The Close Button */
+}
+.wp-block-fuellogic-app-sites .modal .modal-content {
+  background-color: #444;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 1000px;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form div {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0px;
+  justify-content: flex-end;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form div input[type=text], .wp-block-fuellogic-app-sites .modal .modal-content form div select, .wp-block-fuellogic-app-sites .modal .modal-content form div textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form div label {
+  padding: 10px 0;
+  width: 25%;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form div button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+}
+.wp-block-fuellogic-app-sites .modal .modal-content form div button:hover {
+  background-color: #45a049;
+}
+.wp-block-fuellogic-app-sites .modal .close {
+  color: #aaaaaa;
+  float: left;
+  font-size: 28px;
+  font-weight: bold;
+}
+.wp-block-fuellogic-app-sites .modal .close:hover,
+.wp-block-fuellogic-app-sites .modal .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

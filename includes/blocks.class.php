@@ -62,12 +62,18 @@ class Blocks
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/signup');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/introduction');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/onboarding');
-    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/orders');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/invoices');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/loading');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/mobile-menu');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/desktop-menu');
+
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-address');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-delivery-images');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-delivery-notes');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-delivery-schedule');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-name');
   }
 
   public function register_new_category($categories)

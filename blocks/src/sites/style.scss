@@ -7,37 +7,55 @@
  
  .wp-block-fuellogic-app-sites {
 
-	ul{
+	div.controls{
 		background-color: #1C1C1C;
+		border-radius: 10px 10px 0px 0px;
+		display: grid;
+		padding: 20px 10px;
+		grid-template-columns: 50px auto 40px 40px;
+		align-items: center;
+		color: #878787;
+		.fa-plus{
+			justify-self: center;
+		}
+		.fa-solid{
+			cursor: pointer;
+		}
+		p{
+			font-size: 14px;
+			margin: 0px; 
+		}
+	}
+	ul#sites-list{
+		background-color: #1c1c1c;
 		padding: 0px;
 		margin: 0px;
-		border-radius: 10px;
+		border-radius: 0px 0px 10px 10px;
+		max-height: 900px;
+    overflow: auto;
+
+		&::-webkit-scrollbar{
+			width: 8px;
+		}
+		&::-webkit-scrollbar-track { 
+			/* color of the tracking area */
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: gray;  
+			border-radius: 4px;
+		}
 		li{
 			list-style-type: none;
 			border-bottom: 1px solid #323030;
 			display: grid;
 			grid-template-columns: 50px auto 40px;
+			cursor: pointer; 
 			
-			&:first-child{
-				display: grid;
-				padding: 20px 10px;
-				grid-template-columns: 50px auto 40px 40px;
-				color: #878787;
-				.fa-plus{
-					justify-self: center;
-				}
-				.fa-solid{
-					cursor: pointer;
-				}
-			}
-			&:not(:first-child){
-				cursor: pointer;
-			}
 			&.selected{
 				background: #323030;
 				border-right: 4px solid #A2CD3A;
 			}
-			&:not(:first-child):hover{
+			&:hover{
 				background: #323030;
 				border-right: 4px solid #A2CD3A;
 			}

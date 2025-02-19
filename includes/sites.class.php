@@ -35,6 +35,8 @@ class Sites
     add_action("wp_ajax_delete_site", array($this, 'delete_site'));
 
     add_action('add_meta_boxes', array($this, 'wpse_add_custom_meta_box_2'));
+
+    add_filter('manage_sites_posts_columns', array($this, 'cpt_author_column'));
   }
 
   /**
@@ -57,7 +59,6 @@ class Sites
    */
   public function add_site()
   {
-    error_log('was here');
 
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
       wp_die();
@@ -71,7 +72,6 @@ class Sites
     }
 
     try {
-      error_log(print_r($_POST, true));
 
       // Create post object
       $my_post = array(
@@ -199,7 +199,8 @@ class Sites
       'post_status' => 'publish',
       'numberposts' => -1,
       'author' => get_current_user_id(),
-      'fields' => 'ids'
+      'fields' => 'ids',
+      'order' => 'asc'
     ));
     $sites = array();
     if ($posts) {
@@ -213,5 +214,10 @@ class Sites
       }
     }
     return $sites;
+  }
+
+  public function cpt_author_column($columns)
+  {
+    return array_merge($columns, ['author' => __('Author', 'textdomain')]);
   }
 }

@@ -16,26 +16,30 @@ wp_interactivity_state(
 	array(
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 		'nonce'   => wp_create_nonce('site-nonce'),
-		'sites' => $fla_theme->sites->get_sites()
+		'sites' => $fla_theme->sites->get_sites(),
+		'selectedSiteId' => '',
+		'selectedSite' => '',
+		'sorted' => false
 	),
 );
 
 
-error_log(print_r($fla_theme->sites->get_sites(), true));
-$context = array('selectedSite' => '');
+$context = array();
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
+	<div class="controls">
+		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.openModal"></i>
+		<p>New Site</p>
+		<i class="fa-solid fa-arrows-up-down" data-wp-on--click="callbacks.sortSites"></i>
+		<i class="fa-solid fa-trash" data-wp-on--click="actions.deleteSite"></i>
+	</div>
+
 	<ul id="sites-list">
-		<li>
-			<i class="fa-solid fa-plus"></i>
-			<a data-wp-on--click="callbacks.openModal">New Site</a>
-			<i class="fa-solid fa-arrows-up-down"></i>
-			<i class="fa-solid fa-trash" data-wp-on--click="actions.deleteSite"></i>
-		</li>
+
 		<template data-wp-each--site="state.sites">
 			<li data-wp-key="context.site.id" data-wp-on--click="callbacks.selectSite" data-wp-bind--id="context.site.id">
 				<i class="fa-solid fa-location-dot"></i>
