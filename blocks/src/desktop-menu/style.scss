@@ -58,7 +58,7 @@
         font-size: 32px;
         margin-bottom: 10px;
       }
-      .fa-solid{ 
+      .fa-solid, svg{ 
         color: #878787;
       }
   
@@ -138,7 +138,7 @@
           border-bottom: none;
         }
         
-        i{
+        i, svg{
           width: 30px;
           height: 30px;
           font-size: 24px;
@@ -156,7 +156,7 @@
           & + li{
             border-top-right-radius: 25px;
           }
-          i{
+          i,svg{
             border-radius: 12px;
             background: #A2CD3A;
             color: #141414!important;

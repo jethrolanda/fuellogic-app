@@ -11,6 +11,16 @@
 	//  padding: 1em;
 	//  position: relative; 
 
+	.signup-message{
+		margin-bottom: 40px;
+		padding: 20px;
+		&.success{
+			border: 1px solid var(--wp--preset--color--custom-green);
+		}
+		&.error{
+			border: 1px solid red;
+		}
+	}
 	 button{
 		 background-color: var(--wp--preset--color--custom-green);
 		 border-radius: 10px;

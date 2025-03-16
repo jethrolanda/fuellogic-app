@@ -3,7 +3,7 @@
  */
 import { store, getContext, getElement } from "@wordpress/interactivity";
 
-const { state, callbacks } = store("fuellogic-app", {
+const { state } = store("fuellogic-app", {
   state: {
     get isMsgEmpty() {
       const context = getContext();
@@ -22,9 +22,6 @@ const { state, callbacks } = store("fuellogic-app", {
       formData.append("uname", context.uname);
       formData.append("pword", context.pword);
       formData.append("remember", context.remember);
-
-      // Optimistically update the state
-      context.inWishlist = true;
 
       const data = yield fetch(state.ajaxUrl, {
         method: "POST",

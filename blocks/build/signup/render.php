@@ -11,24 +11,38 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
-$context = array('isOpen' => false);
+global $fla_theme;
+wp_interactivity_state(
+	'fuellogic-app',
+	array(
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'nonce'   => wp_create_nonce('signup-nonce'),
+		'signup_redirect' => isset($attributes['loginRedirect']) ? get_permalink($attributes['loginRedirect']) : '',
+	),
+);
+
+$context = array('signup_msg' => '', 'status' => '');
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<form action="#">
-		<label for="has_account"><input type="checkbox" id="has_account" /> My company currently has an account</label>
-		<input type="text" placeholder="Company Name" />
-		<input type="text" placeholder="First Name" />
-		<input type="text" placeholder="Last Name" />
-		<input type="email" placeholder="Email Address" />
-		<input type="text" placeholder="Mobile Number" />
-		<input type="password" placeholder="Password" />
+	<div
+		class="signup-message"
+		data-wp-watch="callbacks.renderSignupMsg"
+		data-wp-class--error="state.isError"
+		data-wp-class--success="state.isSuccess"></div>
+	<form data-wp-on--submit="actions.submitForm">
+		<label for="has_account"><input type="checkbox" id="has_account" name="has_account" /> My company currently has an account</label>
+		<input type="text" placeholder="Company Name" name="company_name" required />
+		<input type="text" placeholder="First Name" name="first_name" required />
+		<input type="text" placeholder="Last Name" name="last_name" required />
+		<input type="email" placeholder="Email Address" name="email_address" required />
+		<input type="text" placeholder="Mobile Number" name="mobile_number" required />
+		<input type="password" placeholder="Password" name="password" required />
 		<div class="remember">
-
-			<label for="terms_conditions_agreement"><input type="checkbox" id="terms_conditions_agreement" /> I agree with <a href="#">Terms of Service</a></label>
+			<label for="terms_conditions_agreement"><input type="checkbox" id="terms_conditions_agreement" name="terms_of_service" required /> I agree with <a href="#">Terms of Service</a></label>
 		</div>
 		<button>SIGN UP</button>
 	</form>

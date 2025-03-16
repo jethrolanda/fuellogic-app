@@ -19,7 +19,8 @@ wp_interactivity_state(
 		'sites' => $fla_theme->sites->get_sites(),
 		'selectedSiteId' => '',
 		'selectedSite' => '',
-		'sorted' => false
+		'sorted' => false,
+		'action' => ''
 	),
 );
 
@@ -32,7 +33,7 @@ $context = array();
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
 	<div class="controls">
-		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.openModal"></i>
+		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.openModal" data-action="add-site"></i>
 		<p>New Site</p>
 		<i class="fa-solid fa-arrows-up-down" data-wp-on--click="callbacks.sortSites"></i>
 		<i class="fa-solid fa-trash" data-wp-on--click="actions.deleteSite"></i>
@@ -123,22 +124,22 @@ $context = array();
 			<span class="close" data-wp-on--click="callbacks.closeModal">&times;</span>
 
 			<form data-wp-on--submit="actions.submitForm">
-				<h2>Add new site</h2>
+				<h2 data-wp-text="state.modalHeading"></h2>
 				<div>
 					<label for="siteName">Site Name: </label>
-					<input type="text" id="siteName" name="siteName" required>
+					<input type="text" id="siteName" name="siteName" required data-wp-bind--value="state.siteName">
 				</div>
 				<div>
 					<label for="siteAddress">Site Address: </label>
-					<input type="text" id="siteAddress" name="siteAddress" required>
+					<input type="text" id="siteAddress" name="siteAddress" required data-wp-bind--value="state.siteAddress">
 				</div>
 				<div>
 					<label for="siteDeliverySchedule">Delivery Schedule: </label>
-					<input type="text" id="siteDeliverySchedule" name="siteDeliverySchedule" required>
+					<input type="text" id="siteDeliverySchedule" name="siteDeliverySchedule" required data-wp-bind--value="state.siteDeliverySchedule">
 				</div>
 				<div>
 					<label for="siteDeliveryNotes">Delivery Notes: </label>
-					<input type="text" id="siteDeliveryNotes" name="siteDeliveryNotes" required>
+					<input type="text" id="siteDeliveryNotes" name="siteDeliveryNotes" required data-wp-bind--value="state.siteDeliveryNotes">
 				</div>
 				<div>
 					<label for="siteImages">Site Images: </label>

@@ -8,6 +8,12 @@
   "icon": "media-interactive",
   "description": "An interactive block with the Interactivity API",
   "example": {},
+  "attributes": {
+    "loginRedirect": {
+      "type": "string",
+      "default": ""
+    }
+  },
   "supports": {
     "interactivity": true
   },

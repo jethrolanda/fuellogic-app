@@ -7,6 +7,33 @@ const { state } = store("fuellogic-app", {
   state: {
     get isSitesEmpty() {
       return state.sites.length <= 0 ? true : false;
+    },
+    get modalHeading() {
+      switch (state.action) {
+        case "add-site":
+          return "Add new site";
+        case "edit-site":
+          return "Edit site";
+
+        default:
+          return "Add new site";
+      }
+    },
+    get siteName() {
+      return state.action == "add-site" ? "" : state.selectedSite.name;
+    },
+    get siteAddress() {
+      return state.action == "add-site" ? "" : state.selectedSite.address;
+    },
+    get siteDeliverySchedule() {
+      return state.action == "add-site"
+        ? ""
+        : state.selectedSite.delivery_schedule;
+    },
+    get siteDeliveryNotes() {
+      return state.action == "add-site"
+        ? ""
+        : state.selectedSite.delivery_notes;
     }
   },
   actions: {
@@ -16,7 +43,10 @@ const { state } = store("fuellogic-app", {
       const { ref } = getElement();
 
       const formData = new FormData(ref);
-      formData.append("action", "add_site");
+      formData.append(
+        "action",
+        state.action == "add-site" ? "add_site" : "update_site"
+      );
       formData.append("nonce", state.nonce);
 
       const data = yield fetch(state.ajaxUrl, {
@@ -45,8 +75,12 @@ const { state } = store("fuellogic-app", {
   },
   callbacks: {
     openModal: () => {
+      const { ref } = getElement();
+      state.action = ref.dataset.action;
+
       var modal = document.getElementById("myModal");
       modal.style.display = "block";
+      console.log(state.selectedSite);
     },
     closeModal: () => {
       var modal = document.getElementById("myModal");
@@ -74,9 +108,7 @@ const { state } = store("fuellogic-app", {
           return a?.name.localeCompare(b?.name);
         });
         state.sorted = true;
-        console.log(1);
       } else {
-        console.log(2);
         state.sites = state.sites.reverse();
       }
     }

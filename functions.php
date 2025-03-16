@@ -11,13 +11,9 @@ class FLA_Theme
   public $login;
   public $cpt;
   public $sites;
-  // public $login;
-  // public $orders;
-  // public $metabox;
-  // public $register;
-  // public $ordercpt;
-  // public $user;
-  // public $hubspot;
+  public $signup;
+  public $email;
+  public $user;
 
   public function __construct()
   {
@@ -28,12 +24,9 @@ class FLA_Theme
     $this->login = new \FLA\Theme\Login();
     $this->cpt = new \FLA\Theme\Cpt();
     $this->sites = new \FLA\Theme\Sites();
-    // $this->orders = new \FLA\Theme\Orders();
-    // $this->metabox = new \FLA\Theme\MetaBox();
-    // $this->register = new \FLA\Theme\Register();
-    // $this->ordercpt = new \FLA\Theme\OrdersCPT();
-    // $this->hubspot = new \FLA\Theme\Hubspot();
-    // $this->user = new \FLA\Theme\User(array('Hubspot' => $this->hubspot));
+    $this->signup = new \FLA\Theme\Signup();
+    $this->email = new \FLA\Theme\Email();
+    $this->user = new \FLA\Theme\User();
 
     /*---EXTRAS ---*/
 

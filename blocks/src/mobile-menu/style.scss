@@ -37,12 +37,12 @@
       display: flex;
       flex-direction: column;
 
-      .fa-close{
+      .fa-close,.fa-xmark{
         align-self: end;
         font-size: 32px;
         margin-bottom: 10px;
       }
-      .fa-solid{ 
+      .fa-solid,svg{ 
         color: #878787;
       }
   
@@ -78,7 +78,7 @@
           border-bottom: none;
         }
         a{ text-decoration: none;}
-        i{
+        i,svg{
           width: 30px;
           height: 30px;
           padding: 6px;
@@ -86,13 +86,15 @@
           text-align: center;
         }
 
-        &.selected i{
-          border-radius: 12px;
-          background: #A2CD3A;
-          color: #141414!important;
-          padding: 6px;
-          align-content: center; 
-          text-align: center;
+        &.selected {
+          i,svg{
+            border-radius: 12px;
+            background: #A2CD3A;
+            color: #141414!important;
+            padding: 6px;
+            align-content: center; 
+            text-align: center;
+          }
         }
       }
     }

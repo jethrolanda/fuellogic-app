@@ -32,6 +32,8 @@ class Sites
   {
     add_action("wp_ajax_add_site", array($this, 'add_site'));
 
+    add_action("wp_ajax_update_site", array($this, 'update_site'));
+
     add_action("wp_ajax_delete_site", array($this, 'delete_site'));
 
     add_action('add_meta_boxes', array($this, 'wpse_add_custom_meta_box_2'));
@@ -58,6 +60,63 @@ class Sites
    * @since 1.0
    */
   public function add_site()
+  {
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+    /**
+     * Verify nonce
+     */
+    if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'site-nonce')) {
+      wp_die();
+    }
+
+    try {
+
+      // Create post object
+      $my_post = array(
+        'post_title'    => sanitize_text_field($_POST['siteName']),
+        'post_status'   => 'publish',
+        'post_type'     => 'sites'
+      );
+
+      // Insert the post into the database
+      $post_id = wp_insert_post($my_post);
+
+      if (!is_wp_error($post_id)) {
+
+        update_post_meta($post_id, '_site_address', sanitize_text_field($_POST['siteAddress']));
+        update_post_meta($post_id, '_site_delivery_schedule', sanitize_text_field($_POST['siteDeliverySchedule']));
+        update_post_meta($post_id, '_site_delivery_notes', sanitize_text_field($_POST['siteDeliveryNotes']));
+        update_post_meta($post_id, '_site_images', sanitize_text_field($_POST['siteImages']));
+
+        wp_send_json(array(
+          'status' => 'success',
+          'data' => $this->get_sites()
+        ));
+      } else {
+        wp_send_json(array(
+          'status' => 'error',
+          'message' => $post_id->get_error_message()
+        ));
+      }
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
+  /**
+   * Update site
+   * 
+   * @since 1.0
+   */
+  public function update_site()
   {
 
     if (!defined('DOING_AJAX') || !DOING_AJAX) {

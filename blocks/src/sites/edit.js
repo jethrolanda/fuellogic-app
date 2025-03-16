@@ -30,13 +30,13 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <div {...blockProps}>
-      <ul>
-        <li>
-          <i class="fa-solid fa-plus"></i>
-          <p>New Site</p>
-          <i class="fa-solid fa-arrows-up-down"></i>
-          <i class="fa-solid fa-trash"></i>
-        </li>
+      <div class="controls">
+        <i class="fa-solid fa-plus"></i>
+        <p>New Site</p>
+        <i class="fa-solid fa-arrows-up-down"></i>
+        <i class="fa-solid fa-trash"></i>
+      </div>
+      <ul id="sites-list">
         <li>
           <i class="fa-solid fa-location-dot"></i>
           <div>
