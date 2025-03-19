@@ -68,6 +68,7 @@ class Blocks
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/mobile-menu');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/desktop-menu');
 
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/site-add');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/site-edit');
 
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites');

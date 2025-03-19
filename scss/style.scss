@@ -1,4 +1,7 @@
- 
+@import "colors.scss";
+@import "forms.scss";
+@import "login.scss";
+
 .loading-screen{
 	&::before{ 
     content: "";
@@ -154,4 +157,7 @@
 		padding-top: 20px!important;
 	}
 }
-
+ 
+.gray{
+	color: $gray;
+}

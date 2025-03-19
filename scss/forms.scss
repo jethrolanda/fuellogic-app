@@ -1,0 +1,65 @@
+
+hr{
+	border: 1px solid $dark;
+}
+
+.checkbox{
+	display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 18px;
+	display: flex;
+	align-items: center;
+	height: 24px;
+
+	input:checked ~ .checkmark:after {
+		display: block;
+	}
+
+	input[type="checkbox"]{  
+		height: 0;
+		width: 0; 
+		&:checked ~ .checkmark {
+			// background-color: #A2CD3A;
+		}
+	}
+	.checkmark{
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		width: 20px;
+		border: 2px solid $gray2;
+		background-color: $darker;
+		border-radius: 4px;
+
+		&:after {
+			top: 3px;
+			width: 14px;
+			height: 14px;
+			left: 3px;
+			background: $green;
+			content: "";
+			position: absolute;
+			display: none;
+		}
+	}
+}
+
+.wp-block-fuellogic-app-site-add{
+	button{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    color: #141414;
+    background: $gray;
+    font-size: 22px;
+    font-family: Lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+		border: none;
+		padding: 22px;
+  }
+}

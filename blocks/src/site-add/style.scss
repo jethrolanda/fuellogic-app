@@ -1,0 +1,75 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ 
+.wp-block-fuellogic-app-site-add {
+  display: flex;
+  flex-direction: column; 
+
+  .heading{
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    margin-bottom: 30px;
+    & > div:first-child{
+      padding: 8px 18px;
+    }
+    .fa-location-dot{
+      color: #FF8C57;
+      font-size: 32px;
+    }
+  }
+  .steps-wrapper{
+    border-radius: 25px 25px 0px 0px;
+    background: #1C1C1C;
+    padding-bottom: 80px;
+  }
+  .form-wrapper{
+    padding: 0px 30px;
+  }
+  h1, h3{
+    margin: 0px;
+  }
+  label{
+    font-size: 18px;
+
+    &.small{
+      font-size: 14px;
+    }
+  }
+  small{
+    color: #878787;
+    font-size: 12px;
+
+    &.description{
+      font-size: 14px;
+    }
+  } 
+  ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 10px;
+    margin: 30px;
+    padding: 0px;
+    justify-content: space-between;
+    li{
+      padding: 10px;
+      color: #474747;
+      border-bottom: 6px solid #474747;
+      &.active{
+        color: #A2CD3A;
+        border-bottom: 6px solid #A2CD3A;
+      }
+    }
+  }
+
+  .site-details div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 0px;
+  }
+}
