@@ -23,7 +23,7 @@ $context = array();
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<a href="http://localhost:8004/site-locations/"><i class="fa-solid fa-angle-left" style="background: #1C1C1C;
+	<a href="<?php echo isset($attributes['backPage']) && !empty($attributes['backPage']) ? get_permalink($attributes['backPage']) : site_url();  ?>"><i class="fa-solid fa-angle-left" style="background: #1C1C1C;
     padding: 10px 15px;
     border-radius: 10px; color: #fff;"></i></a>
 </div>

@@ -77,6 +77,8 @@ class Blocks
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-delivery-notes');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-delivery-schedule');
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-name');
+
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/back-button');
   }
 
   public function register_new_category($categories)

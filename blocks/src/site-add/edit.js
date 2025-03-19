@@ -40,25 +40,6 @@ export default function Edit(props) {
   function onChangeBtnText(btnText) {
     setAttributes({ btnText });
   }
-  console.log(props);
-  return (
-    <div {...blockProps}>
-      <BlockControls group="block">
-        {blockEditingMode === "default" && (
-          <AlignmentControl
-            value={textAlign}
-            onChange={(nextAlign) => {
-              setAttributes({ textAlign: nextAlign });
-            }}
-          />
-        )}
-      </BlockControls>
-      <RichText
-        key="editable"
-        onChange={onChangeBtnText}
-        value={btnText}
-        placeholder="EDIT SITE"
-      />
-    </div>
-  );
+
+  return <div {...blockProps}>Add Site Form</div>;
 }

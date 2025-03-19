@@ -1,5 +1,4 @@
-import { store as coreDataStore } from "@wordpress/core-data";
-import { useSelect } from "@wordpress/data";
+import { usePages } from "../helpers";
 import {
   PanelBody,
   SelectControl,
@@ -30,25 +29,6 @@ import {
   useBlockProps,
   BlockControls
 } from "@wordpress/block-editor";
-
-function usePages(props) {
-  const { pages, hasResolved } = useSelect(
-    (select) => {
-      const selectorArgs = ["postType", "page", { per_page: -1 }];
-
-      return {
-        pages: select(coreDataStore).getEntityRecords(...selectorArgs),
-        hasResolved: select(coreDataStore).hasFinishedResolution(
-          "getEntityRecords",
-          selectorArgs
-        )
-      };
-    },
-    [props]
-  );
-
-  return { pages, hasResolved };
-}
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -102,7 +82,7 @@ export default function Edit(props) {
             </>
           ) : (
             <div style={{ marginBottom: "10px" }}>
-              Loading Patterns
+              Loading Pages
               <Spinner />
             </div>
           )}

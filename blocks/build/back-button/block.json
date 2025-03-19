@@ -8,6 +8,22 @@
   "icon": "media-interactive",
   "description": "An interactive block with the Interactivity API",
   "example": {},
+  "attributes": {
+    "data": {
+      "type": "array",
+      "default": [
+        ""
+      ]
+    },
+    "editMode": {
+      "type": "boolean",
+      "default": true
+    },
+    "backPage": {
+      "type": "string",
+      "default": ""
+    }
+  },
   "supports": {
     "splitting": true,
     "anchor": true,
