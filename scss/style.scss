@@ -1,6 +1,8 @@
 @import "colors.scss";
 @import "forms.scss";
 @import "login.scss";
+@import "media-query.scss";
+@import "antd-override.scss";
 
 .loading-screen{
 	&::before{ 
@@ -160,4 +162,14 @@
  
 .gray{
 	color: $gray;
+}
+
+.space-between{
+	justify-content: space-between;
+}
+
+.input-number{
+	width: 30px;
+	height: 10px;
+	text-align: center;
 }

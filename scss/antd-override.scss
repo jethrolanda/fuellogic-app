@@ -1,0 +1,19 @@
+.ant-picker-calendar.ant-picker-calendar-full {
+
+  .ant-picker-calendar-date-content{
+    height: 20px;
+  }
+
+  .ant-select-item-option-content{
+    color: $darker
+  }
+}
+
+#file-uploader {
+  .ant-upload-select{
+    display: block;
+    button{
+      width: 100%;
+    }
+  }
+}

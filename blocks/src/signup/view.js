@@ -12,6 +12,10 @@ const { state } = store("fuellogic-app", {
     get isSuccess() {
       const context = getContext();
       return context.status === "success";
+    },
+    get hasMessage() {
+      const context = getContext();
+      return context.signup_msg !== "";
     }
   },
   actions: {
@@ -20,7 +24,7 @@ const { state } = store("fuellogic-app", {
       const { ref } = getElement();
       const context = getContext();
       const formData = new FormData(ref);
-      console.log(formData);
+
       formData.append("action", "fla_signup");
       formData.append("nonce", state.nonce);
 

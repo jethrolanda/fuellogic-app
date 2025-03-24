@@ -31,7 +31,7 @@ $context = array(
 			<div class="slider slide-<?php echo $index; ?> <?php echo $index === 0 ? 'active' : '' ?>">
 				<i class="icon <?php echo $item['fa_class']; ?>"></i>
 				<h1><?php echo $item['heading']; ?></h1>
-				<p><?php echo $item['excerpt']; ?></p>
+				<p><?php echo !empty($item['excerpt']) ? $item['excerpt'] : ''; ?></p>
 			</div>
 
 		<?php } ?>

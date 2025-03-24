@@ -1,10 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { store, getElement } from "@wordpress/interactivity";
+import { store, getElement, useEffect } from "@wordpress/interactivity";
 
 const { state } = store("fuellogic-app", {
   state: {
+    get hideSetupSite() {
+      return state.sites.length > 0 ? "hidden" : "block";
+    },
     get isSitesEmpty() {
       return state.sites.length <= 0 ? true : false;
     },
@@ -111,6 +114,21 @@ const { state } = store("fuellogic-app", {
       } else {
         state.sites = state.sites.reverse();
       }
+    },
+    hideIfNotEmpty: () => {
+      useEffect(() => {
+        const { ref } = getElement();
+        if (state.sites.length > 0) {
+          ref.style.display = "none";
+        } else {
+          ref.style.display = "block";
+        }
+      }, [state.sites]);
+    },
+    adjustSiteHeight: () => {
+      var el = document.getElementById("sites-list");
+      var space = window.innerHeight - el.offsetTop;
+      el.style.height = space + "px";
     }
   }
 });

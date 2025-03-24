@@ -45,12 +45,12 @@ $context = array(
 			<li data-wp-on--click="callbacks.navigate" data-step="4"><i class="fa-solid fa-calendar-days"></i></li>
 			<li data-wp-on--click="callbacks.navigate" data-step="5"><i class="fa-solid fa-file"></i></li>
 			<li data-wp-on--click="callbacks.navigate" data-step="6"><i class="fa-solid fa-credit-card"></i></li>
-			<li data-wp-on--click="callbacks.navigate" data-step="7"><i class="fa-solid fa-list-check"></i></li>
 		</ul>
 
-		<form action="">
+		<form action="" data-wp-on--submit="actions.submitForm" data-wp-on--change="callbacks.onFormUpdate">
 			<div class="form-wrapper">
-				<div class="step-content site-details" data-step="1">
+				<!-- SITE DETAILS -->
+				<div class="step-content step-1" data-step="1">
 					<div>
 						<h3>Site Details</h3>
 						<small>SITE NAME / ADDRESS / CONTACT</small>
@@ -69,7 +69,11 @@ $context = array(
 					<hr>
 					<div>
 						<label>Site Contact</label>
-						<label class="checkbox small" for="official_site_contact"><input type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I am the official site contact</label>
+						<label class="checkbox small" for="official_site_contact">
+							<span class="label">
+								<input type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I am the official site contact
+							</span>
+						</label>
 
 						<label class="small gray" for="site_contact_first_name">Site Contact First Name</label>
 						<input type="text" id="site_contact_first_name" name="site_contact_first_name">
@@ -82,52 +86,213 @@ $context = array(
 					</div>
 
 				</div>
-				<div class="step-content site-details" data-step="2">
+				<!-- END SITE DETAILS -->
+				<!-- FUEL TYPE -->
+				<div class="step-content step-2" data-step="2" hidden="true">
 					<div>
 						<h3>Site Fuel Type</h3>
 						<small>SITE FUEL TYPE & QUANTITY</small>
 					</div>
 					<div>
-						<label for="">What kind of fuel are you needing?</label>
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> On-Road Clear Diesel (trucks)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> GAS - Unleaded Gasoline
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Off-Road - Dyed Diesel (Generators etc)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> DEF - Diesel Exhaust Fluid
+						<label>What kind of fuel are you needing?</label>
+						<div>
+							<label for="diesel" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="diesel" name="diesel"><span class="checkmark"></span> On-Road Clear Diesel (trucks)
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="gas" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="gas" name="gas"><span class="checkmark"></span> GAS - Unleaded Gasoline
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="dyed_diesel" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="dyed_diesel" name="dyed_diesel"><span class="checkmark"></span> Off-Road - Dyed Diesel (Generators etc)
+								</span>
+								<input type="number" class="input-number space-between">
+							</label>
+							<label for="def" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="def" name="def"><span class="checkmark"></span> DEF - Diesel Exhaust Fluid
+								</span>
+								<input type="number" class="input-number">
+							</label>
+						</div>
+
 					</div>
 				</div>
-				<div class="step-content site-details" data-step="3">
+				<!-- END FUEL TYPE -->
+				<!-- EQUIPMENT TYPE -->
+				<div class="step-content step-3" data-step="3" hidden="true">
 					<div>
-						<h3>Equipment</h3>
-						<small>SITE FUEL TYPE & QUANTITY</small>
+						<h3>Site Equipment</h3>
+						<small>EQUIPMENT TYPE & QUANTITY</small>
 					</div>
 					<div>
-						<label for="">What kind of equipment are we fueling?</label>
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Vehicles (Day Cabs, Box Trucks, Small Trucks)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Construction Equipment (Yellow Iron, Generators)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Building Generators
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Reefer (Refrigerated Trailers)
-						<input type="checkbox" id="site_fuel_type" name="site_fuel_type"> Other
+						<label>What kind of equipment are we fueling?</label>
+						<div>
+							<label for="vehicles" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="vehicles" name="vehicles"><span class="checkmark"></span> Vehicles (Day Cabs, Box Trucks, Small Trucks)
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="bulk_tank" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="bulk_tank" name="bulk_tank"><span class="checkmark"></span> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="construction_equipment" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="construction_equipment" name="construction_equipment"><span class="checkmark"></span> Construction Equipment (Yellow Iron, Generators)
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="generators" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="generators" name="generators"><span class="checkmark"></span> Building Generators
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="reefer" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="reefer" name="reefer"><span class="checkmark"></span> Reefer (Refrigerated Trailers)
+								</span>
+								<input type="number" class="input-number">
+							</label>
+							<label for="reefer" class="checkbox small space-between">
+								<span class="label">
+									<input type="checkbox" id="site_fuel_type" name="site_fuel_type"><span class="checkmark"></span> Other
+								</span>
+								<input type="number" class="input-number">
+							</label>
+						</div>
+
 					</div>
 				</div>
-				<div class="step-content site-details" data-step="4">
+				<!-- END EQUIPMENT TYPE -->
+				<!-- SCHEDULE -->
+				<div class="step-content step-4" data-step="4" hidden="true">
 					<div>
-						<h3>Schedule</h3>
-						<small>SITE FUEL TYPE & QUANTITY</small>
+						<h3>Site Schedule</h3>
+						<small>SCHEDULE</small>
+					</div>
+					<div>
+						<label class="text-center">Is this a one time delivery?</label>
+						<div class="custom-radio-wrapper">
+							<label class="custom-radio" for="yes">Yes
+								<input type="radio" id="yes" name="one_time_delivery" value="yes">
+								<span class="checkmark"></span>
+							</label>
+							<label class="custom-radio" for="no">No
+								<input type="radio" id="no" name="one_time_delivery" value="no">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+					</div>
+					<div class="delivery-schedule-wrapper" style="display: none;">
+						<div class="option2">
+							<label>What is your preferred delivery days?</label>
+							<div class="delivery-days-wrapper">
+								<label class="checkbox small" for="mon">
+									<span class="label">
+										<input type="checkbox" id="mon" name="mon"><span class="checkmark"></span>Mon
+									</span>
+								</label>
+								<label class="checkbox small" for="tues">
+									<span class="label">
+										<input type="checkbox" id="tues" name="tues"><span class="checkmark"></span>Tues
+									</span>
+								</label>
+								<label class="checkbox small" for="wed">
+									<span class="label">
+										<input type="checkbox" id="wed" name="wed"><span class="checkmark"></span>Wed
+									</span>
+								</label>
+								<label class="checkbox small" for="thu">
+									<span class="label">
+										<input type="checkbox" id="thu" name="thu"><span class="checkmark"></span>Thu
+									</span>
+								</label>
+								<label class="checkbox small" for="fri">
+									<span class="label">
+										<input type="checkbox" id="fri" name="fri"><span class="checkmark"></span>Fri
+									</span>
+								</label>
+								<label class="checkbox small" for="sat">
+									<span class="label">
+										<input type="checkbox" id="sat" name="sat"><span class="checkmark"></span>Sat
+									</span>
+								</label>
+								<label class="checkbox small" for="sun">
+									<span class="label">
+										<input type="checkbox" id="sun" name="sun"><span class="checkmark"></span>Sun
+									</span>
+								</label>
+							</div>
+
+						</div>
+
+						<div class="option1 option2">
+							<label for="delivery_date">Delivery date</label>
+							<input type="text" id="delivery_date" name="delivery_date" disabled>
+						</div>
+						<div id="react-calendar" class="option1 option2"></div>
+						<div class="option1 option2">
+							<label for="delivery_window">Delivery window(4-hour minimum)</label>
+							<input type="text" id="delivery_window" name="delivery_window" placeholder="10am-2pm">
+							<small class="description">When are we able to access the equipment?</small>
+						</div>
+					</div>
+
+				</div>
+				<!-- END SCHEDULE-->
+				<!-- SITE NOTES -->
+				<div class="step-content step-5" data-step="5" hidden="true">
+					<div>
+						<h3>Site Notes</h3>
+						<small>NOTES</small>
+					</div>
+					<div>
+						<label>What do we need to know about this site? Is the yard locked? Is there a combination? Where is the equipment parked, etc…</label>
+					</div>
+					<div>
+						<textarea name="" id="" rows="4"></textarea>
+					</div>
+					<div id="file-uploader"></div>
+				</div>
+				<!-- END SITE NOTES-->
+				<!-- PAYMENT DETAILS -->
+				<div class="step-content step-6" data-step="6" hidden="true">
+					<div>
+						<h3>Site Payment</h3>
+						<small>PAYMENT</small>
+					</div>
+					<div>
+						<label class="custom-radio" for="payment_on_file">Use payment on file
+							<input type="radio" id="payment_on_file" name="payment_method" value="payment_on_file">
+							<span class="checkmark"></span>
+							<br /><small class="description">Select this method if you want to use the card on file</small>
+						</label>
+						<label class="custom-radio" for="pre_authorization">Send a pre-authorization form via email
+							<input type="radio" id="pre_authorization" name="payment_method" value="pre_authorization">
+							<span class="checkmark"></span>
+							<br /><small class="description">Select this method to use a new credit card.</small>
+						</label>
+					</div>
+					<div>
+						<label for="pre_authorization_email">Send Pre-authorization form to this email</label>
+						<input type="text" id="pre_authorization_email" name="pre_authorization_email">
 					</div>
 				</div>
-				<div class="step-content site-details" data-step="5">
-					step 5
-				</div>
-				<div class="step-content site-details" data-step="6">
-					step 6
-				</div>
-				<div class="step-content site-details" data-step="7">
-					step 7
-				</div>
+				<!-- END PAYMENT DETAILS -->
 			</div>
 
-			<button>INCOMPLETE</button>
+			<button id="submit-button">INCOMPLETE</button>
 		</form>
 	</div>
 

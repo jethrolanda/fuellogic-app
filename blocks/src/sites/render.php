@@ -24,13 +24,13 @@ wp_interactivity_state(
 	),
 );
 
-
 $context = array();
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
+	data-wp-run="callbacks.adjustSiteHeight"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
 	<div class="controls">
 		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.openModal" data-action="add-site"></i>
@@ -42,7 +42,7 @@ $context = array();
 	<ul id="sites-list">
 
 		<template data-wp-each--site="state.sites">
-			<li data-wp-key="context.site.id" data-wp-on--click="callbacks.selectSite" data-wp-bind--id="context.site.id">
+			<li class="item" data-wp-key="context.site.id" data-wp-on--click="callbacks.selectSite" data-wp-bind--id="context.site.id">
 				<i class="fa-solid fa-location-dot"></i>
 				<div>
 					<h3 data-wp-text="context.site.name"></h3>
@@ -51,6 +51,11 @@ $context = array();
 				<i class="fa-solid fa-angle-right"></i>
 			</li>
 		</template>
+		<li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
+			<i class="fa-solid fa-location-dot"></i>
+			<p>A Site is a location where you will receive fuel deliveries. C'mon, let's get your first site set up!</p>
+			<a href="http://localhost:8004/add-new-site/"><i class="fa-solid fa-plus"></i> SET UP YOUR SITE</a>
+		</li>
 		<!-- <li>
 			<i class="fa-solid fa-location-dot"></i>
 			<div>

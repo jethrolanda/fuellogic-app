@@ -32,13 +32,7 @@
   h1, h3{
     margin: 0px;
   }
-  label{
-    font-size: 18px;
-
-    &.small{
-      font-size: 14px;
-    }
-  }
+  
   small{
     color: #878787;
     font-size: 12px;
@@ -46,6 +40,7 @@
     &.description{
       font-size: 14px;
     }
+    
   } 
   ul{
     display: flex;
@@ -66,10 +61,27 @@
     }
   }
 
-  .site-details div{
+ 
+  .step-content, .delivery-schedule-wrapper {
+    & > div{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px 0px;
+    }
+    &.step-2, &.step-3{
+      div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0px;
+      }
+    } 
+  } 
+  .delivery-days-wrapper{
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px 0px;
+    flex-direction: row;
+    gap: 0px 30px;
+    flex-wrap: wrap;
   }
 }

@@ -69,6 +69,26 @@ class Scripts
   {
     wp_enqueue_style('dashicons');
     wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css', array());
+
+    // Antd Calendar
+    $asset_file = FLA_JS_ROOT_DIR . 'react-calendar/build/index.asset.php';
+
+    if (file_exists($asset_file)) {
+      $asset = include $asset_file;
+      wp_enqueue_script('fla-react-calendar-js', FLA_JS_ROOT_URL . 'react-calendar/build/index.js', $asset['dependencies'], $asset['version'], true);
+      // wp_enqueue_style('fla-react-calendar-css', FLA_JS_ROOT_URL . 'react-calendar/build/index.css');
+    }
+
+    // Antd File uploader
+    $asset_file = FLA_JS_ROOT_DIR . 'file-uploader/build/index.asset.php';
+
+    if (file_exists($asset_file)) {
+      $asset = include $asset_file;
+      wp_enqueue_script('fla-file-uploader-js', FLA_JS_ROOT_URL . 'file-uploader/build/index.js', $asset['dependencies'], $asset['version'], true);
+      wp_localize_script('fla-file-uploader-js', 'fuel_logic_app', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+      ));
+    }
   }
 
   function my_theme_editor_styles()
