@@ -75,6 +75,10 @@ label{
 		border: none;
 		padding: 22px;
 		z-index: 99;
+
+		&.next{
+			background: $green;
+		}
   }
 }
 
@@ -150,4 +154,18 @@ label{
 // End Custom Radio Button
 
 #react-calendar{ 
+}
+
+span.search-address{
+	position: relative;
+	display: flex;
+	#site_delivery_address{
+		width: 100%;
+		padding-right: 40px;
+	}
+	.fa-search{
+		position: absolute;
+		right: 16px;
+		top: 16px;
+	}
 }

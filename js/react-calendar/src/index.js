@@ -5,6 +5,10 @@ const App = () => {
   const onChange = (date) => {
     // delivery_date
     document.getElementById("delivery_date").value = date?.format("MM/DD/YYYY");
+    var event = new Event("change");
+
+    // Dispatch it.
+    document.getElementById("site-form").dispatchEvent(event);
   };
   return (
     <ConfigProvider

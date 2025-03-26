@@ -3,7 +3,10 @@ form{
 	flex-direction: column;
 	gap: 20px;
 
-	input, textarea{
+	.input-text{
+		height: 21px;
+	}
+	input, textarea, .input-text{
 		background: $dark;
 		border-radius: 12px;
 		border: none;

@@ -87,6 +87,7 @@ class Scripts
       wp_enqueue_script('fla-file-uploader-js', FLA_JS_ROOT_URL . 'file-uploader/build/index.js', $asset['dependencies'], $asset['version'], true);
       wp_localize_script('fla-file-uploader-js', 'fuel_logic_app', array(
         'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('wp_rest'),
       ));
     }
   }

@@ -30,10 +30,11 @@ class Ajax
    */
   public function __construct()
   {
+    add_action('wp_ajax_form_add_note_image', array($this, 'form_add_note_image'));
 
-    add_action("wp_ajax_pwfw_add_to_wishlist", array($this, 'pwfw_add_to_wishlist'));
+    add_action('wp_ajax_form_remove_note_image', array($this, 'form_remove_note_image'));
 
-    add_action("wp_ajax_pwfw_remove_to_wishlist", array($this, 'pwfw_remove_to_wishlist'));
+    add_action('wp_ajax_create_site', array($this, 'create_site'));
   }
 
   /**
@@ -50,96 +51,85 @@ class Ajax
   }
 
   /**
-   * Add to wishlist
-   * 
+   * Upload images. STEP 5: DELIVERY NOTES
+   *  
+   * @return object WP JSON
+   * @access public
    * @since 1.0
    */
-  public function pwfw_add_to_wishlist()
+  public function form_add_note_image()
   {
+
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
 
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
       wp_die();
     }
 
-    /**
-     * Verify nonce
-     */
-    if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'wishlist_nonce')) {
-      wp_die();
-    }
+    if (!function_exists('wp_handle_upload'))
+      require_once(ABSPATH . 'wp-admin/includes/file.php');
 
-    try {
-      $wishlist = get_user_meta(get_current_user_id(), '_pwfw_wishlist', true);
-      $wishlist = empty($wishlist) ? array() : $wishlist;
-      $product_id = isset($_POST['productId']) ?  $_POST['productId']  : 0;
+    $uploaded_file = $_FILES['file'];
+    $temp = explode('.', $uploaded_file['name']);
+    $ext = end($temp);
 
-      if ($product_id > 0 && !in_array($product_id, $wishlist)) {
-        array_push($wishlist, $product_id);
-        update_user_meta(get_current_user_id(), '_pwfw_wishlist', $wishlist);
-        wp_send_json(array(
-          'status' => 'success',
-          'wishlist' => $wishlist
-        ));
-      } else {
-        wp_send_json(array(
-          'status' => 'error',
-          'wishlist' => $wishlist
-        ));
-      }
-    } catch (\Exception $e) {
+    // Generate unique number and add to filename
+    $uploaded_file['name'] = str_replace('.' . $ext, '', $uploaded_file['name']) . '-' . time() . '.' . $ext;
 
+    $upload_overrides = array(
+      'test_form'   => false,   // Turn off to avoid 'Invalid form submission.'
+      'test_type' => false   // Bypass mime type check so we can avoid doing upload_mimes filter.
+    );
+
+    // Perform file upload
+    $file = wp_handle_upload($uploaded_file, $upload_overrides);
+
+    if ($file && !isset($file['error'])) {
       wp_send_json(array(
-        'status' => 'error',
-        'message' => $e->getMessage()
+        'status' => 'success',
+        'file' => $file
+      ));
+    } else {
+      wp_send_json(array(
+        'status' => 'fail',
+        'message' => $file['error'],
+        'file' => $file,
       ));
     }
   }
 
   /**
-   * Remove from wishlist
-   * 
+   * Upload images. STEP 5: DELIVERY NOTES
+   *  
+   * @return object WP JSON
+   * @access public
    * @since 1.0
    */
-  public function pwfw_remove_to_wishlist()
+  public function form_remove_note_image()
   {
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
 
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
       wp_die();
     }
+    error_log(print_r($_POST, true));
+    error_log(print_r(json_decode($_POST['file'], true), true));
+  }
 
-    /**
-     * Verify nonce
-     */
-    if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'wishlist_nonce')) {
+  public function create_site()
+  {
+    if (get_current_user_id() == 0) {
       wp_die();
     }
 
-    try {
-      $wishlist = get_user_meta(get_current_user_id(), '_pwfw_wishlist', true);
-      $wishlist = empty($wishlist) ? array() : $wishlist;
-      $product_id = isset($_POST['productId']) ?  $_POST['productId']  : 0;
-
-      $key = array_search($product_id, $wishlist);
-
-      if ($product_id > 0 && $key >= 0) {
-        unset($wishlist[$key]);
-        update_user_meta(get_current_user_id(), '_pwfw_wishlist', $wishlist);
-        wp_send_json(array(
-          'status' => 'success',
-          'wishlist' => $wishlist
-        ));
-      } else {
-        wp_send_json(array(
-          'status' => 'error',
-          'wishlist' => $wishlist
-        ));
-      }
-    } catch (\Exception $e) {
-
-      wp_send_json(array(
-        'status' => 'error',
-        'message' => $e->getMessage()
-      ));
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
     }
+    error_log(print_r($_POST, true));
+    error_log(print_r(json_decode($_POST['file'], true), true));
   }
 }

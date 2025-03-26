@@ -18,6 +18,8 @@ wp_interactivity_state(
 
 $context = array(
 	'currentStep' => 1,
+	'formData'	=> '',
+	'submitBtnStatus' => array()
 );
 
 ?>
@@ -33,7 +35,7 @@ $context = array(
 			<i class="fa-solid fa-location-dot"></i>
 		</div>
 		<div>
-			<h1>My Site</h1>
+			<h1 data-wp-text="state.siteName">My Site</h1>
 			<small><i class="fa-solid fa-gear"></i> &nbsp;SITE SETTINGS</small>
 		</div>
 	</div>
@@ -47,7 +49,7 @@ $context = array(
 			<li data-wp-on--click="callbacks.navigate" data-step="6"><i class="fa-solid fa-credit-card"></i></li>
 		</ul>
 
-		<form action="" data-wp-on--submit="actions.submitForm" data-wp-on--change="callbacks.onFormUpdate">
+		<form id="site-form" name="site-form" data-wp-on--submit="actions.submitForm" data-wp-on--change="callbacks.onFormUpdate">
 			<div class="form-wrapper">
 				<!-- SITE DETAILS -->
 				<div class="step-content step-1" data-step="1">
@@ -64,7 +66,11 @@ $context = array(
 					<hr>
 					<div>
 						<label for="site_delivery_address">Site Delivery Address</label>
-						<input type="text" id="site_delivery_address" name="site_delivery_address" placeholder="Search Address">
+						<span class="search-address">
+							<input type="text" id="site_delivery_address" name="site_delivery_address" placeholder="Search Address">
+							<i class="fa-solid fa-search"></i>
+						</span>
+
 					</div>
 					<hr>
 					<div>
@@ -100,25 +106,25 @@ $context = array(
 								<span class="label">
 									<input type="checkbox" id="diesel" name="diesel"><span class="checkmark"></span> On-Road Clear Diesel (trucks)
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="diesel_qty">
 							</label>
 							<label for="gas" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="gas" name="gas"><span class="checkmark"></span> GAS - Unleaded Gasoline
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="gas_qty">
 							</label>
 							<label for="dyed_diesel" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="dyed_diesel" name="dyed_diesel"><span class="checkmark"></span> Off-Road - Dyed Diesel (Generators etc)
 								</span>
-								<input type="number" class="input-number space-between">
+								<input type="number" class="input-number space-between" name="dyed_diesel_qty">
 							</label>
 							<label for="def" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="def" name="def"><span class="checkmark"></span> DEF - Diesel Exhaust Fluid
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="def_qty">
 							</label>
 						</div>
 
@@ -138,37 +144,37 @@ $context = array(
 								<span class="label">
 									<input type="checkbox" id="vehicles" name="vehicles"><span class="checkmark"></span> Vehicles (Day Cabs, Box Trucks, Small Trucks)
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="vehicles_qty">
 							</label>
 							<label for="bulk_tank" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="bulk_tank" name="bulk_tank"><span class="checkmark"></span> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="bulk_tank_qty">
 							</label>
 							<label for="construction_equipment" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="construction_equipment" name="construction_equipment"><span class="checkmark"></span> Construction Equipment (Yellow Iron, Generators)
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="construction_equipment_qty">
 							</label>
 							<label for="generators" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="generators" name="generators"><span class="checkmark"></span> Building Generators
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="generators_qty">
 							</label>
 							<label for="reefer" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="reefer" name="reefer"><span class="checkmark"></span> Reefer (Refrigerated Trailers)
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="reefer_qty">
 							</label>
-							<label for="reefer" class="checkbox small space-between">
+							<label for="other" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="site_fuel_type" name="site_fuel_type"><span class="checkmark"></span> Other
+									<input type="checkbox" id="other" name="other"><span class="checkmark"></span> Other
 								</span>
-								<input type="number" class="input-number">
+								<input type="number" class="input-number" name="other_qty">
 							</label>
 						</div>
 
@@ -200,37 +206,37 @@ $context = array(
 							<div class="delivery-days-wrapper">
 								<label class="checkbox small" for="mon">
 									<span class="label">
-										<input type="checkbox" id="mon" name="mon"><span class="checkmark"></span>Mon
+										<input type="checkbox" id="mon" name="day" value="mon"><span class="checkmark"></span>Mon
 									</span>
 								</label>
 								<label class="checkbox small" for="tues">
 									<span class="label">
-										<input type="checkbox" id="tues" name="tues"><span class="checkmark"></span>Tues
+										<input type="checkbox" id="tues" name="day" value="tues"><span class="checkmark"></span>Tues
 									</span>
 								</label>
 								<label class="checkbox small" for="wed">
 									<span class="label">
-										<input type="checkbox" id="wed" name="wed"><span class="checkmark"></span>Wed
+										<input type="checkbox" id="wed" name="day" value="wed"><span class="checkmark"></span>Wed
 									</span>
 								</label>
 								<label class="checkbox small" for="thu">
 									<span class="label">
-										<input type="checkbox" id="thu" name="thu"><span class="checkmark"></span>Thu
+										<input type="checkbox" id="thu" name="day" value="thu"><span class="checkmark"></span>Thu
 									</span>
 								</label>
 								<label class="checkbox small" for="fri">
 									<span class="label">
-										<input type="checkbox" id="fri" name="fri"><span class="checkmark"></span>Fri
+										<input type="checkbox" id="fri" name="day" value="fri"><span class="checkmark"></span>Fri
 									</span>
 								</label>
 								<label class="checkbox small" for="sat">
 									<span class="label">
-										<input type="checkbox" id="sat" name="sat"><span class="checkmark"></span>Sat
+										<input type="checkbox" id="sat" name="day" value="sat"><span class="checkmark"></span>Sat
 									</span>
 								</label>
 								<label class="checkbox small" for="sun">
 									<span class="label">
-										<input type="checkbox" id="sun" name="sun"><span class="checkmark"></span>Sun
+										<input type="checkbox" id="sun" name="day" value="sun"><span class="checkmark"></span>Sun
 									</span>
 								</label>
 							</div>
@@ -239,7 +245,8 @@ $context = array(
 
 						<div class="option1 option2">
 							<label for="delivery_date">Delivery date</label>
-							<input type="text" id="delivery_date" name="delivery_date" disabled>
+							<span class="input-text" data-wp-text="state.deliveryDate">&nbsp;</span>
+							<input type="hidden" id="delivery_date" name="delivery_date">
 						</div>
 						<div id="react-calendar" class="option1 option2"></div>
 						<div class="option1 option2">
@@ -261,9 +268,12 @@ $context = array(
 						<label>What do we need to know about this site? Is the yard locked? Is there a combination? Where is the equipment parked, etc…</label>
 					</div>
 					<div>
-						<textarea name="" id="" rows="4"></textarea>
+						<textarea name="notes" id="" rows="4"></textarea>
 					</div>
 					<div id="file-uploader"></div>
+					<div id="note-images">
+
+					</div>
 				</div>
 				<!-- END SITE NOTES-->
 				<!-- PAYMENT DETAILS -->
@@ -286,13 +296,17 @@ $context = array(
 					</div>
 					<div>
 						<label for="pre_authorization_email">Send Pre-authorization form to this email</label>
-						<input type="text" id="pre_authorization_email" name="pre_authorization_email">
+						<input type="email" id="pre_authorization_email" name="pre_authorization_email">
 					</div>
 				</div>
 				<!-- END PAYMENT DETAILS -->
 			</div>
 
-			<button id="submit-button">INCOMPLETE</button>
+			<button id="submit-button" data-wp-class--next="state.next" data-wp-on--click="actions.submitButton">
+				<span data-wp-style--display="state.isIncomplete">INCOMPLETE</span>
+				<span data-wp-style--display="state.isNextStep" class="hidden">NEXT <i class="fa-solid fa-arrow-right"></i></span>
+				<span data-wp-style--display="state.isSubmitOrder" class="hidden">SUBMIT ORDER <i class="fa-solid fa-arrow-right"></i></span>
+			</button>
 		</form>
 	</div>
 
