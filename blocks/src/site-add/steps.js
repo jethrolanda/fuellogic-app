@@ -1,15 +1,24 @@
 export const stepOne = (formData) => {
   if (formData instanceof FormData === false) return false;
 
-  const stepData = {
-    site_name: formData.get("site_name"),
-    site_delivery_address: formData.get("site_delivery_address"),
-    official_site_contact: formData.get("official_site_contact"),
-    site_contact_first_name: formData.get("site_contact_first_name"),
-    site_contact_last_name: formData.get("site_contact_last_name"),
-    site_contact_phone: formData.get("site_contact_phone"),
-    site_contact_email: formData.get("site_contact_email")
-  };
+  const site_contact = formData.get("official_site_contact");
+
+  let stepData = {};
+  if (site_contact == "on") {
+    stepData = {
+      site_name: formData.get("site_name"),
+      site_delivery_address: formData.get("site_delivery_address")
+    };
+  } else {
+    stepData = {
+      site_name: formData.get("site_name"),
+      site_delivery_address: formData.get("site_delivery_address"),
+      site_contact_first_name: formData.get("site_contact_first_name"),
+      site_contact_last_name: formData.get("site_contact_last_name"),
+      site_contact_phone: formData.get("site_contact_phone"),
+      site_contact_email: formData.get("site_contact_email")
+    };
+  }
 
   let errors = [];
   Object.entries(stepData).forEach(([name, value]) => {
@@ -32,6 +41,14 @@ export const stepTwo = (formData) => {
 
   let data = [];
   Object.entries(stepData).forEach(([name, value]) => {
+    if (value === "on") {
+      document.querySelector(`[name=${name}_qty]`).removeAttribute("disabled");
+    } else {
+      document
+        .querySelector(`[name=${name}_qty]`)
+        .setAttribute("disabled", "disabled");
+    }
+
     if (value !== "" && value !== null && formData.get(name + "_qty") > 0) {
       data.push(name);
     }
@@ -54,6 +71,13 @@ export const stepThree = (formData) => {
 
   let data = [];
   Object.entries(stepData).forEach(([name, value]) => {
+    if (value === "on") {
+      document.querySelector(`[name=${name}_qty]`).removeAttribute("disabled");
+    } else {
+      document
+        .querySelector(`[name=${name}_qty]`)
+        .setAttribute("disabled", "disabled");
+    }
     if (value !== "" && value !== null && formData.get(name + "_qty") > 0) {
       data.push(name);
     }

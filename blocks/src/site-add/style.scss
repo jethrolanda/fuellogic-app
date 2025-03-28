@@ -54,6 +54,11 @@
       padding: 10px;
       color: #474747;
       border-bottom: 6px solid #474747;
+      
+      &.done{
+        color: #878787;
+        border-bottom: 6px solid #878787;
+      }
       &.active{
         color: #A2CD3A;
         border-bottom: 6px solid #A2CD3A;

@@ -10,6 +10,10 @@
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+
+wp_enqueue_script('fla-react-calendar-js');
+wp_enqueue_script('fla-file-uploader-js');
+
 global $fla_theme;
 wp_interactivity_state(
 	'fuellogic-app',
@@ -19,7 +23,14 @@ wp_interactivity_state(
 $context = array(
 	'currentStep' => 1,
 	'formData'	=> '',
-	'submitBtnStatus' => array()
+	'ref' => '',
+	'submitBtnStatus' => array(),
+	'current_user' => array(
+		'first_name' => get_user_meta(get_current_user_id(), 'first_name', true),
+		'last_name' => get_user_meta(get_current_user_id(), 'last_name', true),
+		'phone' => get_user_meta(get_current_user_id(), 'mobile_number', true),
+		'email' => wp_get_current_user()->user_email,
+	)
 );
 
 ?>
@@ -40,7 +51,7 @@ $context = array(
 		</div>
 	</div>
 	<div class="steps-wrapper">
-		<ul>
+		<ul id="steps-nav">
 			<li class="active" data-wp-on--click="callbacks.navigate" data-step="1"><i class="fa-solid fa-location-dot"></i></li>
 			<li data-wp-on--click="callbacks.navigate" data-step="2"><i class="fa-solid fa-gas-pump"></i></li>
 			<li data-wp-on--click="callbacks.navigate" data-step="3"><i class="fa-solid fa-truck-front"></i></li>
@@ -49,7 +60,7 @@ $context = array(
 			<li data-wp-on--click="callbacks.navigate" data-step="6"><i class="fa-solid fa-credit-card"></i></li>
 		</ul>
 
-		<form id="site-form" name="site-form" data-wp-on--submit="actions.submitForm" data-wp-on--change="callbacks.onFormUpdate">
+		<form id="site-form" name="site-form" data-wp-on--change="callbacks.onFormUpdate">
 			<div class="form-wrapper">
 				<!-- SITE DETAILS -->
 				<div class="step-content step-1" data-step="1">
@@ -77,7 +88,7 @@ $context = array(
 						<label>Site Contact</label>
 						<label class="checkbox small" for="official_site_contact">
 							<span class="label">
-								<input type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I am the official site contact
+								<input data-wp-on--click="callbacks.toggleSiteContact" type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I am the official site contact
 							</span>
 						</label>
 
@@ -106,25 +117,25 @@ $context = array(
 								<span class="label">
 									<input type="checkbox" id="diesel" name="diesel"><span class="checkmark"></span> On-Road Clear Diesel (trucks)
 								</span>
-								<input type="number" class="input-number" name="diesel_qty">
+								<input type="number" class="input-number" name="diesel_qty" disabled>
 							</label>
 							<label for="gas" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="gas" name="gas"><span class="checkmark"></span> GAS - Unleaded Gasoline
 								</span>
-								<input type="number" class="input-number" name="gas_qty">
+								<input type="number" class="input-number" name="gas_qty" disabled>
 							</label>
 							<label for="dyed_diesel" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="dyed_diesel" name="dyed_diesel"><span class="checkmark"></span> Off-Road - Dyed Diesel (Generators etc)
 								</span>
-								<input type="number" class="input-number space-between" name="dyed_diesel_qty">
+								<input type="number" class="input-number space-between" name="dyed_diesel_qty" disabled>
 							</label>
 							<label for="def" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="def" name="def"><span class="checkmark"></span> DEF - Diesel Exhaust Fluid
 								</span>
-								<input type="number" class="input-number" name="def_qty">
+								<input type="number" class="input-number" name="def_qty" disabled>
 							</label>
 						</div>
 
@@ -144,37 +155,37 @@ $context = array(
 								<span class="label">
 									<input type="checkbox" id="vehicles" name="vehicles"><span class="checkmark"></span> Vehicles (Day Cabs, Box Trucks, Small Trucks)
 								</span>
-								<input type="number" class="input-number" name="vehicles_qty">
+								<input type="number" class="input-number" name="vehicles_qty" disabled>
 							</label>
 							<label for="bulk_tank" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="bulk_tank" name="bulk_tank"><span class="checkmark"></span> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
 								</span>
-								<input type="number" class="input-number" name="bulk_tank_qty">
+								<input type="number" class="input-number" name="bulk_tank_qty" disabled>
 							</label>
 							<label for="construction_equipment" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="construction_equipment" name="construction_equipment"><span class="checkmark"></span> Construction Equipment (Yellow Iron, Generators)
 								</span>
-								<input type="number" class="input-number" name="construction_equipment_qty">
+								<input type="number" class="input-number" name="construction_equipment_qty" disabled>
 							</label>
 							<label for="generators" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="generators" name="generators"><span class="checkmark"></span> Building Generators
 								</span>
-								<input type="number" class="input-number" name="generators_qty">
+								<input type="number" class="input-number" name="generators_qty" disabled>
 							</label>
 							<label for="reefer" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="reefer" name="reefer"><span class="checkmark"></span> Reefer (Refrigerated Trailers)
 								</span>
-								<input type="number" class="input-number" name="reefer_qty">
+								<input type="number" class="input-number" name="reefer_qty" disabled>
 							</label>
 							<label for="other" class="checkbox small space-between">
 								<span class="label">
 									<input type="checkbox" id="other" name="other"><span class="checkmark"></span> Other
 								</span>
-								<input type="number" class="input-number" name="other_qty">
+								<input type="number" class="input-number" name="other_qty" disabled>
 							</label>
 						</div>
 

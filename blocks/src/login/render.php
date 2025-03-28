@@ -38,10 +38,16 @@ $context = array(
 		<input data-wp-on--input="callbacks.setUserName" name="uname" type="text" placeholder="Email" />
 		<input data-wp-on--input="callbacks.setPassword" name="pword" type="password" placeholder="Password" />
 		<div class="remember">
-			<label for="remember">
-				<input data-wp-on--click="callbacks.setRemember" type="checkbox" id="remember" /> Remember me</label>
-			<a href="#">Forgot password?</a>
+			<label class="checkbox small" for="remember">
+				<span class="label">
+					<input type="checkbox" id="remember" name="remember"><span class="checkmark"></span> Remember me
+				</span>
+			</label>
+			<label class="small">
+				<a href="#">Forgot password?</a>
+			</label>
 		</div>
+
 		<button data-wp-on--click="actions.login">LOG IN</button>
 	</form>
 

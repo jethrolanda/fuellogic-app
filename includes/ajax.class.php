@@ -129,7 +129,7 @@ class Ajax
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
       wp_die();
     }
-    error_log(print_r($_POST, true));
-    error_log(print_r(json_decode($_POST['file'], true), true));
+    // error_log(print_r($_POST, true));
+    // error_log(print_r(json_decode(stripslashes($_POST['data']), true), true));
   }
 }

@@ -11,7 +11,7 @@ import {
  */
 import { store, getContext, getElement } from "@wordpress/interactivity";
 
-const { state, callbacks } = store("fuellogic-app", {
+const { state, actions, callbacks } = store("fuellogic-app", {
   state: {
     get siteName() {
       const context = getContext();
@@ -54,14 +54,19 @@ const { state, callbacks } = store("fuellogic-app", {
     }
   },
   actions: {
-    submitForm: (e) => {
-      e.preventDefault();
-      alert("submitting");
-      const { ref } = getElement();
+    submitForm: () => {
       const context = getContext();
-      const formData = new FormData(ref);
+      const formData = new FormData();
 
-      formData.append("action", "create_site");
+      formData.append("action", "add_site");
+      formData.append(
+        "data",
+        JSON.stringify(Object.fromEntries(context.formData))
+      );
+      formData.append(
+        "images",
+        JSON.stringify(context.formData.getAll("images"))
+      );
       formData.append("nonce", state.nonce);
 
       const data = fetch(state.ajaxUrl, {
@@ -78,14 +83,15 @@ const { state, callbacks } = store("fuellogic-app", {
       }
     },
     submitButton: (e) => {
+      e.preventDefault();
       const context = getContext();
 
       if (context.submitBtnStatus[context.currentStep]) {
         // If last step then submit the form
-        if (parseInt(context.currentStep) < 6) {
-          // e.preventDefault();
+        if (parseInt(context.currentStep) === 6) {
           // document.getElementById("site-form").submit();
-          // return;
+          actions.submitForm();
+          return;
         }
 
         const active = document.getElementsByClassName("active");
@@ -126,16 +132,20 @@ const { state, callbacks } = store("fuellogic-app", {
     },
     navigate: () => {
       const context = getContext();
-      const el = getElement();
+      const { ref } = getElement();
       const active = document.getElementsByClassName("active");
-      const step = el.ref.dataset.step;
+      const step = ref.dataset.step;
+
+      if (ref.classList.contains("done") === false) {
+        return;
+      }
 
       // Set current step
       context.currentStep = step;
 
       // Transfer the active tab step
       active[0].classList.remove("active");
-      el.ref.classList.add("active");
+      ref.classList.add("active");
 
       // Show step content
       callbacks.init();
@@ -176,6 +186,8 @@ const { state, callbacks } = store("fuellogic-app", {
       }
 
       callbacks.submitButtonStatus();
+
+      callbacks.doneSteps();
     },
     onSiteNameChange: () => {
       const { ref } = getElement();
@@ -225,6 +237,51 @@ const { state, callbacks } = store("fuellogic-app", {
           break;
         default:
           break;
+      }
+    },
+    toggleSiteContact: () => {
+      const { ref } = getElement();
+      const context = getContext();
+      const fname = document.getElementById("site_contact_first_name");
+      const lname = document.getElementById("site_contact_last_name");
+      const phone = document.getElementById("site_contact_phone");
+      const email = document.getElementById("site_contact_email");
+      if (ref.checked) {
+        fname.value = context.current_user.first_name;
+        fname.setAttribute("disabled", "disabled");
+        lname.value = context.current_user.last_name;
+        lname.setAttribute("disabled", "disabled");
+        phone.value = context.current_user.phone;
+        phone.setAttribute("disabled", "disabled");
+        email.value = context.current_user.email;
+        email.setAttribute("disabled", "disabled");
+      } else {
+        fname.value = "";
+        lname.value = "";
+        phone.value = "";
+        email.value = "";
+        fname.removeAttribute("disabled");
+        lname.removeAttribute("disabled");
+        phone.removeAttribute("disabled");
+        email.removeAttribute("disabled");
+      }
+      // Trigger form update
+      var event = new Event("change");
+      document.getElementById("site-form").dispatchEvent(event);
+    },
+    doneSteps: () => {
+      const context = getContext();
+
+      const steps = document
+        .getElementById("steps-nav")
+        .getElementsByTagName("li");
+
+      for (let step of steps) {
+        if (context.submitBtnStatus[step.dataset.step]) {
+          step.classList.add("done");
+        } else {
+          step.classList.remove("done");
+        }
       }
     }
   }

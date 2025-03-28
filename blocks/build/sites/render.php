@@ -11,12 +11,13 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 global $fla_theme;
+$sites = $fla_theme->sites->get_sites();
 wp_interactivity_state(
 	'fuellogic-app',
 	array(
 		'ajaxUrl' => admin_url('admin-ajax.php'),
 		'nonce'   => wp_create_nonce('site-nonce'),
-		'sites' => $fla_theme->sites->get_sites(),
+		'sites' => $sites,
 		'selectedSiteId' => '',
 		'selectedSite' => '',
 		'sorted' => false,

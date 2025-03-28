@@ -75,7 +75,7 @@ class Scripts
 
     if (file_exists($asset_file)) {
       $asset = include $asset_file;
-      wp_enqueue_script('fla-react-calendar-js', FLA_JS_ROOT_URL . 'react-calendar/build/index.js', $asset['dependencies'], $asset['version'], true);
+      wp_register_script('fla-react-calendar-js', FLA_JS_ROOT_URL . 'react-calendar/build/index.js', $asset['dependencies'], $asset['version'], true);
       // wp_enqueue_style('fla-react-calendar-css', FLA_JS_ROOT_URL . 'react-calendar/build/index.css');
     }
 
@@ -84,7 +84,7 @@ class Scripts
 
     if (file_exists($asset_file)) {
       $asset = include $asset_file;
-      wp_enqueue_script('fla-file-uploader-js', FLA_JS_ROOT_URL . 'file-uploader/build/index.js', $asset['dependencies'], $asset['version'], true);
+      wp_register_script('fla-file-uploader-js', FLA_JS_ROOT_URL . 'file-uploader/build/index.js', $asset['dependencies'], $asset['version'], true);
       wp_localize_script('fla-file-uploader-js', 'fuel_logic_app', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('wp_rest'),

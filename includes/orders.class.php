@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 /**
  * WP Settings Class.
  */
-class Sites
+class Orders
 {
   /**
    * The single instance of the class.
@@ -30,11 +30,11 @@ class Sites
    */
   public function __construct()
   {
-    add_action("wp_ajax_add_site", array($this, 'add_site'));
+    add_action("wp_ajax_add_order", array($this, 'add_order'));
 
-    add_action("wp_ajax_update_site", array($this, 'update_site'));
+    add_action("wp_ajax_update_order", array($this, 'update_order'));
 
-    add_action("wp_ajax_delete_site", array($this, 'delete_site'));
+    add_action("wp_ajax_delete_order", array($this, 'delete_order'));
 
     add_action('add_meta_boxes', array($this, 'wpse_add_custom_meta_box_2'));
 
