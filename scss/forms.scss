@@ -59,7 +59,9 @@ label{
 	}
 }
 
+.wp-block-fuellogic-app-thank-you,
 .wp-block-fuellogic-app-site-add{
+	padding-bottom: 100px;
 	button#submit-button{
     position: fixed;
     bottom: 0px;
@@ -77,6 +79,9 @@ label{
 		z-index: 99;
 
 		&.next{
+			background: $green;
+		}
+		&.green{
 			background: $green;
 		}
   }
@@ -156,16 +161,4 @@ label{
 #react-calendar{ 
 }
 
-span.search-address{
-	position: relative;
-	display: flex;
-	#site_delivery_address{
-		width: 100%;
-		padding-right: 40px;
-	}
-	.fa-search{
-		position: absolute;
-		right: 16px;
-		top: 16px;
-	}
-}
+

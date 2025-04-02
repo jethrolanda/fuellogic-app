@@ -90,6 +90,15 @@ class Scripts
         'nonce' => wp_create_nonce('wp_rest'),
       ));
     }
+
+    // Search Autocomplete
+    $asset_file = FLA_JS_ROOT_DIR . 'search-location/build/index.asset.php';
+
+    if (file_exists($asset_file)) {
+      $asset = include $asset_file;
+      wp_register_script('fla-search-location-js', FLA_JS_ROOT_URL . 'search-location/build/index.js', $asset['dependencies'], $asset['version'], true);
+      // wp_enqueue_style('fla-search-location-css', FLA_JS_ROOT_URL . 'search-location/build/index.css');
+    }
   }
 
   function my_theme_editor_styles()

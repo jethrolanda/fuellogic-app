@@ -42,7 +42,7 @@
     }
     
   } 
-  ul{
+  ul#steps-nav{
     display: flex;
     flex-direction: row;
     list-style: none;
@@ -88,5 +88,44 @@
     flex-direction: row;
     gap: 0px 30px;
     flex-wrap: wrap;
+  }
+
+  .search-address{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    span{
+      display: flex;
+      ul{
+        display: flex ;
+        flex-direction: column;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        li{
+          padding: 10px;
+          border-bottom: 1px solid #fff;
+          &:last-child{
+            border: 0px;
+          }
+        }
+      }
+      &.search-results{
+        position: absolute;
+        z-index: 999;
+        top: 55px;
+        width: 100%;
+        background: #000;
+      }
+    }
+    #site_delivery_address{
+      width: 100%;
+      padding-right: 40px;
+    }
+    .fa-search{
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
   }
 }

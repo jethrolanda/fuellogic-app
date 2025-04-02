@@ -79,6 +79,7 @@ class Blocks
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/sites-name');
 
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/back-button');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/thank-you');
   }
 
   public function register_new_category($categories)

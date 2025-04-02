@@ -13,6 +13,7 @@
 
 wp_enqueue_script('fla-react-calendar-js');
 wp_enqueue_script('fla-file-uploader-js');
+wp_enqueue_script('fla-search-location-js');
 
 global $fla_theme;
 wp_interactivity_state(
@@ -77,11 +78,11 @@ $context = array(
 					<hr>
 					<div>
 						<label for="site_delivery_address">Site Delivery Address</label>
-						<span class="search-address">
+						<!-- <span class="search-address">
 							<input type="text" id="site_delivery_address" name="site_delivery_address" placeholder="Search Address">
 							<i class="fa-solid fa-search"></i>
-						</span>
-
+						</span> -->
+						<div id="search-location" class="search-address"></div>
 					</div>
 					<hr>
 					<div>
