@@ -5,8 +5,7 @@ import { store, getContext, getElement } from "@wordpress/interactivity";
 
 const { state } = store("fuellogic-app", {
   actions: {
-    *closeModal(e) {
-      e.preventDefault();
+    *closeThankyouModal(e) {
       const context = getContext();
 
       const formData = new FormData();
@@ -20,12 +19,22 @@ const { state } = store("fuellogic-app", {
         body: formData
       }).then((response) => response.json());
 
-      console.log(data);
+      // Optimistic update
+      const el = document.body.querySelector(
+        ".wp-block-fuellogic-app-thank-you-modal .modal"
+      );
+      if (el) el.style.display = "none";
       if (data.status == "success") {
         // Close the modal
-        document.getElementsByClassName("modal")[0].style.display = "none";
+        if (el) el.style.display = "none";
+      } else {
+        if (el) el.style.display = "flex";
       }
     }
   },
-  callbacks: {}
+  callbacks: {
+    test: (e) => {
+      console.log("test");
+    }
+  }
 });

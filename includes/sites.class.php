@@ -80,6 +80,8 @@ class Sites
     try {
       $data = json_decode(stripslashes($_POST['data']));
       $images = json_decode(stripslashes($_POST['images']));
+      $gas_type = json_decode(stripslashes($_POST['gas_type']));
+      $machines = json_decode(stripslashes($_POST['machines']));
       $sanitized_images = array_map('sanitize_text_field', $images);
       // error_log(print_r($images, true));
       // Create post object
@@ -94,10 +96,14 @@ class Sites
 
       if (!is_wp_error($post_id)) {
 
+        update_post_meta($post_id, '_site_data', $data);
+        update_post_meta($post_id, '_site_images', $sanitized_images);
+        update_post_meta($post_id, '_site_gas_type', $gas_type);
+        update_post_meta($post_id, '_site_machines', $machines);
         update_post_meta($post_id, '_site_address', sanitize_text_field($data->site_delivery_address));
         update_post_meta($post_id, '_site_delivery_schedule', sanitize_text_field($data->delivery_date));
         update_post_meta($post_id, '_site_delivery_notes', sanitize_text_field($data->notes));
-        update_post_meta($post_id, '_site_images', $sanitized_images);
+
 
         return array(
           'status' => 'success',
@@ -283,7 +289,10 @@ class Sites
         $sites[$key]['address'] = get_post_meta($id, '_site_address', true);
         $sites[$key]['delivery_schedule'] = get_post_meta($id, '_site_delivery_schedule', true);
         $sites[$key]['delivery_notes'] = get_post_meta($id, '_site_delivery_notes', true);
+        $sites[$key]['data'] = get_post_meta($id, '_site_data', true);
         $sites[$key]['images'] = get_post_meta($id, '_site_images', true);
+        $sites[$key]['gas_type'] = get_post_meta($id, '_site_gas_type', true);
+        $sites[$key]['machines'] = get_post_meta($id, '_site_machines', true);
       }
     }
     return $sites;

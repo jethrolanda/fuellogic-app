@@ -99,6 +99,7 @@ class Scripts
       wp_register_script('fla-search-location-js', FLA_JS_ROOT_URL . 'search-location/build/index.js', $asset['dependencies'], $asset['version'], true);
       // wp_enqueue_style('fla-search-location-css', FLA_JS_ROOT_URL . 'search-location/build/index.css');
     }
+    wp_register_script('fla-custom-select-js', FLA_JS_ROOT_URL . 'custom-select.js', array(), array(), true);
   }
 
   function my_theme_editor_styles()

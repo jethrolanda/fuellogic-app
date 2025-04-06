@@ -18,7 +18,7 @@ label{
 .checkbox{
 	display: block;
   position: relative;
-  padding-left: 26px;
+  padding-left: 30px;
   margin-bottom: 18px;
 	display: flex;
 	align-items: center;
@@ -72,7 +72,7 @@ label{
     letter-spacing: 1px;
     word-wrap: break-word;
 		border: none;
-		padding: 22px;
+		padding: 14px;
 		z-index: 99;
 
 		&.next{

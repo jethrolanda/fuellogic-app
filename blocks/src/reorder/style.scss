@@ -1,0 +1,118 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ 
+ .wp-block-fuellogic-app-reorder{
+	display: flex;
+	justify-content: flex-end;
+
+
+  select {
+    width: 100%;
+    border: none;  
+    transition: 0.4s;
+    font-size: 18px;
+    border-radius: 12px; 
+    background: #323030;
+    color: #878787;  
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 16px;
+    // Reset
+    margin: 0;      
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    option {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      border: none;
+      background: #323030;
+      padding: 10px;
+      transition: 0.4s;
+    }  
+  }
+  
+  
+  
+	button.reorder-button{ 
+    color: #141414;
+    background: #878787;
+    font-size: 14px;
+    font-family: Lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+		border: none;
+		padding: 12px 40px;
+		z-index: 99;
+		background-color: #a2cd3a;
+		border-radius: 6px;
+  } 
+
+  .modal .modal-content{
+    justify-content: normal;
+    padding-top: 50px;
+
+    .site-info{ 
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      hr{
+        margin: 20px 0px;
+      }
+
+      .section{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        label{
+          margin-top: 20px;
+          font-weight: 700;
+        }
+      }
+      
+		}
+
+    .order-details{
+      text-align: left;
+      align-self: start;
+      h2{
+        margin: 10px 0px;
+      }
+      p{ 
+        color: #878787;
+        // font-size: 18px;
+        margin: 0px;
+        padding: 0px;
+        text-align: left;
+      }
+    }
+    
+  }
+  .submit-button{
+    position: relative;
+    border-radius: .75rem;
+  }
+  .fa-xmark{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #474747;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .fa-repeat.gray{
+    font-size: 80px;
+    color: #474747;
+  }
+}

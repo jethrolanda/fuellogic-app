@@ -70,15 +70,15 @@ $status_text = array(
 			</div>
 			<div>
 				<h2>Thank You <?php echo $data->site_contact_first_name; ?></h2>
-				<p class="small">YOUR ORDER IS CONFIRMED</p>
+				<p class="text-small">YOUR ORDER IS CONFIRMED</p>
 			</div>
 		</div>
-		<hr>
+		<hr class="divider">
 		<div class="site-wrapper">
 			<i class="fa-regular fa-circle"></i>
 			<div>
 				<h2><?php echo $data->site_name; ?></h2>
-				<p class="small">Delivery <?php echo $data->delivery_date; ?> <?php echo $order->post_title; ?></p>
+				<p class="text-small">Delivery <?php echo $data->delivery_date; ?> <?php echo $order->post_title; ?></p>
 			</div>
 		</div>
 		<div class="status-wrapper">
@@ -88,7 +88,7 @@ $status_text = array(
 				<span></span>
 				<span></span>
 			</div>
-			<p class="status-text small"><?php echo $status_text[!empty($order_status) ? $order_status : 'pending'] ?></p>
+			<p class="status-text text-small"><?php echo $status_text[!empty($order_status) ? $order_status : 'pending'] ?></p>
 		</div>
 		<?php if ($order_status == 'out-for-delivery') { ?>
 			<img class="realtime_tracker" src="<?php echo $context['truck_delivery_png']; ?>" alt="Truck" />
@@ -107,7 +107,7 @@ $status_text = array(
 		<div class="site-info">
 			<div>
 				<h2>Order Details</h2>
-				<p class="small"><?php echo $order->post_title; ?></p>
+				<p class="text-small"><?php echo $order->post_title; ?></p>
 			</div>
 			<hr>
 
