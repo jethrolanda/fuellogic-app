@@ -16,7 +16,46 @@ wp_interactivity_state(
 	array(),
 );
 
-$context = array();
+$gas_type_list = array(
+	'diesel' => 'On-Road Clear Diesel (trucks)',
+	'gas' => 'GAS – Unleaded Gasoline',
+	'dyed_diesel' => 'Off-Road – Dyed Diesel (Generators etc)',
+	'def' => 'DEF – Diesel Exhaust Fluid'
+);
+$machines_list = array(
+	'vehicles' => 'Vehicles (Day Cabs, Box Trucks, Small Trucks)',
+	'bulk_tank' => 'Bulk Tank (Jobsite Tanks, Big Tanks, etc.)',
+	'construction_equipment' => 'Construction Equipment (Yellow Iron, Generators)',
+	'generators' => 'Building Generators',
+	'reefer' => 'Reefer (Refrigerated Trailers)',
+	'other' => 'Other'
+);
+$context = array(
+	'orders_page' => site_url('orders'),
+	'truck_delivery_png' => FLA_BLOCKS_ROOT_URL . 'assets/delivery_truck.png',
+	'map' => FLA_BLOCKS_ROOT_URL . 'assets/map.png',
+);
+
+// Dont allow a use to access if he is not the owner of the order
+if (!is_admin() && isset($_GET['order_id']) && get_post_meta($_GET['order_id'], '_order_user_id', true) != get_current_user_id()) {
+	wp_redirect($context['orders_page']);
+	exit;
+}
+$order = get_post($_GET['order_id']);
+$data = get_post_meta($_GET['order_id'], '_order_data', true);
+$images = get_post_meta($_GET['order_id'], '_order_images', true);
+$gas_type = get_post_meta($_GET['order_id'], '_order_gas_type', true);
+$machines = get_post_meta($_GET['order_id'], '_order_machines', true);
+$order_status = get_post_meta($_GET['order_id'], '_order_status', true);
+// error_log(print_r($data, true));
+// error_log(print_r($images, true));
+
+$status_text = array(
+	'pending' => 'ORDERED',
+	'processing' => 'PROCESSING',
+	'out-for-delivery' => 'OUT FOR DELIVERY',
+	'delivered' => 'DELIVERED',
+);
 ?>
 
 <div
@@ -30,7 +69,7 @@ $context = array();
 				<i class="fa-regular fa-circle-check"></i>
 			</div>
 			<div>
-				<h2>Thank You [Tom]</h2>
+				<h2>Thank You <?php echo $data->site_contact_first_name; ?></h2>
 				<p class="small">YOUR ORDER IS CONFIRMED</p>
 			</div>
 		</div>
@@ -38,49 +77,92 @@ $context = array();
 		<div class="site-wrapper">
 			<i class="fa-regular fa-circle"></i>
 			<div>
-				<h2>ABC Supply - Freeport</h2>
-				<p class="small">Delivery Nov 13 # FL-1424823</p>
+				<h2><?php echo $data->site_name; ?></h2>
+				<p class="small">Delivery <?php echo $data->delivery_date; ?> <?php echo $order->post_title; ?></p>
 			</div>
 		</div>
 		<div class="status-wrapper">
-			<div class="status ordered">
+			<div class="status <?php echo !empty($order_status) ? $order_status : 'pending'; ?>">
 				<span></span>
 				<span></span>
 				<span></span>
 				<span></span>
 			</div>
-			<p class="status-text small">ORDER PENDING</p>
+			<p class="status-text small"><?php echo $status_text[!empty($order_status) ? $order_status : 'pending'] ?></p>
 		</div>
+		<?php if ($order_status == 'out-for-delivery') { ?>
+			<img class="realtime_tracker" src="<?php echo $context['truck_delivery_png']; ?>" alt="Truck" />
+			<div class="tracker">
+				<i class="fa-solid fa-truck-fast"></i>
+				<span>
+					<h2>Your Fuel Is On Its Way!</h2>
+					<small class="text-small">REAL-TIME TRACKER</small>
+				</span>
+			</div>
+		<?php } else { ?>
+			<img class="map" src="<?php echo $context['map']; ?>" alt="Map" />
+		<?php } ?>
+
+
 		<div class="site-info">
 			<div>
 				<h2>Order Details</h2>
-				<p class="small"># FL-1424823</p>
+				<p class="small"><?php echo $order->post_title; ?></p>
 			</div>
 			<hr>
 
 			<div class="section">
 				<h2><i class="fa-solid fa-location-dot color-gray"></i> Site Details</h2>
-				<p>ABC Supply - Dallas Branch</p>
+				<p><?php echo $data->site_name; ?></p>
 				<label>Site Delivery Address</label>
-				<p>4833 Singleton Blvd</p>
-				<p>Dallas, TX 75212</p>
+				<p><?php echo $data->site_delivery_address; ?></p>
+
 				<label>Site Contact</label>
-				<p>Tom Richards</p>
-				<p>817-867-5309</p>
-				<p>tom.richards@abcsupply.com</p>
+				<p><?php echo $data->site_contact_first_name . ' ' . $data->site_contact_last_name; ?></p>
+				<p><?php echo $data->site_contact_phone; ?></p>
+				<p><?php echo $data->site_contact_email; ?></p>
 			</div>
 			<hr>
 			<div class="section">
 				<h2><i class="fa-solid fa-gas-pump color-gray"></i> Fuel Type & Quantity</h2>
+				<table>
+					<?php
+					if (!empty($gas_type)) {
+						foreach ($gas_type as $type) {
+							echo "<tr>";
+							echo "<td>" . $gas_type_list[$type] . "</td>";
+							echo "<td>" . $data->{$type . '_qty'} . "</td>";
+							echo "</tr>";
+						}
+					}
+					?>
+				</table>
 			</div>
 			<hr>
 			<div class="section">
 				<h2><i class="fa-solid fa-truck-front color-gray"></i> Site Equipment</h2>
+				<table>
+					<?php
+					if (!empty($machines)) {
+						foreach ($machines as $machine) {
+							echo "<tr>";
+							echo "<td>" . $machines_list[$machine] . "</td>";
+							echo "<td>" . $data->{$machine . '_qty'} . "</td>";
+							echo "</tr>";
+						}
+					}
+					?>
+				</table>
 			</div>
 			<hr>
 			<div class="section">
 				<h2><i class="fa-solid fa-file color-gray"></i> Site Delivery Notes</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida, eros ut luctus placerat, magna mi posuere tortor, non scelerisque risus libero et urna.</p>
+				<p><?php echo $data->notes; ?></p>
+				<?php
+				foreach ($images as $image) {
+					echo '<img src="' . $image . '" width="150"/>';
+				}
+				?>
 			</div>
 			<hr>
 			<div class="section">
@@ -93,5 +175,5 @@ $context = array();
 		</div>
 
 	</div>
-	<button id="submit-button" class="green">CREATE SCHEDULE</button>
+	<button class="green submit-button">CREATE SCHEDULE <i class="fa-regular fa-calendar-days"></i></button>
 </div>

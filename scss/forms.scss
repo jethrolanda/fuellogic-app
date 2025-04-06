@@ -58,11 +58,8 @@ label{
 		}
 	}
 }
-
-.wp-block-fuellogic-app-thank-you,
-.wp-block-fuellogic-app-site-add{
-	padding-bottom: 100px;
-	button#submit-button{
+ 
+	button.submit-button{
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -84,8 +81,7 @@ label{
 		&.green{
 			background: $green;
 		}
-  }
-}
+  } 
 
 .text-center{
 	display: block;

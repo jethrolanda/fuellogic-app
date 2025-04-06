@@ -54,11 +54,11 @@ const { state, actions, callbacks } = store("fuellogic-app", {
     }
   },
   actions: {
-    submitForm: () => {
+    *submitForm() {
       const context = getContext();
       const formData = new FormData();
 
-      formData.append("action", "add_site");
+      formData.append("action", "save_site_and_order");
       formData.append(
         "data",
         JSON.stringify(Object.fromEntries(context.formData))
@@ -67,18 +67,26 @@ const { state, actions, callbacks } = store("fuellogic-app", {
         "images",
         JSON.stringify(context.formData.getAll("images"))
       );
+      formData.append(
+        "gas_type",
+        JSON.stringify(context.formData.getAll("gas_type"))
+      );
+      formData.append(
+        "machines",
+        JSON.stringify(context.formData.getAll("machines"))
+      );
       formData.append("nonce", state.nonce);
 
-      const data = fetch(state.ajaxUrl, {
+      const data = yield fetch(state.ajaxUrl, {
         method: "POST",
         body: formData
       }).then((response) => response.json());
 
-      context.signup_msg = data.message;
-      context.status = data.status;
+      console.log(data);
       if (data.status == "success") {
-        // Signup redirect
-        // window.location.href = state.signup_redirect;
+        // Thank you page redirect
+        window.location.href =
+          state.thank_you_page + "?order_id=" + data?.order?.order_id;
       } else {
       }
     },
@@ -136,9 +144,10 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       const active = document.getElementsByClassName("active");
       const step = ref.dataset.step;
 
-      if (ref.classList.contains("done") === false) {
-        return;
-      }
+      // Only navigate when the step is done
+      // if (ref.classList.contains("done") === false) {
+      //   return;
+      // }
 
       // Set current step
       context.currentStep = step;
@@ -187,7 +196,7 @@ const { state, actions, callbacks } = store("fuellogic-app", {
 
       callbacks.submitButtonStatus();
 
-      callbacks.doneSteps();
+      // callbacks.doneSteps();
     },
     onSiteNameChange: () => {
       const { ref } = getElement();
@@ -248,22 +257,22 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       const email = document.getElementById("site_contact_email");
       if (ref.checked) {
         fname.value = context.current_user.first_name;
-        fname.setAttribute("disabled", "disabled");
+        fname.setAttribute("readonly", "readonly");
         lname.value = context.current_user.last_name;
-        lname.setAttribute("disabled", "disabled");
+        lname.setAttribute("readonly", "readonly");
         phone.value = context.current_user.phone;
-        phone.setAttribute("disabled", "disabled");
+        phone.setAttribute("readonly", "readonly");
         email.value = context.current_user.email;
-        email.setAttribute("disabled", "disabled");
+        email.setAttribute("readonly", "readonly");
       } else {
         fname.value = "";
         lname.value = "";
         phone.value = "";
         email.value = "";
-        fname.removeAttribute("disabled");
-        lname.removeAttribute("disabled");
-        phone.removeAttribute("disabled");
-        email.removeAttribute("disabled");
+        fname.removeAttribute("readonly");
+        lname.removeAttribute("readonly");
+        phone.removeAttribute("readonly");
+        email.removeAttribute("readonly");
       }
       // Trigger form update
       var event = new Event("change");

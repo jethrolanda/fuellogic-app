@@ -30,7 +30,7 @@ class Sites
    */
   public function __construct()
   {
-    add_action("wp_ajax_add_site", array($this, 'add_site'));
+    // add_action("wp_ajax_add_site", array($this, 'add_site'));
 
     add_action("wp_ajax_update_site", array($this, 'update_site'));
 
@@ -62,13 +62,13 @@ class Sites
   public function add_site()
   {
 
-    if (get_current_user_id() == 0) {
-      wp_die();
-    }
+    // if (get_current_user_id() == 0) {
+    //   wp_die();
+    // }
 
-    if (!defined('DOING_AJAX') || !DOING_AJAX) {
-      wp_die();
-    }
+    // if (!defined('DOING_AJAX') || !DOING_AJAX) {
+    //   wp_die();
+    // }
 
     /**
      * Verify nonce
@@ -78,13 +78,10 @@ class Sites
     // }
 
     try {
-
-      error_log(print_r($_POST, true));
-      error_log(print_r(json_decode(stripslashes($_POST['data']), true), true));
       $data = json_decode(stripslashes($_POST['data']));
       $images = json_decode(stripslashes($_POST['images']));
       $sanitized_images = array_map('sanitize_text_field', $images);
-      error_log(print_r($images, true));
+      // error_log(print_r($images, true));
       // Create post object
       $my_post = array(
         'post_title'    => sanitize_text_field($data->site_name),
@@ -102,22 +99,23 @@ class Sites
         update_post_meta($post_id, '_site_delivery_notes', sanitize_text_field($data->notes));
         update_post_meta($post_id, '_site_images', $sanitized_images);
 
-        wp_send_json(array(
+        return array(
           'status' => 'success',
-          'data' => $this->get_sites()
-        ));
+          'data' => $this->get_sites(),
+          'site_id' => $post_id
+        );
       } else {
-        wp_send_json(array(
+        return array(
           'status' => 'error',
           'message' => $post_id->get_error_message()
-        ));
+        );
       }
     } catch (\Exception $e) {
 
-      wp_send_json(array(
+      return array(
         'status' => 'error',
         'message' => $e->getMessage()
-      ));
+      );
     }
   }
 
@@ -275,7 +273,7 @@ class Sites
       'numberposts' => -1,
       'author' => get_current_user_id(),
       'fields' => 'ids',
-      'order' => 'asc'
+      'order' => 'desc'
     ));
     $sites = array();
     if ($posts) {

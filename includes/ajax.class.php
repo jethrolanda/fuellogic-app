@@ -34,7 +34,7 @@ class Ajax
 
     add_action('wp_ajax_form_remove_note_image', array($this, 'form_remove_note_image'));
 
-    add_action('wp_ajax_create_site', array($this, 'create_site'));
+    add_action('wp_ajax_save_site_and_order', array($this, 'save_site_and_order'));
   }
 
   /**
@@ -120,7 +120,7 @@ class Ajax
     error_log(print_r(json_decode($_POST['file'], true), true));
   }
 
-  public function create_site()
+  public function save_site_and_order()
   {
     if (get_current_user_id() == 0) {
       wp_die();
@@ -129,7 +129,30 @@ class Ajax
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
       wp_die();
     }
-    // error_log(print_r($_POST, true));
-    // error_log(print_r(json_decode(stripslashes($_POST['data']), true), true));
+
+    global $fla_theme;
+
+    /**
+     * Verify nonce
+     */
+    // if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'site-nonce')) {
+    //   wp_die();
+    // }
+
+    try {
+
+      $site = $fla_theme->sites->add_site();
+      $order = $fla_theme->orders->add_order();
+      $result = array('status' => 'success', 'site' => $site, 'order' => $order);
+
+      // error_log(print_r($order, true));
+      wp_send_json($result);
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
   }
 }

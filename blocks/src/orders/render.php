@@ -10,37 +10,66 @@
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+global $fla_theme;
+$orders = $fla_theme->orders->get_orders();
+wp_interactivity_state(
+	'fuellogic-app',
+	array('orders' => $orders),
+);
+$context = array('orders_page' => site_url('thank-you'));
 
-$context = array('isOpen' => false);
+$status_text = array(
+	'pending' => 'ORDERED',
+	'processing' => 'PROCESSING',
+	'out-for-delivery' => 'OUT FOR DELIVERY',
+	'delivered' => 'DELIVERED',
+);
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
+	data-wp-run="callbacks.adjustSiteHeight"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<ul>
-		<li>
-			<i class="fa-solid fa-phone"></i>
-			<p>Contact Us</p>
-			<i class="fa-solid fa-arrows-up-down"></i>
-			<i class="fa-solid fa-filter"></i>
-		</li>
-		<li>
-			<i class="fa-regular fa-circle"></i>
-			<div>
-				<h3>ABC Supply - Freeport</h3>
-				<p>Delivery Nov 13 # FL-1424823</p>
-				<div class="status ordered">
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
+	<div class="controls">
+		<i class="fa-solid fa-plus"></i>
+		<p>New Order</p>
+		<i class="fa-solid fa-arrows-up-down"></i>
+		<i class="fa-solid fa-filter"></i>
+	</div>
+	<ul id="orders-list">
+		<!-- <li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
+			<i class="fa-solid fa-truck-fast"></i>
+			<p>No orders yet. Let’s get moving!</p>
+			<a href="http://localhost:8004/add-new-site/"><i class="fa-solid fa-plus"></i> MAKE YOUR FIRST ORDER</a>
+		</li> -->
+
+		<?php
+		foreach ($orders as $order) {
+		?>
+			<li class="item" <?php echo wp_interactivity_data_wp_context(array('order_id' => $order['id'])); ?> data-wp-on--click="actions.openOrderStatus">
+				<i class="fa-regular fa-circle"></i>
+				<div>
+					<h3><?php echo $order['data']->site_name; ?></h3>
+					<span class="details">
+						<span>Delivery <?php echo $order['data']->delivery_date; ?></span>
+						<span><?php echo $order['name']; ?></span>
+					</span>
+					<div class="status <?php echo !empty($order['status']) ? $order['status'] : 'pending'; ?>">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<p class=" status-text"><?php echo $status_text[!empty($order['status']) ? $order['status'] : 'pending'] ?></p>
 				</div>
-				<p class="status-text">ORDERED</p>
-			</div>
-			<i class="fa-solid fa-angle-right"></i>
-		</li>
-		<li>
+				<i class="fa-solid fa-angle-right"></i>
+			</li>
+		<?php
+		}
+		?>
+
+		<!-- <li>
 			<i class="fa-solid fa-arrow-rotate-right"></i>
 			<div>
 				<h3>ABC Supply - Houston</h3>
@@ -108,7 +137,7 @@ $context = array('isOpen' => false);
 				<p>Delivered Nov 4 # FL-1424823</p>
 			</div>
 			<i class="fa-solid fa-angle-right"></i>
-		</li>
+		</li> -->
 	</ul>
 
 </div>

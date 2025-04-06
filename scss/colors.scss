@@ -7,3 +7,36 @@ $gray3: #C4C4C4;
 $dark: #323030;
 $darker: #1C1C1C;
 $green: #a2cd3a;
+$orange: #FF8C57;
+
+.color-green,.green{
+  color: $green;
+}
+.color-gray,.gray{
+	color: $gray;
+}
+.color-orange{
+	color: $orange;
+}
+// helpers
+.space-between{
+	justify-content: space-between;
+}
+.hidden{
+	display: none;
+}
+.text-center{
+  text-align: center;
+}
+.text-small{
+	font-size: 14px;
+}
+.text-medium{
+	font-size: 18px;
+}
+.gap-10{
+	height: 10px;
+}
+.gap-20{
+	height: 20px;
+}

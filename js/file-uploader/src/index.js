@@ -25,7 +25,6 @@ const App = () => {
       "X-WP-Nonce": fuel_logic_app.nonce
     },
     onChange(info) {
-      console.log(info);
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
@@ -59,7 +58,6 @@ const App = () => {
     },
     // defaultFileList: notes,
     onRemove: (file) => {
-      // console.log(file);
       const formData = new FormData();
 
       formData.append("action", "form_remove_note_image");

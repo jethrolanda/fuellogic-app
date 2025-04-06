@@ -9,9 +9,11 @@ const Results = (props) => {
   }
 
   const onClick = (e) => {
-    console.log(e);
     document.getElementById("site_delivery_address").value = e.target.innerText;
     setResults(null);
+    var event = new Event("change");
+    // Dispatch it.
+    document.getElementById("site-form").dispatchEvent(event);
   };
   return (
     <ul>
@@ -28,12 +30,21 @@ const App = () => {
   const [results, setResults] = useState([]);
   const [value, setValue] = useState("");
 
+  window.addEventListener("click", function (e) {
+    if (document.getElementById("site_delivery_address").contains(e.target)) {
+      // Clicked in box
+    } else {
+      setResults(null);
+      // Clicked outside the box
+    }
+  });
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       // setSuggestions([]);
 
       const results = await provider.search({ query: address });
-      console.log(results);
+
       setResults(results);
       // results.map((res) => {
       //   setSuggestions((values) => [
@@ -50,10 +61,8 @@ const App = () => {
   }, [address]);
 
   const onChange = (e) => {
-    console.log(e.target.value);
     setAddress(e.target.value);
-    // delivery_date
-    // document.getElementById("delivery_date").value = date?.format("MM/DD/YYYY");
+    // document.getElementById("site_delivery_address").value = e.target.value;
     // var event = new Event("change");
     // Dispatch it.
     // document.getElementById("site-form").dispatchEvent(event);

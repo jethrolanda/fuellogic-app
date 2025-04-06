@@ -33,24 +33,24 @@ export const stepTwo = (formData) => {
   if (formData instanceof FormData === false) return false;
 
   const stepData = {
-    diesel: formData.get("diesel"),
-    gas: formData.get("gas"),
-    dyed_diesel: formData.get("dyed_diesel"),
-    def: formData.get("def")
+    gas_type: formData.getAll("gas_type")
   };
 
+  // Disable qty
+  ["diesel", "gas", "dyed_diesel", "def"].forEach((value) => {
+    document
+      .querySelector(`[name=${value}_qty]`)
+      .setAttribute("readonly", "readonly");
+  });
+
   let data = [];
-  Object.entries(stepData).forEach(([name, value]) => {
-    if (value === "on") {
-      document.querySelector(`[name=${name}_qty]`).removeAttribute("disabled");
-    } else {
-      document
-        .querySelector(`[name=${name}_qty]`)
-        .setAttribute("disabled", "disabled");
+  Object.entries(stepData.gas_type).forEach(([, value]) => {
+    if (value) {
+      document.querySelector(`[name=${value}_qty]`).removeAttribute("readonly");
     }
 
-    if (value !== "" && value !== null && formData.get(name + "_qty") > 0) {
-      data.push(name);
+    if (value !== "" && value !== null && formData.get(value + "_qty") > 0) {
+      data.push(value);
     }
   });
 
@@ -61,25 +61,30 @@ export const stepThree = (formData) => {
   if (formData instanceof FormData === false) return false;
 
   const stepData = {
-    vehicles: formData.get("vehicles"),
-    bulk_tank: formData.get("bulk_tank"),
-    construction_equipment: formData.get("construction_equipment"),
-    generators: formData.get("generators"),
-    reefer: formData.get("reefer"),
-    other: formData.get("other")
+    machines: formData.getAll("machines")
   };
 
+  // Disable qty
+  [
+    "vehicles",
+    "bulk_tank",
+    "construction_equipment",
+    "generators",
+    "reefer",
+    "other"
+  ].forEach((value) => {
+    document
+      .querySelector(`[name=${value}_qty]`)
+      .setAttribute("readonly", "readonly");
+  });
+
   let data = [];
-  Object.entries(stepData).forEach(([name, value]) => {
-    if (value === "on") {
-      document.querySelector(`[name=${name}_qty]`).removeAttribute("disabled");
-    } else {
-      document
-        .querySelector(`[name=${name}_qty]`)
-        .setAttribute("disabled", "disabled");
+  Object.entries(stepData.machines).forEach(([, value]) => {
+    if (value) {
+      document.querySelector(`[name=${value}_qty]`).removeAttribute("readonly");
     }
-    if (value !== "" && value !== null && formData.get(name + "_qty") > 0) {
-      data.push(name);
+    if (value !== "" && value !== null && formData.get(value + "_qty") > 0) {
+      data.push(value);
     }
   });
 

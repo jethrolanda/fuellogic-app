@@ -5,7 +5,185 @@
  * Replace them with your own styles or remove the file completely.
  */
  
- .wp-block-fuellogic-app-sites-name {
+ .wp-block-fuellogic-app-thank-you{
+	padding-bottom: 100px;
  
+	.site-info{
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 20px;
+		hr{
+			margin: 20px 0px;
+		}
+	}
+	h2,h3{
+		margin: 10px 0px;
+	}
+	
+	.section{
+		display: flex;
+    flex-direction: column;
+    gap: 10px;
+		label{
+			margin-top: 20px;
+			font-weight: 700;
+		}
+	}
+	.wrapper{
+		img.realtime_tracker, img.map{
+			width: 100%;
+			margin-top: 30px;
+			border-radius: 25px 25px 0px 0px;
+		}
+		.tracker{
+			display: grid;
+			grid-template-columns: 20% 80%;
+			background: #E8B931;
+			color: #141414;
+			margin-top: -4px;
+			align-items: center;
+			padding: 10px;
+			
+			.fa-truck-fast{
+				justify-self: center;
+				font-size: 32px;
+			}
+			span{
+				padding: 10px;
+    		line-height: 14px;
+			}
+		}
+		.heading, .site-wrapper, hr,.status-wrapper,.site-info{
+			padding: 0px 20px;
+		}
+		
+	}
+	.heading{
+		display: grid;
+    grid-template-columns: 60px auto;
+    align-items: center;
+		margin-bottom: 40px;
+		.fa-circle-check{
+			font-size: 45px;
+		}
+		
+	}
 
- }
+	.site-wrapper{
+		display: grid;
+    grid-template-columns: 30px auto;
+		align-items: center;
+		& div{
+			padding: 20px 10px;
+		}
+		
+		.fa-circle,
+		.fa-arrow-rotate-right,
+		.fa-truck-fast,
+		.fa-circle-check{
+			color: #FF8C57;
+			font-size: 26px;
+			padding: 20px 0px;
+		}
+		.fa-truck-fast{
+			color: #E8B931;
+		}
+		.fa-circle-check{
+			color: #A2CD3A;
+		}
+		
+	}
+
+	h3{
+		color: #D9D9D9;
+		margin: 0px;
+		padding: 0px;
+	}
+	p{
+		color: #878787;
+		font-size: 18px;
+		margin: 0px;
+		padding: 0px;
+		text-align: left;
+		&.small{
+			font-size: 14px;
+		}
+	}
+	.status-wrapper{  
+    text-align: center;
+
+		p{
+			text-align: center;
+			padding:10px;
+		}
+		div.status{
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+			
+			span{
+				background: #474747;
+				padding: 4px;
+				// border-top-left-radius: 20px;
+				// border-bottom-right-radius: 20px;
+				position: relative;
+		
+				&::before{
+					content: " ";
+					position: absolute;
+					background: #000;
+					width: 8px;
+					height: 20px;
+					top: -6px;
+					left: -2px;
+					transform: rotate(45deg);
+				}
+				// &::after{
+				// 	content: " ";
+				// 	position: absolute;
+				// 	background: #1C1C1C;
+				// 	width: 10px;
+				// 	height: 16px;
+				// 	top: -2px;
+				// 	right: 0px;
+				// 	transform: rotate(45deg);
+				// }
+		
+				&:first-child{
+					border-top-left-radius: 10px;
+					border-bottom-left-radius: 10px;
+					&::before{
+						display: none;
+					}
+				}
+				&:last-child{
+					border-top-right-radius: 10px;
+					border-bottom-right-radius: 10px;
+					// &::after{
+					// 	display: none;
+					// }
+				}
+			}
+			&.pending{
+				span:nth-child(-n+1){
+					background: #FF8C57; 
+				}
+			}
+			&.processing{
+				span:nth-child(-n+2){
+					background: #FF8C57; 
+				}
+			}
+			&.out-for-delivery{
+				span:nth-child(-n+3){
+					background: #E8B931;
+				}
+			}
+			&.delivered{
+				span:nth-child(-n+4){
+					background: #A2CD3A;
+				}
+			}
+		}
+	}
+}

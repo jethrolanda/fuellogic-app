@@ -32,7 +32,7 @@
 		background-color: #1c1c1c;
 		padding: 0px;
 		margin: 0px;
-		border-radius: 0px 0px 10px 10px;
+		// border-radius: 0px 0px 10px 10px;
 		max-height: 900px;
     overflow: auto;
 
@@ -96,12 +96,12 @@
 			grid-template-columns: 1fr;
 			padding: 40px;
 			justify-items: center;
-			gap: 20px;
+ 
 			p{
 				color: #D9D9D9;
 				font-size: 18px;
 				text-align: center;
-				padding: 40px;
+				padding: 30px 40px;
 			}
 			.fa-location-dot{
 				font-size: 160px;

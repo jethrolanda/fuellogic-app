@@ -18,7 +18,9 @@ wp_enqueue_script('fla-search-location-js');
 global $fla_theme;
 wp_interactivity_state(
 	'fuellogic-app',
-	array(),
+	array(
+		'thank_you_page' => site_url('thank-you')
+	),
 );
 
 $context = array(
@@ -116,27 +118,27 @@ $context = array(
 						<div>
 							<label for="diesel" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="diesel" name="diesel"><span class="checkmark"></span> On-Road Clear Diesel (trucks)
+									<input type="checkbox" id="diesel" name="gas_type" value="diesel"><span class="checkmark"></span> On-Road Clear Diesel (trucks)
 								</span>
-								<input type="number" class="input-number" name="diesel_qty" disabled>
+								<input type="number" class="input-number" name="diesel_qty" readonly>
 							</label>
 							<label for="gas" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="gas" name="gas"><span class="checkmark"></span> GAS - Unleaded Gasoline
+									<input type="checkbox" id="gas" name="gas_type" value="gas"><span class="checkmark"></span> GAS - Unleaded Gasoline
 								</span>
-								<input type="number" class="input-number" name="gas_qty" disabled>
+								<input type="number" class="input-number" name="gas_qty" readonly>
 							</label>
 							<label for="dyed_diesel" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="dyed_diesel" name="dyed_diesel"><span class="checkmark"></span> Off-Road - Dyed Diesel (Generators etc)
+									<input type="checkbox" id="dyed_diesel" name="gas_type" value="dyed_diesel"><span class="checkmark"></span> Off-Road - Dyed Diesel (Generators etc)
 								</span>
-								<input type="number" class="input-number space-between" name="dyed_diesel_qty" disabled>
+								<input type="number" class="input-number space-between" name="dyed_diesel_qty" readonly>
 							</label>
 							<label for="def" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="def" name="def"><span class="checkmark"></span> DEF - Diesel Exhaust Fluid
+									<input type="checkbox" id="def" name="gas_type" value="def"><span class="checkmark"></span> DEF - Diesel Exhaust Fluid
 								</span>
-								<input type="number" class="input-number" name="def_qty" disabled>
+								<input type="number" class="input-number" name="def_qty" readonly>
 							</label>
 						</div>
 
@@ -154,39 +156,39 @@ $context = array(
 						<div>
 							<label for="vehicles" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="vehicles" name="vehicles"><span class="checkmark"></span> Vehicles (Day Cabs, Box Trucks, Small Trucks)
+									<input type="checkbox" id="vehicles" name="machines" value="vehicles"><span class="checkmark"></span> Vehicles (Day Cabs, Box Trucks, Small Trucks)
 								</span>
-								<input type="number" class="input-number" name="vehicles_qty" disabled>
+								<input type="number" class="input-number" name="vehicles_qty" readonly>
 							</label>
 							<label for="bulk_tank" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="bulk_tank" name="bulk_tank"><span class="checkmark"></span> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
+									<input type="checkbox" id="bulk_tank" name="machines" value="bulk_tank"><span class="checkmark"></span> Bulk Tank (Jobsite Tanks, Big Tanks, etc.)
 								</span>
-								<input type="number" class="input-number" name="bulk_tank_qty" disabled>
+								<input type="number" class="input-number" name="bulk_tank_qty" readonly>
 							</label>
 							<label for="construction_equipment" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="construction_equipment" name="construction_equipment"><span class="checkmark"></span> Construction Equipment (Yellow Iron, Generators)
+									<input type="checkbox" id="construction_equipment" name="machines" value="construction_equipment"><span class="checkmark"></span> Construction Equipment (Yellow Iron, Generators)
 								</span>
-								<input type="number" class="input-number" name="construction_equipment_qty" disabled>
+								<input type="number" class="input-number" name="construction_equipment_qty" readonly>
 							</label>
 							<label for="generators" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="generators" name="generators"><span class="checkmark"></span> Building Generators
+									<input type="checkbox" id="generators" name="machines" value="generators"><span class="checkmark"></span> Building Generators
 								</span>
-								<input type="number" class="input-number" name="generators_qty" disabled>
+								<input type="number" class="input-number" name="generators_qty" readonly>
 							</label>
 							<label for="reefer" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="reefer" name="reefer"><span class="checkmark"></span> Reefer (Refrigerated Trailers)
+									<input type="checkbox" id="reefer" name="machines" value="reefer"><span class="checkmark"></span> Reefer (Refrigerated Trailers)
 								</span>
-								<input type="number" class="input-number" name="reefer_qty" disabled>
+								<input type="number" class="input-number" name="reefer_qty" readonly>
 							</label>
 							<label for="other" class="checkbox small space-between">
 								<span class="label">
-									<input type="checkbox" id="other" name="other"><span class="checkmark"></span> Other
+									<input type="checkbox" id="other" name="machines" value="other"><span class="checkmark"></span> Other
 								</span>
-								<input type="number" class="input-number" name="other_qty" disabled>
+								<input type="number" class="input-number" name="other_qty" readonly>
 							</label>
 						</div>
 
@@ -314,7 +316,7 @@ $context = array(
 				<!-- END PAYMENT DETAILS -->
 			</div>
 
-			<button id="submit-button" data-wp-class--next="state.next" data-wp-on--click="actions.submitButton">
+			<button class="submit-button" data-wp-class--next="state.next" data-wp-on--click="actions.submitButton">
 				<span data-wp-style--display="state.isIncomplete">INCOMPLETE</span>
 				<span data-wp-style--display="state.isNextStep" class="hidden">NEXT <i class="fa-solid fa-arrow-right"></i></span>
 				<span data-wp-style--display="state.isSubmitOrder" class="hidden">SUBMIT ORDER <i class="fa-solid fa-arrow-right"></i></span>

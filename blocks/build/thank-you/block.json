@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "fuellogic-app/thank-you",
   "version": "0.1.0",
-  "title": "FL Sites - Thank you",
+  "title": "FL Order - Thank You",
   "category": "widgets",
   "icon": "media-interactive",
   "description": "An interactive block with the Interactivity API",

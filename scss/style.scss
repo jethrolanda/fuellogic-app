@@ -3,6 +3,7 @@
 @import "login.scss";
 @import "media-query.scss";
 @import "antd-override.scss";
+@import "modal.scss";
 
 .loading-screen{
 	&::before{ 
@@ -160,181 +161,10 @@
 	}
 }
  
-.gray{
-	color: $gray;
-}
-
-.space-between{
-	justify-content: space-between;
-}
 
 .input-number{
 	width: 30px;
 	height: 10px;
 	text-align: center;
-}
-
-.hidden{
-	display: none;
-}
-
-
-.wp-block-fuellogic-app-thank-you{
-
-	.color-gray{
-		color: $gray;
-	}
-	.site-info{
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-top: 20px;
-		hr{
-			margin: 20px 0px;
-		}
-	}
-	h2,h3{
-		margin: 10px 0px;
-	}
-	
-	.section{
-		display: flex;
-    flex-direction: column;
-    gap: 10px;
-		label{
-			margin-top: 20px;
-			font-weight: 700;
-		}
-	}
-	.wrapper{
-		padding: 0px 20px;
-	}
-	.heading{
-		display: grid;
-    grid-template-columns: 60px auto;
-    align-items: center;
-		margin-bottom: 40px;
-		.fa-circle-check{
-			font-size: 45px;
-		}
-		
-	}
-
-	.site-wrapper{
-		display: grid;
-    grid-template-columns: 30px auto;
-		align-items: center;
-		& div{
-			padding: 20px 10px;
-		}
-		
-		.fa-circle,
-		.fa-arrow-rotate-right,
-		.fa-truck-fast,
-		.fa-circle-check{
-			color: #FF8C57;
-			font-size: 26px;
-			padding: 20px 0px;
-		}
-		.fa-truck-fast{
-			color: #E8B931;
-		}
-		.fa-circle-check{
-			color: #A2CD3A;
-		}
-		
-	}
-
-	h3{
-		color: #D9D9D9;
-		margin: 0px;
-		padding: 0px;
-	}
-	p{
-		color: $gray;
-		font-size: 18px;
-		margin: 0px;
-		padding: 0px;
-		text-align: left;
-		&.small{
-			font-size: 14px;
-		}
-	}
-	.status-wrapper{  
-    text-align: center;
-
-		p{
-			text-align: center;
-			padding:10px;
-		}
-		div.status{
-			display: grid;
-			grid-template-columns: 1fr 1fr 1fr 1fr;
-			
-			span{
-				background: #474747;
-				padding: 4px;
-				// border-top-left-radius: 20px;
-				// border-bottom-right-radius: 20px;
-				position: relative;
-		
-				&::before{
-					content: " ";
-					position: absolute;
-					background: #000;
-					width: 8px;
-					height: 20px;
-					top: -6px;
-					left: -2px;
-					transform: rotate(45deg);
-				}
-				// &::after{
-				// 	content: " ";
-				// 	position: absolute;
-				// 	background: #1C1C1C;
-				// 	width: 10px;
-				// 	height: 16px;
-				// 	top: -2px;
-				// 	right: 0px;
-				// 	transform: rotate(45deg);
-				// }
-		
-				&:first-child{
-					border-top-left-radius: 10px;
-					border-bottom-left-radius: 10px;
-					&::before{
-						display: none;
-					}
-				}
-				&:last-child{
-					border-top-right-radius: 10px;
-					border-bottom-right-radius: 10px;
-					// &::after{
-					// 	display: none;
-					// }
-				}
-			}
-			&.ordered{
-				span:nth-child(-n+1){
-					background: #FF8C57; 
-				}
-			}
-			&.processing{
-				span:nth-child(-n+2){
-					background: #FF8C57; 
-				}
-			}
-			&.out-for-delivery{
-				span:nth-child(-n+3){
-					background: #E8B931;
-				}
-			}
-			&.delivered{
-				span:nth-child(-n+4){
-					background: #A2CD3A;
-				}
-			}
-		}
-	}
 }
 

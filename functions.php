@@ -14,6 +14,7 @@ class FLA_Theme
   public $signup;
   public $email;
   public $user;
+  public $orders;
 
   public function __construct()
   {
@@ -27,6 +28,7 @@ class FLA_Theme
     $this->signup = new \FLA\Theme\Signup();
     $this->email = new \FLA\Theme\Email();
     $this->user = new \FLA\Theme\User();
+    $this->orders = new \FLA\Theme\Orders();
 
     /*---EXTRAS ---*/
 
