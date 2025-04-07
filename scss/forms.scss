@@ -59,29 +59,33 @@ label{
 	}
 }
  
-	button.submit-button{
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    color: #141414;
-    background: $gray;
-    font-size: 22px;
-    font-family: Lato;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    word-wrap: break-word;
-		border: none;
-		padding: 14px;
-		z-index: 99;
+button.submit-button{
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	color: #141414;
+	background: $gray;
+	font-size: 22px;
+	font-family: Lato;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	word-wrap: break-word;
+	border: none;
+	padding: 14px;
+	z-index: 99;
 
-		&.next{
-			background: $green;
-		}
-		&.green{
-			background: $green;
-		}
-  } 
+	&.next{
+		background: $green;
+	}
+	&.green{
+		background: $green;
+	}
+	&.disabled{
+		background: #878787;
+	}
+	
+} 
 
 .text-center{
 	display: block;

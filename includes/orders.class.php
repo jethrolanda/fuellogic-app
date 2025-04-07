@@ -30,7 +30,7 @@ class Orders
    */
   public function __construct()
   {
-    add_action("wp_ajax_add_order", array($this, 'add_order'));
+    add_action("wp_ajax_add_order_ajax", array($this, 'add_order_ajax'));
 
     add_action("wp_ajax_update_order", array($this, 'update_order'));
 
@@ -58,6 +58,37 @@ class Orders
     return self::$_instance;
   }
 
+
+  /**
+   * Add order AJAX
+   * 
+   * @since 1.0
+   */
+  public function add_order_ajax()
+  {
+
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+    try {
+      $order = $this->add_order();
+      wp_send_json(array(
+        'order' => $order,
+        'status' => 'success',
+      ));
+    } catch (\Exception $e) {
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
   /**
    * Add order
    * 
@@ -66,24 +97,9 @@ class Orders
   public function add_order()
   {
 
-    // if (get_current_user_id() == 0) {
-    //   wp_die();
-    // }
-
-    // if (!defined('DOING_AJAX') || !DOING_AJAX) {
-    //   wp_die();
-    // }
-
-    /**
-     * Verify nonce
-     */
-    // if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'order-nonce')) {
-    //   wp_die();
-    // }
-
     try {
 
-      // error_log(print_r($_POST, true));
+      error_log(print_r($_POST, true));
       $data = json_decode(stripslashes($_POST['data']));
       $images = json_decode(stripslashes($_POST['images']));
       $gas_type = json_decode(stripslashes($_POST['gas_type']));
@@ -114,6 +130,9 @@ class Orders
         update_post_meta($order_id, '_order_gas_type', $gas_type);
         update_post_meta($order_id, '_order_machines', $machines);
         update_post_meta($order_id, '_order_status', 'pending');
+        update_post_meta($order_id, '_order_address', sanitize_text_field($data->site_delivery_address));
+        update_post_meta($order_id, '_order_delivery_schedule', sanitize_text_field($data->delivery_date));
+        update_post_meta($order_id, '_order_delivery_notes', sanitize_text_field($data->notes));
         update_post_meta($order_id, '_order_user_id', get_current_user_id());
 
         return array(

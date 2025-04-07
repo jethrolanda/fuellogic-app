@@ -18,9 +18,7 @@ wp_enqueue_script('fla-search-location-js');
 global $fla_theme;
 wp_interactivity_state(
 	'fuellogic-app',
-	array(
-		'thank_you_page' => site_url('thank-you')
-	),
+	array(),
 );
 
 $context = array(
@@ -33,7 +31,8 @@ $context = array(
 		'last_name' => get_user_meta(get_current_user_id(), 'last_name', true),
 		'phone' => get_user_meta(get_current_user_id(), 'mobile_number', true),
 		'email' => wp_get_current_user()->user_email,
-	)
+	),
+	'thank_you_page' => site_url('thank-you')
 );
 
 ?>

@@ -41,10 +41,12 @@ $context = array(
 	'selectedSiteId' => 0,
 	'siteDetails' => '',
 	'isReviewed' => false,
+	'isButtonDisabled' => true,
 	'gas_type_list' => $gas_type_list,
 	'machines_list' => $machines_list,
+	'thank_you_page' => site_url('thank-you')
 );
-error_log(print_r($sites, true));
+// error_log(print_r($sites, true));
 ?>
 
 <div
@@ -85,7 +87,11 @@ error_log(print_r($sites, true));
 					<input data-wp-on--click="callbacks.toggleReviewed" type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I reviewed the new order details below.
 				</span>
 			</label>
-			<button class="submit-button green" data-wp-on--click="">SUBMIT ORDER</button>
+			<button
+				disabled
+				class="submit-button green disabled"
+				data-wp-on--click="actions.submitNewOrder"
+				data-wp-run="callbacks.disableButton">SUBMIT ORDER</button>
 
 			<div class="order-details" data-wp-bind--hidden="!context.isReviewed">
 				<h2>New Order Details</h2>
@@ -97,7 +103,7 @@ error_log(print_r($sites, true));
 						<h2><i class="fa-solid fa-location-dot color-gray"></i> Site Details</h2>
 						<p data-wp-text="context.siteDetails.name"></p>
 						<label>Site Delivery Address</label>
-						<p data-wp-text="context.siteDetails.address"><?php echo $data->site_delivery_address; ?></p>
+						<p data-wp-text="context.siteDetails.address"></p>
 
 						<label>Site Contact</label>
 						<p><span data-wp-text="context.siteDetails.data.site_contact_first_name"></span> <span data-wp-text="context.siteDetails.data.site_contact_last_name"></span></p>

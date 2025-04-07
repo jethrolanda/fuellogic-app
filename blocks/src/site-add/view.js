@@ -82,12 +82,10 @@ const { state, actions, callbacks } = store("fuellogic-app", {
         body: formData
       }).then((response) => response.json());
 
-      console.log(data);
       if (data.status == "success") {
         // Thank you page redirect
         window.location.href =
-          state.thank_you_page + "?order_id=" + data?.order?.order_id;
-      } else {
+          context.thank_you_page + "?order_id=" + data?.order?.order_id;
       }
     },
     submitButton: (e) => {
@@ -145,9 +143,9 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       const step = ref.dataset.step;
 
       // Only navigate when the step is done
-      // if (ref.classList.contains("done") === false) {
-      //   return;
-      // }
+      if (ref.classList.contains("done") === false) {
+        return;
+      }
 
       // Set current step
       context.currentStep = step;
@@ -196,7 +194,7 @@ const { state, actions, callbacks } = store("fuellogic-app", {
 
       callbacks.submitButtonStatus();
 
-      // callbacks.doneSteps();
+      callbacks.doneSteps();
     },
     onSiteNameChange: () => {
       const { ref } = getElement();

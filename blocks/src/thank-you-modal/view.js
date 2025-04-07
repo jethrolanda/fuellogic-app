@@ -14,16 +14,17 @@ const { state } = store("fuellogic-app", {
       formData.append("_ajax_nonce", state.nonce);
       formData.append("order_id", context.order_id);
 
-      const data = yield fetch(state.ajaxUrl, {
-        method: "POST",
-        body: formData
-      }).then((response) => response.json());
-
       // Optimistic update
       const el = document.body.querySelector(
         ".wp-block-fuellogic-app-thank-you-modal .modal"
       );
       if (el) el.style.display = "none";
+
+      const data = yield fetch(state.ajaxUrl, {
+        method: "POST",
+        body: formData
+      }).then((response) => response.json());
+
       if (data.status == "success") {
         // Close the modal
         if (el) el.style.display = "none";
