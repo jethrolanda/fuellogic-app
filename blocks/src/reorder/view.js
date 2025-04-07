@@ -4,6 +4,24 @@
 import { store, getContext, getElement } from "@wordpress/interactivity";
 
 const { state } = store("fuellogic-app", {
+  state: {
+    get gas_type_text() {
+      const context = getContext();
+      return context.gas_type_list[context.item];
+    },
+    get gas_type_qty() {
+      const context = getContext();
+      return context.siteDetails.data[`${context.item}_qty`];
+    },
+    get machines_text() {
+      const context = getContext();
+      return context.machines_list[context.item];
+    },
+    get machines_qty() {
+      const context = getContext();
+      return context.siteDetails.data[`${context.item}_qty`];
+    }
+  },
   actions: {
     showModal: () => {
       const el = document.body.querySelector(
@@ -27,5 +45,10 @@ const { state } = store("fuellogic-app", {
       context.siteDetails = selectedSite;
     }
   },
-  callbacks: {}
+  callbacks: {
+    toggleReviewed: (e) => {
+      const context = getContext();
+      context.isReviewed = e.target.checked;
+    }
+  }
 });

@@ -21,11 +21,30 @@ wp_interactivity_state(
 	array(),
 );
 
+$gas_type_list = array(
+	'diesel' => 'On-Road Clear Diesel (trucks)',
+	'gas' => 'GAS – Unleaded Gasoline',
+	'dyed_diesel' => 'Off-Road – Dyed Diesel (Generators etc)',
+	'def' => 'DEF – Diesel Exhaust Fluid'
+);
+$machines_list = array(
+	'vehicles' => 'Vehicles (Day Cabs, Box Trucks, Small Trucks)',
+	'bulk_tank' => 'Bulk Tank (Jobsite Tanks, Big Tanks, etc.)',
+	'construction_equipment' => 'Construction Equipment (Yellow Iron, Generators)',
+	'generators' => 'Building Generators',
+	'reefer' => 'Reefer (Refrigerated Trailers)',
+	'other' => 'Other'
+);
+
 $context = array(
 	'sites' => $sites,
 	'selectedSiteId' => 0,
-	'siteDetails' => ''
+	'siteDetails' => '',
+	'isReviewed' => false,
+	'gas_type_list' => $gas_type_list,
+	'machines_list' => $machines_list,
 );
+error_log(print_r($sites, true));
 ?>
 
 <div
@@ -63,12 +82,12 @@ $context = array(
 			</div> -->
 			<label class="checkbox text-small" for="official_site_contact">
 				<span class="label">
-					<input data-wp-on--click="callbacks.toggleSiteContact" type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I reviewed the new order details below.
+					<input data-wp-on--click="callbacks.toggleReviewed" type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I reviewed the new order details below.
 				</span>
 			</label>
 			<button class="submit-button green" data-wp-on--click="">SUBMIT ORDER</button>
 
-			<div class="order-details">
+			<div class="order-details" data-wp-bind--hidden="!context.isReviewed">
 				<h2>New Order Details</h2>
 				<p class="text-small">BASED ON YOUR SITE SETTINGS</p>
 				<div class="site-info">
@@ -89,43 +108,31 @@ $context = array(
 					<div class="section">
 						<h2><i class="fa-solid fa-gas-pump color-gray"></i> Fuel Type & Quantity</h2>
 						<table>
-							<?php
-							// if (!empty($gas_type)) {
-							// 	foreach ($gas_type as $type) {
-							// 		echo "<tr>";
-							// 		echo "<td>" . $gas_type_list[$type] . "</td>";
-							// 		echo "<td>" . $data->{$type . '_qty'} . "</td>";
-							// 		echo "</tr>";
-							// 	}
-							// }
-							?>
+							<template data-wp-each="context.siteDetails.gas_type">
+								<tr>
+									<td data-wp-text="state.gas_type_text"></td>
+									<td data-wp-text="state.gas_type_qty"></td>
+							</template>
 						</table>
 					</div>
 					<hr>
 					<div class="section">
 						<h2><i class="fa-solid fa-truck-front color-gray"></i> Site Equipment</h2>
 						<table>
-							<?php
-							// if (!empty($machines)) {
-							// 	foreach ($machines as $machine) {
-							// 		echo "<tr>";
-							// 		echo "<td>" . $machines_list[$machine] . "</td>";
-							// 		echo "<td>" . $data->{$machine . '_qty'} . "</td>";
-							// 		echo "</tr>";
-							// 	}
-							// }
-							?>
+							<template data-wp-each="context.siteDetails.machines">
+								<tr>
+									<td data-wp-text="state.machines_text"></td>
+									<td data-wp-text="state.machines_qty"></td>
+							</template>
 						</table>
 					</div>
 					<hr>
 					<div class="section">
 						<h2><i class="fa-solid fa-file color-gray"></i> Site Delivery Notes</h2>
 						<p data-wp-text="context.siteDetails.data.notes"></p>
-						<?php
-						// foreach ($images as $image) {
-						// 	echo '<img src="' . $image . '" width="150"/>';
-						// }
-						?>
+						<template data-wp-each="context.siteDetails.images">
+							<img data-wp-bind--src="context.item" width="150" />
+						</template>
 					</div>
 					<hr>
 					<div class="section">
