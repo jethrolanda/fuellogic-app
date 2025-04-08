@@ -39,14 +39,18 @@ $machines_list = array(
 $context = array(
 	'sites' => $sites,
 	'selectedSiteId' => 0,
-	'siteDetails' => '',
+	'siteDetails' => array(
+		'images'	=> array(),
+		'machines'	=> array(),
+		'gas_type'	=> array(),
+	),
 	'isReviewed' => false,
 	'isButtonDisabled' => true,
 	'gas_type_list' => $gas_type_list,
 	'machines_list' => $machines_list,
-	'thank_you_page' => site_url('thank-you')
+	'thank_you_page' => site_url('order-status')
 );
-// error_log(print_r($sites, true));
+// error_log(print_r($context, true));
 ?>
 
 <div

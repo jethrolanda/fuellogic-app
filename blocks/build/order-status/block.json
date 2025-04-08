@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "fuellogic-app/thank-you",
+  "name": "fuellogic-app/order-status",
   "version": "0.1.0",
-  "title": "FL Order - Thank You",
+  "title": "FL Order - Order Status",
   "category": "widgets",
   "icon": "media-interactive",
   "description": "An interactive block with the Interactivity API",

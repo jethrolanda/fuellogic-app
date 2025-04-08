@@ -56,7 +56,7 @@ const { state } = store("fuellogic-app", {
     *submitNewOrder() {
       const context = getContext();
       const formData = new FormData();
-      console.log(typeof context.siteDetails, context.siteDetails);
+
       if (
         typeof context.siteDetails !== "undefined" &&
         context.siteDetails == ""
@@ -96,6 +96,8 @@ const { state } = store("fuellogic-app", {
       const context = getContext();
       useEffect(() => {
         const { ref } = getElement();
+        if (ref == null) return;
+
         if (context.isButtonDisabled) {
           ref.classList.add("disabled");
           ref.setAttribute("disabled", "disabled");

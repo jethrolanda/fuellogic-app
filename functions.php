@@ -42,6 +42,7 @@ class FLA_Theme
   public function remove_admin_bar()
   {
     show_admin_bar(false);
+    flush_rewrite_rules();
   }
 
   public function add_rewrite_endpoint()

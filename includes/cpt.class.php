@@ -60,8 +60,8 @@ class Cpt
           'singular_name' => __('Site')
         ),
         'public' => true,
-        'has_archive' => true,
-        'rewrite' => array('slug' => 'sites'),
+        'has_archive' => false,
+        // 'rewrite' => array('slug' => 'sites'),
         'show_in_rest' => true,
         'capabilities' => array(
           // 'create_posts' => false
@@ -102,8 +102,8 @@ class Cpt
           'singular_name' => __('Order')
         ),
         'public' => true,
-        'has_archive' => true,
-        'rewrite' => array('slug' => 'orders'),
+        'has_archive' => false,
+        // 'rewrite' => array('slug' => 'orders'),
         'show_in_rest' => true,
         'capabilities' => array(
           // 'create_posts' => false

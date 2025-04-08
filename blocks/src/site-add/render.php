@@ -32,7 +32,7 @@ $context = array(
 		'phone' => get_user_meta(get_current_user_id(), 'mobile_number', true),
 		'email' => wp_get_current_user()->user_email,
 	),
-	'thank_you_page' => site_url('thank-you')
+	'thank_you_page' => site_url('order-status')
 );
 
 ?>

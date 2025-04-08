@@ -16,7 +16,7 @@ wp_interactivity_state(
 	'fuellogic-app',
 	array('orders' => $orders),
 );
-$context = array('orders_page' => site_url('thank-you'));
+$context = array('orders_page' => site_url('order-status'));
 
 $status_text = array(
 	'pending' => 'ORDERED',
@@ -24,6 +24,7 @@ $status_text = array(
 	'out-for-delivery' => 'OUT FOR DELIVERY',
 	'delivered' => 'DELIVERED',
 );
+
 ?>
 
 <div
