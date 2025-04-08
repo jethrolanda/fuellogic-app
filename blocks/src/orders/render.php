@@ -16,7 +16,10 @@ wp_interactivity_state(
 	'fuellogic-app',
 	array('orders' => $orders),
 );
-$context = array('orders_page' => site_url('order-status'));
+$context = array(
+	'orders_page' => site_url('order-status'),
+	'new_site' => site_url('add-new-site'),
+);
 
 $status_text = array(
 	'pending' => 'ORDERED',
@@ -39,11 +42,14 @@ $status_text = array(
 		<i class="fa-solid fa-filter"></i>
 	</div>
 	<ul id="orders-list">
-		<!-- <li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
-			<i class="fa-solid fa-truck-fast"></i>
-			<p>No orders yet. Let’s get moving!</p>
-			<a href="http://localhost:8004/add-new-site/"><i class="fa-solid fa-plus"></i> MAKE YOUR FIRST ORDER</a>
-		</li> -->
+		<?php if (empty($orders)) { ?>
+			<li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
+				<i class="fa-solid fa-truck-fast"></i>
+				<p>No orders yet. Let’s get moving!</p>
+				<a href="<?php echo $context['new_site'] ?>"><i class="fa-solid fa-plus"></i> MAKE YOUR FIRST ORDER</a>
+			</li>
+		<?php } ?>
+
 
 		<?php
 		foreach ($orders as $order) {
