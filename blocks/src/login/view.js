@@ -82,7 +82,10 @@ const { state } = store("fuellogic-app", {
       const context = getContext();
       const el = getElement();
 
-      el.ref.innerHTML = context.login_msg;
+      if (context.login_msg !== "") {
+        el.ref.innerHTML = context.login_msg;
+        el.ref.style.display = "block";
+      }
     }
   }
 });

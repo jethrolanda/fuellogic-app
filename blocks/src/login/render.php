@@ -33,7 +33,7 @@ $context = array(
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<div class="login-message" data-wp-watch="callbacks.renderLoginMsg"></div>
+	<div class="login-message" data-wp-watch="callbacks.renderLoginMsg" style="display:none;"></div>
 	<form action="#">
 		<input data-wp-on--input="callbacks.setUserName" name="uname" type="text" placeholder="Email" />
 		<input data-wp-on--input="callbacks.setPassword" name="pword" type="password" placeholder="Password" />
