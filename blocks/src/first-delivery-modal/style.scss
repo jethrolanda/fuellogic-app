@@ -1,0 +1,30 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ 
+ .wp-block-fuellogic-app-first-delivery-modal {
+  
+  .modal .modal-content{
+    padding-top: 100px;
+  }
+
+  .submit-button{
+    position: relative;
+    border-radius: .75rem;
+  }
+  .fa-xmark{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #474747;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .fa-flag-checkered{
+    font-size: 160px;
+  }
+  
+ }

@@ -83,6 +83,9 @@ class Blocks
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/thank-you-modal');
 
     register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/reorder');
+
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/first-delivery-modal');
+    register_block_type_from_metadata(FLA_BLOCKS_ROOT_DIR . 'build/fuel-delivered-modal');
   }
 
   public function register_new_category($categories)

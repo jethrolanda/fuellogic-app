@@ -84,6 +84,9 @@ button.submit-button{
 	&.disabled{
 		background: #878787;
 	}
+	&.small{
+		font-size: 14px;
+	}
 	
 } 
 

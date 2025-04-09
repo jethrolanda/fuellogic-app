@@ -25,7 +25,7 @@ wp_interactivity_state(
 	),
 );
 
-$context = array();
+$context = array('new_site' => site_url('add-new-site'),);
 ?>
 
 <div
@@ -55,7 +55,7 @@ $context = array();
 		<li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
 			<i class="fa-solid fa-location-dot"></i>
 			<p>A Site is a location where you will receive fuel deliveries. C'mon, let's get your first site set up!</p>
-			<a href="http://localhost:8004/add-new-site/"><i class="fa-solid fa-plus"></i> SET UP YOUR SITE</a>
+			<a href="<?php echo $context['new_site'] ?>"><i class="fa-solid fa-plus"></i> SET UP YOUR SITE</a>
 		</li>
 		<!-- <li>
 			<i class="fa-solid fa-location-dot"></i>
