@@ -1,7 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { store, getElement, useEffect } from "@wordpress/interactivity";
+import {
+  store,
+  getElement,
+  getContext,
+  useEffect
+} from "@wordpress/interactivity";
 
 const { state } = store("fuellogic-app", {
   state: {
@@ -77,6 +82,11 @@ const { state } = store("fuellogic-app", {
     }
   },
   callbacks: {
+    addNewSiteRedirect: () => {
+      const context = getContext();
+      // Add new site redirect
+      window.location.href = context.new_site;
+    },
     openModal: () => {
       const { ref } = getElement();
       state.action = ref.dataset.action;

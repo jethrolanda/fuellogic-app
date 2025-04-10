@@ -34,7 +34,7 @@ $context = array('new_site' => site_url('add-new-site'),);
 	data-wp-run="callbacks.adjustSiteHeight"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
 	<div class="controls">
-		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.openModal" data-action="add-site"></i>
+		<i class="fa-solid fa-plus" data-wp-on--click="callbacks.addNewSiteRedirect" data-action="add-site"></i>
 		<p>New Site</p>
 		<i class="fa-solid fa-arrows-up-down" data-wp-on--click="callbacks.sortSites"></i>
 		<i class="fa-solid fa-trash" data-wp-on--click="actions.deleteSite"></i>
