@@ -68,7 +68,7 @@ class Scripts
   public function frontend_script_loader()
   {
     wp_enqueue_style('dashicons');
-    wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css', array());
+    wp_enqueue_style('fuellogic-app', get_template_directory_uri() . '/style.css', array());
 
     // Antd Calendar
     $asset_file = FLA_JS_ROOT_DIR . 'react-calendar/build/index.asset.php';
