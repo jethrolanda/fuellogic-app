@@ -29,7 +29,7 @@ const { state } = store("fuellogic-app", {
         // Close the modal
         if (el) el.style.display = "none";
       } else {
-        if (el) el.style.display = "flex";
+        if (el) el.style.display = "grid";
       }
     }
   },

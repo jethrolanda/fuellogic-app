@@ -34,6 +34,7 @@ $context = array(
 	'orders_page' => site_url('orders'),
 	'truck_delivery_png' => FLA_BLOCKS_ROOT_URL . 'assets/delivery_truck.png',
 	'map' => FLA_BLOCKS_ROOT_URL . 'assets/map.png',
+	'order_id' => !empty($_GET['order_id']) ? $_GET['order_id'] : 0,
 );
 
 // Dont allow a use to access if he is not the owner of the order
@@ -83,14 +84,14 @@ $status_text = array(
 		</div>
 		<div class="status-wrapper">
 			<div class="status <?php echo !empty($order_status) ? $order_status : 'pending'; ?>">
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
+				<span <?php echo wp_interactivity_data_wp_context(array('status' => 'pending')); ?> data-wp-on--click="actions.changeStatus"></span>
+				<span <?php echo wp_interactivity_data_wp_context(array('status' => 'processing')); ?> data-wp-on--click="actions.changeStatus"></span>
+				<span <?php echo wp_interactivity_data_wp_context(array('status' => 'out-for-delivery')); ?> data-wp-on--click="actions.changeStatus"></span>
+				<span <?php echo wp_interactivity_data_wp_context(array('status' => 'delivered')); ?> data-wp-on--click="actions.changeStatus"></span>
 			</div>
 			<p class="status-text text-small"><?php echo $status_text[!empty($order_status) ? $order_status : 'pending'] ?></p>
 		</div>
-		<?php if ($order_status == 'out-for-delivery') { ?>
+		<div id="map1" style="display: <?php echo $order_status == 'out-for-delivery' ? "block" : "none"; ?>">
 			<img class="realtime_tracker" src="<?php echo $context['truck_delivery_png']; ?>" alt="Truck" />
 			<div class="tracker">
 				<i class="fa-solid fa-truck-fast"></i>
@@ -99,10 +100,10 @@ $status_text = array(
 					<small class="text-small">REAL-TIME TRACKER</small>
 				</span>
 			</div>
-		<?php } else { ?>
+		</div>
+		<div id="map2" style="display: <?php echo $order_status == 'out-for-delivery' ? "none" : "block"; ?>">
 			<img class="map" src="<?php echo $context['map']; ?>" alt="Map" />
-		<?php } ?>
-
+		</div>
 
 		<div class="site-info">
 			<div>

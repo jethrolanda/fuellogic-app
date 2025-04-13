@@ -17,25 +17,33 @@ wp_interactivity_state(
 );
 
 $context = array();
+
+$user_id = get_current_user_id();
+$showModal = get_user_meta($user_id, '_order_first_delivery_modal', true);
+
+// if (empty($showModal) || $showModal !== 'open') {
+// 	return;
+// }
+
 ?>
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<!-- <div class="modal">
+	<div class="modal" style="display: <?php echo empty($showModal) || $showModal !== 'open' ? "none" : "grid"; ?>">
 		<div class="modal-content">
-			<i class="fa-solid fa-xmark" data-wp-on--click="actions.closeThankyouModal"></i>
+			<i class="fa-solid fa-xmark" data-wp-on--click="actions.closeFirstDeliveryModal"></i>
 			<i class="fa-solid fa-flag-checkered green"></i>
 
 			<h1>First Delivery Complete!</h1>
-			<p class="green text-medium" style="width: 70%;">Way to go! Your first fueling is done!</p>
+			<p class="green text-medium">Way to go! Your first fueling is done!</p>
 			<div class="gap-10"></div>
-			<button class="submit-button green" data-wp-on--click="actions.closeThankyouModal">HOW DID WE DO?</button>
+			<button class="submit-button green">HOW DID WE DO?</button>
 			<div class="gap-10"></div>
-			<button class="submit-button small" data-wp-on--click="actions.closeThankyouModal"><i class="fa-solid fa-calendar-days"></i> CREATE SCHEDULE</button>
-			<button class="submit-button small" data-wp-on--click="actions.closeThankyouModal"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
+			<button class="submit-button small"><i class="fa-solid fa-calendar-days"></i> CREATE SCHEDULE</button>
+			<button class="submit-button small"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
 			<p>DONE</p>
 		</div>
-	</div> -->
+	</div>
 </div>

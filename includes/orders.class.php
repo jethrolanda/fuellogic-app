@@ -31,16 +31,19 @@ class Orders
   public function __construct()
   {
     add_action("wp_ajax_add_order_ajax", array($this, 'add_order_ajax'));
-
     add_action("wp_ajax_update_order", array($this, 'update_order'));
-
     add_action("wp_ajax_delete_order", array($this, 'delete_order'));
+    add_action("wp_ajax_update_order_status", array($this, 'update_order_status'));
 
     add_action('add_meta_boxes', array($this, 'wpse_add_custom_meta_box_2'));
 
     add_filter('manage_orders_posts_columns', array($this, 'cpt_author_column'));
 
+    // Modals
     add_action("wp_ajax_close_thank_you_modal", array($this, 'close_thank_you_modal'));
+    add_action("wp_ajax_close_first_delivery_modal", array($this, 'close_first_delivery_modal'));
+    add_action("wp_ajax_close_fuel_delivered_modal", array($this, 'close_fuel_delivered_modal'));
+
 
     add_action('save_post_orders', array($this, 'save_post'), 10, 3);
   }
@@ -247,6 +250,64 @@ class Orders
     }
   }
 
+
+  /**
+   * Update order status
+   * 
+   * @since 1.0
+   */
+  public function update_order_status()
+  {
+
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+    try {
+
+      $order_status = !empty($_POST['order_status']) ? $_POST['order_status'] : '';
+      $order_id = !empty($_POST['order_id']) ? $_POST['order_id'] : '';
+
+      if ($order_status == 'delivered') {
+        $user_id = get_post_meta($order_id, '_order_user_id', true);
+        $first_delivery_modal = get_user_meta($user_id, '_order_first_delivery_modal', true);
+        if ($first_delivery_modal !== 'closed') {
+          update_user_meta($user_id, '_order_first_delivery_modal', 'open');
+        } else {
+          update_user_meta($user_id, '_order_fuel_delivered_modal', 'open');
+        }
+      }
+
+      if ($order_status != "" && $order_id !== "") {
+        update_post_meta($order_id, '_order_status', $order_status);
+
+        // First delivery modal
+        $user_id = get_current_user_id();
+        $first_delivery = get_user_meta($user_id, '_order_first_delivery_modal', true);
+
+        // Fuel delivered modal
+        $fuel_delivered = get_user_meta($user_id, '_order_fuel_delivered_modal', true);
+        wp_send_json(array(
+          'status' => 'success',
+          'isFirstDelivery' => empty($first_delivery) || $first_delivery !== 'open' ? true : false,
+          'isFuelDelivered' => empty($fuel_delivered) || $fuel_delivered !== 'open' ? true : false
+        ));
+      } else {
+        wp_send_json(array('status' => 'error'));
+      }
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
   public function wpse_add_custom_meta_box_2()
   {
     add_meta_box(
@@ -263,27 +324,86 @@ class Orders
   {
     global $post;
 
+    $gas_type_list = array(
+      'diesel' => 'On-Road Clear Diesel (trucks)',
+      'gas' => 'GAS – Unleaded Gasoline',
+      'dyed_diesel' => 'Off-Road – Dyed Diesel (Generators etc)',
+      'def' => 'DEF – Diesel Exhaust Fluid'
+    );
+    $machines_list = array(
+      'vehicles' => 'Vehicles (Day Cabs, Box Trucks, Small Trucks)',
+      'bulk_tank' => 'Bulk Tank (Jobsite Tanks, Big Tanks, etc.)',
+      'construction_equipment' => 'Construction Equipment (Yellow Iron, Generators)',
+      'generators' => 'Building Generators',
+      'reefer' => 'Reefer (Refrigerated Trailers)',
+      'other' => 'Other'
+    );
 
     $order_address = get_post_meta($post->ID, '_order_address', true);
     $order_delivery_schedule = get_post_meta($post->ID, '_order_delivery_schedule', true);
     $order_delivery_notes = get_post_meta($post->ID, '_order_delivery_notes', true);
     $order_images = get_post_meta($post->ID, '_order_images', true);
     $order_status = get_post_meta($post->ID, '_order_status', true);
+    $data = get_post_meta($post->ID, '_order_data', true);
+    $gas_type = get_post_meta($post->ID, '_order_gas_type', true);
+    $machines = get_post_meta($post->ID, '_order_machines', true);
 
+    // error_log(print_r($gas_type, true));
 ?>
+    <h1>Site Details</h1>
     <table>
       <tr>
-        <th>User</th>
-        <td><?php echo get_the_author_meta('display_name', $post->post_author); ?></td>
+        <th>Site Name</th>
+        <td><?php echo $data->site_name; ?></td>
       </tr>
       <tr>
-        <th>Address</th>
-        <td><?php echo $order_address; ?></td>
+        <th>Site Delivery Address</th>
+        <td><?php echo $data->site_delivery_address; ?></td>
       </tr>
+      <tr>
+        <th>Site Contact First Name</th>
+        <td><?php echo $data->site_contact_first_name; ?></td>
+      </tr>
+      <tr>
+        <th>Site Contact Last Name</th>
+        <td><?php echo $data->site_contact_last_name; ?></td>
+      </tr>
+      <tr>
+        <th>Site Contact Phone</th>
+        <td><?php echo $data->site_contact_last_name; ?></td>
+      </tr>
+      <tr>
+        <th>Site Contact Email</th>
+        <td><?php echo $data->site_contact_email; ?></td>
+      </tr>
+    </table>
+    <h1>Fuel Type</h1>
+    <table>
+      <?php foreach ($gas_type as $type) { ?>
+        <tr>
+          <th><?php echo $gas_type_list[$type]; ?></th>
+          <td><?php echo $data->{$type . '_qty'}; ?></td>
+        </tr>
+      <?php } ?>
+    </table>
+    <h1>Equipment</h1>
+    <table>
+      <?php foreach ($machines as $type) { ?>
+        <tr>
+          <th><?php echo $machines_list[$type]; ?></th>
+          <td><?php echo $data->{$type . '_qty'}; ?></td>
+        </tr>
+      <?php } ?>
+    </table>
+    <h1>Schedule</h1>
+    <table>
       <tr>
         <th>Delivery Schedule</th>
         <td><?php echo $order_delivery_schedule; ?></td>
       </tr>
+    </table>
+    <h1>Notes</h1>
+    <table>
       <tr>
         <th>Delivery Notes</th>
         <td><?php echo $order_delivery_notes; ?></td>
@@ -297,18 +417,15 @@ class Orders
               }
             } ?></td>
       </tr>
-      <tr>
-        <th>Status</th>
-        <td>
-          <select name="order_status" id="order_status">
-            <option value="pending" <?php selected($order_status, 'pending'); ?>>Pending</option>
-            <option value="processing" <?php selected($order_status, 'processing'); ?>>Processing</option>
-            <option value="out-for-delivery" <?php selected($order_status, 'out-for-delivery'); ?>>Out for delivery</option>
-            <option value="delivered" <?php selected($order_status, 'delivered'); ?>>Delivered</option>
-          </select>
-        </td>
-      </tr>
     </table>
+    <h1>Payments</h1>
+    <h1>Status</h1>
+    <select name="order_status" id="order_status">
+      <option value="pending" <?php selected($order_status, 'pending'); ?>>Pending</option>
+      <option value="processing" <?php selected($order_status, 'processing'); ?>>Processing</option>
+      <option value="out-for-delivery" <?php selected($order_status, 'out-for-delivery'); ?>>Out for delivery</option>
+      <option value="delivered" <?php selected($order_status, 'delivered'); ?>>Delivered</option>
+    </select>
 <?php
   }
 
@@ -352,14 +469,6 @@ class Orders
       wp_die();
     }
 
-    global $fla_theme;
-
-    /**
-     * Verify nonce
-     */
-    // if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'site-nonce')) {
-    //   wp_die();
-    // }
 
     try {
 
@@ -367,6 +476,60 @@ class Orders
       if ($order_id > 0) {
         update_post_meta($order_id, '_order_thank_you_modal', 'closed');
       }
+      // error_log(print_r($order, true));
+      wp_send_json(array('status' => 'success'));
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
+  public function close_first_delivery_modal()
+  {
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+
+    try {
+
+      $user_id = get_current_user_id();
+      update_user_meta($user_id, '_order_first_delivery_modal', 'closed');
+
+      // error_log(print_r($order, true));
+      wp_send_json(array('status' => 'success'));
+    } catch (\Exception $e) {
+
+      wp_send_json(array(
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ));
+    }
+  }
+
+  public function close_fuel_delivered_modal()
+  {
+    if (get_current_user_id() == 0) {
+      wp_die();
+    }
+
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+      wp_die();
+    }
+
+
+    try {
+
+      $user_id = get_current_user_id();
+      update_user_meta($user_id, '_order_fuel_delivered_modal', 'closed');
+
       // error_log(print_r($order, true));
       wp_send_json(array('status' => 'success'));
     } catch (\Exception $e) {
@@ -387,6 +550,16 @@ class Orders
     if (isset($_POST['order_status']) && !empty($_POST['order_status'])) {
       $order_status = sanitize_text_field($_POST['order_status']);
       update_post_meta($post_id, '_order_status', $order_status);
+
+      if ($order_status == 'delivered') {
+        $user_id = get_post_meta($post_id, '_order_user_id', true);
+        $first_delivery_modal = get_user_meta($user_id, '_order_first_delivery_modal', true);
+        if ($first_delivery_modal !== 'closed') {
+          update_user_meta($user_id, '_order_first_delivery_modal', 'open');
+        } else {
+          update_user_meta($user_id, '_order_fuel_delivered_modal', 'open');
+        }
+      }
     }
   }
 }
