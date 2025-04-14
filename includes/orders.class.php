@@ -102,7 +102,7 @@ class Orders
 
     try {
 
-      error_log(print_r($_POST, true));
+      // error_log(print_r($_POST, true));
       $data = json_decode(stripslashes($_POST['data']));
       $images = json_decode(stripslashes($_POST['images']));
       $gas_type = json_decode(stripslashes($_POST['gas_type']));
@@ -350,8 +350,18 @@ class Orders
 
     // error_log(print_r($gas_type, true));
 ?>
-    <h1>Site Details</h1>
-    <table>
+    <style>
+      .fla-table th,
+      .fla-table td {
+        padding: 10px;
+      }
+
+      .fla-table th {
+        text-align: right;
+      }
+    </style>
+    <h1>Site Details:</h1>
+    <table class="fla-table">
       <tr>
         <th>Site Name</th>
         <td><?php echo $data->site_name; ?></td>
@@ -377,8 +387,8 @@ class Orders
         <td><?php echo $data->site_contact_email; ?></td>
       </tr>
     </table>
-    <h1>Fuel Type</h1>
-    <table>
+    <h1>Fuel Type:</h1>
+    <table class="fla-table">
       <?php foreach ($gas_type as $type) { ?>
         <tr>
           <th><?php echo $gas_type_list[$type]; ?></th>
@@ -386,8 +396,8 @@ class Orders
         </tr>
       <?php } ?>
     </table>
-    <h1>Equipment</h1>
-    <table>
+    <h1>Equipment:</h1>
+    <table class="fla-table">
       <?php foreach ($machines as $type) { ?>
         <tr>
           <th><?php echo $machines_list[$type]; ?></th>
@@ -395,15 +405,15 @@ class Orders
         </tr>
       <?php } ?>
     </table>
-    <h1>Schedule</h1>
-    <table>
+    <h1>Schedule:</h1>
+    <table class="fla-table">
       <tr>
         <th>Delivery Schedule</th>
         <td><?php echo $order_delivery_schedule; ?></td>
       </tr>
     </table>
-    <h1>Notes</h1>
-    <table>
+    <h1>Notes:</h1>
+    <table class="fla-table">
       <tr>
         <th>Delivery Notes</th>
         <td><?php echo $order_delivery_notes; ?></td>
@@ -418,8 +428,8 @@ class Orders
             } ?></td>
       </tr>
     </table>
-    <h1>Payments</h1>
-    <h1>Status</h1>
+    <h1>Payments:</h1>
+    <h1>Status:</h1>
     <select name="order_status" id="order_status">
       <option value="pending" <?php selected($order_status, 'pending'); ?>>Pending</option>
       <option value="processing" <?php selected($order_status, 'processing'); ?>>Processing</option>

@@ -142,9 +142,12 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       const active = document.getElementsByClassName("active");
       const step = ref.dataset.step;
 
-      // Only navigate when the step is done
-      if (ref.classList.contains("done") === false) {
-        return;
+      // Disable step navigation when in readonly mode
+      if (context.site_id == 0) {
+        // Only navigate when the step is done
+        if (ref.classList.contains("done") === false) {
+          return;
+        }
       }
 
       // Set current step
@@ -156,6 +159,7 @@ const { state, actions, callbacks } = store("fuellogic-app", {
 
       // Show step content
       callbacks.init();
+      // callbacks.adjustFormContentHeight();
     },
     onFormUpdate: () => {
       const { ref } = getElement();
@@ -163,35 +167,51 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       const formData = new FormData(ref);
       context.formData = formData;
 
+      // Show authorization email
+      const paymentMethod = formData.get("payment_method");
+      const authorization_email = document.getElementById(
+        "pre_authorization_email"
+      );
+      if (paymentMethod == "payment_on_file") {
+        if (authorization_email) {
+          authorization_email.style.display = "flex";
+        }
+      } else {
+        if (authorization_email) {
+          authorization_email.style.display = "none";
+        }
+      }
+
       const otd = formData.get("one_time_delivery");
 
       // Show wrapper container
-      if (otd !== null) {
-        document.getElementsByClassName(
-          "delivery-schedule-wrapper"
-        )[0].style.display = "block";
-      }
+      // if (otd !== null) {
+      //   document.getElementsByClassName(
+      //     "delivery-schedule-wrapper"
+      //   )[0].style.display = "block";
+      // }
 
-      if (otd === "yes") {
-        const option2 = document.getElementsByClassName("option2");
-        for (let i = 0; i < option2.length; i++) {
-          option2[i].style.display = "none";
-        }
-        const option1 = document.getElementsByClassName("option1");
+      // Toggle delivery schedule
+      if (otd === "on") {
+        const option1 = document.body.getElementsByClassName("option1");
         for (let i = 0; i < option1.length; i++) {
-          option1[i].style.display = "flex";
+          option1[i].style.display = "none";
         }
-      } else {
-        const option1 = document.getElementsByClassName("option1");
-        for (let i = 0; i < option1.length; i++) {
-          option1[i].style.display = "hidden";
-        }
-        const option2 = document.getElementsByClassName("option2");
+        const option2 = document.body.getElementsByClassName("option2");
         for (let i = 0; i < option2.length; i++) {
           option2[i].style.display = "flex";
         }
+      } else {
+        const option2 = document.body.getElementsByClassName("option2");
+        for (let i = 0; i < option2.length; i++) {
+          option2[i].style.display = "none";
+        }
+        const option1 = document.body.getElementsByClassName("option1");
+        for (let i = 0; i < option1.length; i++) {
+          option1[i].style.display = "flex";
+        }
       }
-
+      // console.log(JSON.stringify(Object.fromEntries(formData)));
       callbacks.submitButtonStatus();
 
       callbacks.doneSteps();
@@ -283,13 +303,55 @@ const { state, actions, callbacks } = store("fuellogic-app", {
         .getElementById("steps-nav")
         .getElementsByTagName("li");
 
-      for (let step of steps) {
-        if (context.submitBtnStatus[step.dataset.step]) {
-          step.classList.add("done");
-        } else {
-          step.classList.remove("done");
+      // Disable step navigation when in readonly mode
+      if (context.site_id == 0) {
+        for (let step of steps) {
+          if (context.submitBtnStatus[step.dataset.step]) {
+            step.classList.add("done");
+          } else {
+            step.classList.remove("done");
+          }
         }
       }
+    },
+    adjustFormContentHeight: () => {
+      var el = document.getElementById("steps-container");
+      el.style.height = "auto";
+
+      var space = window.innerHeight - el.offsetTop;
+      el.style.height = space + "px";
+    },
+    setSiteDetails: () => {
+      const { ref } = getElement();
+      const context = getContext();
+
+      Object.entries(context.site_data).forEach((a) => {
+        if ([":r3:", "file"].includes(a[0]) || a[1] == "") return;
+        else {
+          const input = ref.querySelectorAll(`input[name="${a[0]}"]`);
+          if (input.length > 0) input[0].value = a[1];
+          const textarea = ref.querySelectorAll(`textarea[name="${a[0]}"]`);
+          if (textarea.length > 0) textarea[0].value = a[1];
+          const radio = ref.querySelectorAll(`input[value="${a[1]}"]`);
+          if (radio.length > 0) radio[0].setAttribute("checked", "checked");
+        }
+      });
+      Object.entries(context.gas_type).forEach((a) => {
+        const field = ref.querySelectorAll(`input[value="${a[1]}"]`);
+        if (field.length > 0) field[0].setAttribute("checked", "checked");
+      });
+      Object.entries(context.machines).forEach((a) => {
+        const field = ref.querySelectorAll(`input[value="${a[1]}"]`);
+        console.log(field);
+        if (field.length > 0) field[0].setAttribute("checked", "checked");
+      });
+
+      // const formData = new FormData(ref);
+      // console.log(JSON.stringify(Object.fromEntries(formData)));
+
+      // Trigger form update
+      var event = new Event("change");
+      document.getElementById("site-form").dispatchEvent(event);
     }
   }
 });

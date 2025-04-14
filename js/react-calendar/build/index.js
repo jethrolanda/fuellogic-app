@@ -42706,9 +42706,12 @@ const App = () => {
   const onChange = date => {
     // delivery_date
     document.getElementById("delivery_date").value = date?.format("MM/DD/YYYY");
-    var event = new Event("change");
 
-    // Dispatch it.
+    // start date
+    document.getElementById("delivery_start_date").value = date?.format("MM/DD/YYYY");
+
+    // Trigger form update
+    var event = new Event("change");
     document.getElementById("site-form").dispatchEvent(event);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -42728,7 +42731,12 @@ const App = () => {
     })
   });
 };
-(0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createRoot)(document.getElementById("react-calendar")).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(App, {}));
+// createRoot(document.getElementById("react-calendar")).render(<App />);
+
+// Find all DOM containers, and render order form into them.
+document.querySelectorAll(".react-calendar").forEach(domContainer => {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createRoot)(domContainer).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(App, {}));
+});
 })();
 
 /******/ })()

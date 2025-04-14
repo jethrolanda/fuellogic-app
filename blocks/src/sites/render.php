@@ -25,7 +25,10 @@ wp_interactivity_state(
 	),
 );
 
-$context = array('new_site' => site_url('add-new-site'),);
+$context = array(
+	'new_site' => site_url('add-new-site'),
+	'site_details' => site_url('site-details')
+);
 ?>
 
 <div
@@ -42,7 +45,7 @@ $context = array('new_site' => site_url('add-new-site'),);
 
 	<ul id="sites-list">
 
-		<template data-wp-each--site="state.sites">
+		<!-- <template data-wp-each--site="state.sites">
 			<li class="item" data-wp-key="context.site.id" data-wp-on--click="callbacks.selectSite" data-wp-bind--id="context.site.id">
 				<i class="fa-solid fa-location-dot"></i>
 				<div>
@@ -51,7 +54,21 @@ $context = array('new_site' => site_url('add-new-site'),);
 				</div>
 				<i class="fa-solid fa-angle-right"></i>
 			</li>
-		</template>
+		</template> -->
+		<?php
+		foreach ($sites as $site) {
+		?>
+			<li class="item" <?php echo wp_interactivity_data_wp_context(array('site_id' => $site['id'])); ?> data-wp-on--click="actions.openSiteDetails">
+				<i class="fa-solid fa-location-dot"></i>
+				<div>
+					<h3><?php echo $site['data']->site_name; ?></h3>
+					<p><?php echo $site['data']->site_delivery_address; ?></p>
+				</div>
+				<i class="fa-solid fa-angle-right"></i>
+			</li>
+		<?php
+		}
+		?>
 		<li id="empty-site" data-wp-run="callbacks.hideIfNotEmpty">
 			<i class="fa-solid fa-location-dot"></i>
 			<p>A Site is a location where you will receive fuel deliveries. C'mon, let's get your first site set up!</p>

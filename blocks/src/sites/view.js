@@ -79,6 +79,12 @@ const { state } = store("fuellogic-app", {
 
         state.sites = data.data;
       }
+    },
+    openSiteDetails: () => {
+      const context = getContext();
+      console.log(context.site_details + "?site_id=" + context.site_id);
+      window.location.href =
+        context.site_details + "?site_id=" + context.site_id;
     }
   },
   callbacks: {

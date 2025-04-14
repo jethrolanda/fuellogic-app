@@ -20,7 +20,8 @@ $context = array();
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
 
 	<div class="account-setup-checklist">
-		<div><i class="fa-regular fa-circle-check"></i>MAKE FIRST ORDER <i class="fa-solid fa-angle-right"></i></div>
+		<div><i class="fa-regular fa-circle-check"></i>SETUP YOUR SITE <i class="fa-solid fa-angle-right"></i></div>
+		<div><i class="fa-regular fa-circle"></i>MAKE FIRST ORDER <i class="fa-solid fa-angle-right"></i></div>
 		<div><i class="fa-regular fa-circle"></i>PAYMENT DETAILS <i class="fa-solid fa-angle-right"></i></div>
 		<div><i class="fa-regular fa-circle"></i>ADD NEW SITES <i class="fa-solid fa-angle-right"></i></div>
 	</div>

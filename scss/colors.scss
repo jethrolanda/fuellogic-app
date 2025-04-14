@@ -8,6 +8,7 @@ $dark: #323030;
 $darker: #1C1C1C;
 $green: #a2cd3a;
 $orange: #FF8C57;
+$red: #ff4d4f;
 
 .color-green,.green{
   color: $green;
@@ -39,4 +40,10 @@ $orange: #FF8C57;
 }
 .gap-20{
 	height: 20px;
+}
+.required{
+	color: $red;
+	vertical-align: middle;
+	padding-left: 4px;
+	font-size: 18px;
 }

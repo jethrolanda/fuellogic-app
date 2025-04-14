@@ -43,6 +43,7 @@ export const stepTwo = (formData) => {
       .setAttribute("readonly", "readonly");
   });
 
+  console.log(stepData);
   let data = [];
   Object.entries(stepData.gas_type).forEach(([, value]) => {
     if (value) {
@@ -97,18 +98,17 @@ export const stepFour = (formData) => {
   const otd = formData.get("one_time_delivery");
 
   let stepData = {};
-  if (otd === "no") {
+
+  if (otd === "on") {
     stepData = {
-      one_time_delivery: formData.get("one_time_delivery"),
-      day: formData.getAll("day"),
-      delivery_date: formData.get("delivery_date"),
-      delivery_window: formData.get("delivery_window")
+      delivery_date: formData.get("delivery_date")
+      // delivery_window: formData.get("delivery_window")
     };
   } else {
     stepData = {
-      one_time_delivery: formData.get("one_time_delivery"),
-      delivery_date: formData.get("delivery_date"),
-      delivery_window: formData.get("delivery_window")
+      day: formData.getAll("day"),
+      delivery_start_date: formData.get("delivery_start_date")
+      // delivery_window: formData.get("delivery_window")
     };
   }
 
@@ -126,8 +126,8 @@ export const stepFive = (formData) => {
   if (formData instanceof FormData === false) return false;
 
   const stepData = {
-    notes: formData.get("notes"),
-    images: formData.getAll("images")
+    notes: formData.get("notes")
+    // images: formData.getAll("images")
   };
 
   let errors = [];
@@ -143,10 +143,19 @@ export const stepFive = (formData) => {
 export const stepSix = (formData) => {
   if (formData instanceof FormData === false) return false;
 
-  const stepData = {
-    payment_method: formData.get("payment_method"),
-    pre_authorization_email: formData.get("pre_authorization_email")
-  };
+  const pm = formData.get("payment_method");
+
+  let stepData = {};
+  if (pm === "payment_on_file") {
+    stepData = {
+      payment_method: formData.get("payment_method"),
+      pre_authorization_email: formData.get("pre_authorization_email")
+    };
+  } else {
+    stepData = {
+      payment_method: formData.get("payment_method")
+    };
+  }
 
   let errors = [];
   Object.entries(stepData).forEach(([name, value]) => {
