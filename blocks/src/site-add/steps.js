@@ -43,7 +43,6 @@ export const stepTwo = (formData) => {
       .setAttribute("readonly", "readonly");
   });
 
-  console.log(stepData);
   let data = [];
   Object.entries(stepData.gas_type).forEach(([, value]) => {
     if (value) {
@@ -148,12 +147,12 @@ export const stepSix = (formData) => {
   let stepData = {};
   if (pm === "payment_on_file") {
     stepData = {
-      payment_method: formData.get("payment_method"),
-      pre_authorization_email: formData.get("pre_authorization_email")
+      payment_method: formData.get("payment_method")
     };
   } else {
     stepData = {
-      payment_method: formData.get("payment_method")
+      payment_method: formData.get("payment_method"),
+      pre_authorization_email: formData.get("pre_authorization_email")
     };
   }
 

@@ -2,7 +2,7 @@
 .modal {
   display: grid; 
   grid-template-columns: 1fr;
-  position: fixed; /* Stay in place */
+  position: absolute; /* Stay in place */
   z-index: 999; /* Sit on top */ 
   left: 0;
   top: 0;

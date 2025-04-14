@@ -206,8 +206,8 @@ $context = array(
 								<input type="number" class="input-number" name="other_qty" readonly>
 							</label>
 						</div>
-						<hr>
 						<?php if (!empty($site_id)) { ?>
+							<hr>
 							<div>
 								<img src="<?php echo $context['inventory_tracker']; ?>" alt="Inventory Tracker">
 							</div>

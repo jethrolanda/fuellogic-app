@@ -174,11 +174,12 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       );
       if (paymentMethod == "payment_on_file") {
         if (authorization_email) {
-          authorization_email.style.display = "flex";
-        }
-      } else {
-        if (authorization_email) {
           authorization_email.style.display = "none";
+        }
+      }
+      if (paymentMethod == "pre_authorization") {
+        if (authorization_email) {
+          authorization_email.style.display = "flex";
         }
       }
 
