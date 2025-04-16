@@ -2,7 +2,7 @@
 .modal {
   display: grid; 
   grid-template-columns: 1fr;
-  position: absolute; /* Stay in place */
+  position: fixed; /* Stay in place */
   z-index: 999; /* Sit on top */ 
   left: 0;
   top: 0;
@@ -16,6 +16,18 @@
   justify-content: center;
   box-sizing: border-box;
   
+  // Animations
+  // transition: transform 0.5s ease;
+  // transform: translateY(200%);
+  // -webkit-transform: translateY(200%);
+
+  
+  // Slide animation
+  // &.show {
+  //   transform: translateY(0%);
+  //   -webkit-transform: translateY(0%);  
+  // }
+
   /* Modal Content */
   .modal-content {
     position: relative;
@@ -23,7 +35,7 @@
     padding: 20px 40px;
     max-width: 1000px;
     border-radius: 1.5rem;
-    // height: 92%;
+    height: 100%;
     padding-bottom: 50px;
     margin: 0px;
     display: flex;
@@ -96,3 +108,4 @@
     cursor: pointer;
   }
 }
+// 

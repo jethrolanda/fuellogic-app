@@ -28,11 +28,11 @@ const { state } = store("fuellogic-app", {
     }
   },
   actions: {
-    showModal: () => {
+    showReorderModal: () => {
       const el = document.body.querySelector(
         ".wp-block-fuellogic-app-reorder .modal"
       );
-      if (el) el.style.display = "flex";
+      if (el) el.style.display = "grid";
     },
     closeReorderModal: () => {
       const el = document.body.querySelector(

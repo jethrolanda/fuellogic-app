@@ -57,7 +57,7 @@ $context = array(
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>>
-	<button class="green reorder-button" data-wp-on--click="actions.showModal"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
+	<button class="green reorder-button" data-wp-on--click="actions.showReorderModal"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
 	<div class="modal" style="display: none;">
 		<div class="modal-content">
 			<i class="fa-solid fa-xmark" data-wp-on--click="actions.closeReorderModal"></i>

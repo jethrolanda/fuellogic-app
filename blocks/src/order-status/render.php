@@ -74,7 +74,9 @@ $status_text = array(
 				<p class="text-small">YOUR ORDER IS CONFIRMED</p>
 			</div>
 		</div>
-		<hr class="divider">
+		<div class="divider">
+			<hr>
+		</div>
 		<div class="site-wrapper">
 			<i class="fa-regular fa-circle"></i>
 			<div>
