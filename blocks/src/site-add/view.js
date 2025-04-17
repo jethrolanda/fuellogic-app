@@ -316,10 +316,10 @@ const { state, actions, callbacks } = store("fuellogic-app", {
       }
     },
     adjustFormContentHeight: () => {
-      var el = document.getElementById("steps-container");
-      el.style.height = "auto";
+      var el = document.getElementById("site-form");
+      // el.style.height = "auto";
 
-      var space = window.innerHeight - el.offsetTop;
+      var space = window.innerHeight - el.offsetTop - 110;
       el.style.height = space + "px";
     },
     setSiteDetails: () => {

@@ -57,6 +57,7 @@ $context = array(
 	<?php echo get_block_wrapper_attributes(); ?>
 	data-wp-interactive="fuellogic-app"
 	<?php echo wp_interactivity_data_wp_context($context); ?>
+	data-wp-run="callbacks.adjustFormContentHeight"
 	data-wp-init="callbacks.init">
 
 	<div class="heading">
@@ -79,7 +80,7 @@ $context = array(
 		</ul>
 
 		<form id="site-form" name="site-form" data-wp-on--change="callbacks.onFormUpdate" data-wp-init="callbacks.setSiteDetails">
-			<div class="form-wrapper">
+			<div id="form-wrapper" class="form-wrapper">
 				<!-- SITE DETAILS -->
 				<div class="step-content step-1" data-step="1">
 					<div>
