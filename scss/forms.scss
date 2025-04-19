@@ -24,7 +24,8 @@ label{
 	display: flex;
 	align-items: center;
 	height: 24px;
-
+	text-align: left;
+	
 	input:checked ~ .checkmark:after {
 		display: block;
 	}
