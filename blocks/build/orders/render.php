@@ -12,6 +12,25 @@
  */
 global $fla_theme;
 $orders = $fla_theme->orders->get_orders();
+$status_icon = array(
+	'pending' => array(
+		'name' => 'fa-circle',
+		'type' => 'fa-regular'
+	),
+	'processing' => array(
+		'name' => 'fa-arrow-rotate-right',
+		'type' => 'fa-solid'
+	),
+	'out-for-delivery' => array(
+		'name' => 'fa-truck-fast',
+		'type' => 'fa-solid'
+	),
+	'delivered' => array(
+		'name' => 'fa-circle-check',
+		'type' => 'fa-solid'
+	)
+);
+
 wp_interactivity_state(
 	'fuellogic-app',
 	array('orders' => $orders),
@@ -55,7 +74,7 @@ $status_text = array(
 		foreach ($orders as $order) {
 		?>
 			<li class="item" <?php echo wp_interactivity_data_wp_context(array('order_id' => $order['id'])); ?> data-wp-on--click="actions.openOrderStatus">
-				<i class="fa-regular fa-circle"></i>
+				<i class="<?php echo $status_icon[$order['status']]['type']; ?> <?php echo $status_icon[$order['status']]['name']; ?>"></i>
 				<div>
 					<h3><?php echo $order['data']->site_name; ?></h3>
 					<span class="details">

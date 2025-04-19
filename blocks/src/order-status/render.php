@@ -30,11 +30,36 @@ $machines_list = array(
 	'reefer' => 'Reefer (Refrigerated Trailers)',
 	'other' => 'Other'
 );
+
+$status_icon = array(
+	'pending' => array(
+		'name' => 'fa-circle',
+		'type' => 'fa-regular',
+		'title' => 'PENDING'
+	),
+	'processing' => array(
+		'name' => 'fa-arrow-rotate-right',
+		'type' => 'fa-solid',
+		'title' => 'PROCESSING'
+	),
+	'out-for-delivery' => array(
+		'name' => 'fa-truck-fast',
+		'type' => 'fa-solid',
+		'title' => 'OUT FOR DELIVERY'
+	),
+	'delivered' => array(
+		'name' => 'fa-circle-check',
+		'type' => 'fa-solid',
+		'title' => 'DELIVERED'
+	)
+);
+
 $context = array(
 	'orders_page' => site_url('orders'),
 	'truck_delivery_png' => FLA_BLOCKS_ROOT_URL . 'assets/delivery_truck.png',
 	'map' => FLA_BLOCKS_ROOT_URL . 'assets/map.png',
 	'order_id' => !empty($_GET['order_id']) ? $_GET['order_id'] : 0,
+	'status_icon' => $status_icon
 );
 
 // Dont allow a use to access if he is not the owner of the order
@@ -78,7 +103,7 @@ $status_text = array(
 			<hr>
 		</div>
 		<div class="site-wrapper">
-			<i class="fa-regular fa-circle"></i>
+			<i class="<?php echo $status_icon[$order_status]['type']; ?> <?php echo $status_icon[$order_status]['name']; ?>"></i>
 			<div>
 				<h2><?php echo $data->site_name; ?></h2>
 				<p class="text-small">Delivery <?php echo $data->delivery_date; ?> <?php echo $order->post_title; ?></p>

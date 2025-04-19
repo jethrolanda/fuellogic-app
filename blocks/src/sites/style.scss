@@ -35,17 +35,7 @@
 		// border-radius: 0px 0px 10px 10px;
 		max-height: 900px;
     overflow: auto;
-
-		&::-webkit-scrollbar{
-			width: 8px;
-		}
-		&::-webkit-scrollbar-track { 
-			/* color of the tracking area */
-		}
-		&::-webkit-scrollbar-thumb {
-			background-color: gray;  
-			border-radius: 4px;
-		}
+ 
 		li.item{
 			list-style-type: none;
 			border-bottom: 1px solid #323030;

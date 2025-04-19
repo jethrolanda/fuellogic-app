@@ -15,6 +15,23 @@ const { state } = store("fuellogic-app", {
       formData.append("order_id", context.order_id);
       formData.append("nonce", state.nonce);
 
+      // Change icon
+      const icon = document.querySelectorAll(`.site-wrapper i`);
+
+      if (icon.length > 0) {
+        icon[0].classList = "";
+        icon[0].classList.add(context.status_icon[context.status]?.name);
+        icon[0].classList.add(context.status_icon[context.status]?.type);
+      }
+      // Change status text
+      const statusText = document.querySelectorAll(
+        `.status-wrapper .status-text`
+      );
+
+      if (statusText.length > 0) {
+        statusText[0].innerHTML = context.status_icon[context.status]?.title;
+      }
+
       const data = yield fetch(state.ajaxUrl, {
         method: "POST",
         body: formData

@@ -35,6 +35,7 @@
     background-color: #1c1c1c; 
     padding: 20px 40px;
     max-width: 768px;
+    width: 80%;
     border-radius: 1.5rem;
     height: 100%;
     padding-bottom: 50px;
@@ -92,6 +93,11 @@
       
     }
 
+    .done-btn{
+      position: absolute;
+      bottom: 20px;
+      color: $gray; 
+    }
   }
 
   /* The Close Button */

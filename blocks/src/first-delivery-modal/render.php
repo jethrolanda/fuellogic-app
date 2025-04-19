@@ -43,7 +43,7 @@ $showModal = get_user_meta($user_id, '_order_first_delivery_modal', true);
 			<div class="gap-10"></div>
 			<button class="submit-button small"><i class="fa-solid fa-calendar-days"></i> CREATE SCHEDULE</button>
 			<button class="submit-button small"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
-			<p>DONE</p>
+			<p class="done-btn" data-wp-on--click="actions.closeDeliveredModal">DONE</p>
 		</div>
 	</div>
 </div>

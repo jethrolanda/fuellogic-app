@@ -40,7 +40,7 @@ $time = date('g:i a');
 			<button class="submit-button green small" data-wp-on--click="actions.closeThankyouModal"><i class="fa-solid fa-calendar-days"></i> CREATE SCHEDULE</button>
 			<button class="submit-button small" data-wp-on--click="actions.closeThankyouModal"><i class="fa-solid fa-repeat"></i> RE-ORDER</button>
 			<button class="submit-button small" data-wp-on--click="actions.closeThankyouModal">HOW DID WE DO</button>
-			<p>DONE</p>
+			<p class="done-btn" data-wp-on--click="actions.closeDeliveredModal">DONE</p>
 		</div>
 	</div>
 </div>
