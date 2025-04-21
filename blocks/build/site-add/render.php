@@ -107,7 +107,7 @@ $context = array(
 						<label>Site Contact</label>
 						<label class="checkbox small" for="official_site_contact">
 							<span class="label">
-								<input data-wp-on--click="callbacks.toggleSiteContact" type="checkbox" id="official_site_contact" name="official_site_contact"><span class="checkmark"></span>I am the official site contact
+								<input data-wp-on--click="callbacks.toggleSiteContact" type="checkbox" id="official_site_contact" name="official_site_contact" value="me"><span class="checkmark"></span>I am the official site contact
 							</span>
 						</label>
 

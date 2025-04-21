@@ -330,20 +330,26 @@ const { state, actions, callbacks } = store("fuellogic-app", {
         if ([":r3:", "file"].includes(a[0]) || a[1] == "") return;
         else {
           const input = ref.querySelectorAll(`input[name="${a[0]}"]`);
-          if (input.length > 0) input[0].value = a[1];
+          if (
+            input.length > 0 &&
+            ["text", "email", "tel"].includes(input[0].type)
+          )
+            input[0].value = a[1];
           const textarea = ref.querySelectorAll(`textarea[name="${a[0]}"]`);
           if (textarea.length > 0) textarea[0].value = a[1];
+
           const radio = ref.querySelectorAll(`input[value="${a[1]}"]`);
-          if (radio.length > 0) radio[0].setAttribute("checked", "checked");
+          if (radio.length > 0 && ["checkbox", "radio"].includes(radio[0].type))
+            radio[0].setAttribute("checked", "checked");
         }
       });
+
       Object.entries(context.gas_type).forEach((a) => {
         const field = ref.querySelectorAll(`input[value="${a[1]}"]`);
         if (field.length > 0) field[0].setAttribute("checked", "checked");
       });
       Object.entries(context.machines).forEach((a) => {
         const field = ref.querySelectorAll(`input[value="${a[1]}"]`);
-        console.log(field);
         if (field.length > 0) field[0].setAttribute("checked", "checked");
       });
 
